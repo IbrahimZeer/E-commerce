@@ -6,8 +6,7 @@
     "scripts": {
         "build-tsc": "tsc -w",
         "run-watch": "nodemon ./dist/app.js",
-        "dev": "concurrently \"npm:build-tsc\"  \"npm:run-watch\"",
-        "test": "jest"
+        "dev": "concurrently \"npm:build-tsc\"  \"npm:run-watch\""
     },
     "author": "",
     "license": "ISC",

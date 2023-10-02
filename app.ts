@@ -10,10 +10,10 @@ app.use(cors({
     origin: "http://localhost:3000"
 }));
 
-
-app.get('/', (req, res) => {
-
+app.post('test', (req, res) => {
+    res.send(`We are here`)
 })
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     next(createError(404));
