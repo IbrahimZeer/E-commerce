@@ -1,28 +1,29 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: ["ibra-branch"]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    runs-on: [ubuntu-latest]
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello From ibraheem
+      - name: Checkout
+        uses: action/checkou@v3
+      - name: login to dockerhub
+        run: docker login  -u ${{secrets.DOCKER_USERNAME}} -P ${{secrets.DOCKER_PASSWORD}}
+      - name: Build docker image
+        run: docker build -t ibraheemzeer/E-commerce .
+      - name: Publish image to docker hub
+        run: docker push ibraheemzeer/E-commerce:latest
+  deploy:
+    needs: build
+    # here we need to create runners on github to create host and create EC2 instances
+    runs-on: [aws-ec2]
+    steps:
+      - name: Pull image from dockerhub
+        run: docker pull ibraheemzeer/E-commerce:latest
+      - name: Delete old container
+        run: docker rm -f E-commerce-app-container
+      - name: Run docker container
+        run: docker run -d -p 5000:5000 -name ecommerce-app-container ibraheemzeer/E-commerce
