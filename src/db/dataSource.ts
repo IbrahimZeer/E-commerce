@@ -1,9 +1,7 @@
 import { DataSource } from "typeorm";
-import { User } from "./entities/User.js";
-import { Profile } from "./entities/Profile.js";
 import { Role } from "./entities/Role.js";
 import { Permission } from "./entities/Permission.js";
-import dotenv from  "dotenv"
+import dotenv from "dotenv"
 dotenv.config()
 
 const dataSource = new DataSource({
@@ -13,12 +11,7 @@ const dataSource = new DataSource({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    entities: [
-        User,
-        Profile,
-        Role,
-        Permission
-    ],
+    entities: [],
     migrations: ['./**/migration/*.ts'],
     synchronize: true,
     logging: false

@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import createError from 'http-errors';
 import express from 'express';
 import cors from 'cors';
-import dataSource from './db/dataSource.js';
+import dataSource from './src/db/dataSource.js';
 
 
 const app = express();

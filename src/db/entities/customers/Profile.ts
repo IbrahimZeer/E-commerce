@@ -1,8 +1,8 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import {Customer} from './Customer.js'
+import { Customer } from './Customer.js'
 
-@Entity('phone')
-export class Phone extends BaseEntity {
+@Entity('profile')
+export class Profile extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
