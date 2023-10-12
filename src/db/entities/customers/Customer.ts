@@ -1,6 +1,6 @@
 import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import bcrypt from 'bcrypt';
-import { Profile } from "../entities/Profile.js";
+import { Profile } from "../users/Profile.js";
 @Entity('customer')
 export class Customer extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')

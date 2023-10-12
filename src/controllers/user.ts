@@ -1,10 +1,10 @@
 import { UserNS } from "../../@types/user.js"
 import dataSource from "../db/dataSource.js"
-import { User } from "../db/entities/User.js"
+import { User } from "../db/entities/users/User.js"
 import jwt from "jsonwebtoken"
 import bcrypt from 'bcrypt';
-import { Role } from "../db/entities/Role.js";
-import { Permission } from "../db/entities/Permission.js";
+import { Role } from "../db/entities/users/Role.js";
+import { Permission } from "../db/entities/users/Permission.js";
 import { In } from "typeorm";
 
 

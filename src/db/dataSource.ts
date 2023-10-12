@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm";
-import { User } from "./entities/User.js";
-import { Profile } from "./entities/Profile.js";
-import { Role } from "./entities/Role.js";
-import { Permission } from "./entities/Permission.js";
+import { User } from "./entities/users/User.js";
+import { Profile } from "./entities/users/Profile.js";
+import { Role } from "./entities/users/Role.js";
+import { Permission } from "./entities/users/Permission.js";
 import dotenv from  "dotenv"
 dotenv.config()
 
