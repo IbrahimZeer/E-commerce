@@ -1,10 +1,15 @@
+import './config.js';
+import dotenv from 'dotenv'
 import createError from 'http-errors';
 import express from 'express';
 import cors from 'cors';
+import dataSource from './db/dataSource.js';
 
 const app = express();
 
 const PORT = 5000;
+
+dotenv.config();
 
 app.use(cors({
     origin: "http://localhost:3000"
@@ -34,9 +39,15 @@ app.use((err: any, req: any, res: any, next: any) => {
     res.render('error');
 });
 
+dataSource.initialize().then(() => {
+    console.log("Connected to DB!");
+}).catch(err => {
+    console.error('Failed to connect to DB: ' + err);
+});
 
 app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}`);
+
 });
 
 export default app;

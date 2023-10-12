@@ -1,29 +1,29 @@
-name: CI
+# name: CI
 
-on:
-  push:
-    branches: ["ibra-branch"]
+# on:
+#   push:
+#     branches: ["ibra-branch"]
 
-jobs:
-  build:
-    runs-on: [ubuntu-latest]
-    steps:
-      - name: Checkout
-        uses: action/checkou@v3
-      - name: login to dockerhub
-        run: docker login  -u ${{secrets.DOCKER_USERNAME}} -P ${{secrets.DOCKER_PASSWORD}}
-      - name: Build docker image
-        run: docker build -t ibraheemzeer/E-commerce .
-      - name: Publish image to docker hub
-        run: docker push ibraheemzeer/E-commerce:latest
-  deploy:
-    needs: build
-    # here we need to create runners on github to create host and create EC2 instances
-    runs-on: [aws-ec2]
-    steps:
-      - name: Pull image from dockerhub
-        run: docker pull ibraheemzeer/E-commerce:latest
-      - name: Delete old container
-        run: docker rm -f E-commerce-app-container
-      - name: Run docker container
-        run: docker run -d -p 5000:5000 -name ecommerce-app-container ibraheemzeer/E-commerce
+# jobs:
+#   build:
+#     runs-on: [ubuntu-latest]
+#     steps:
+#       - name: Checkout
+#         uses: action/checkou@v3
+#       - name: login to dockerhub
+#         run: docker login  -u ${{secrets.DOCKER_USERNAME}} -P ${{secrets.DOCKER_PASSWORD}}
+#       - name: Build docker image
+#         run: docker build -t ibraheemzeer/E-commerce .
+#       - name: Publish image to docker hub
+#         run: docker push ibraheemzeer/E-commerce:latest
+#   deploy:
+#     needs: build
+#     # here we need to create runners on github to create host and create EC2 instances
+#     runs-on: [aws-ec2]
+#     steps:
+#       - name: Pull image from dockerhub
+#         run: docker pull ibraheemzeer/E-commerce:latest
+#       - name: Delete old container
+#         run: docker rm -f E-commerce-app-container
+#       - name: Run docker container
+#         run: docker run -d -p 5000:5000 -name ecommerce-app-container ibraheemzeer/E-commerce
