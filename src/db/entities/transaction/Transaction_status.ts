@@ -1,7 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('transaction')
-export class Transaction extends BaseEntity {
+@Entity('transaction_status')
+export class Transaction_status extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

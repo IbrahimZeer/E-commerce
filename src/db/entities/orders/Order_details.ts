@@ -2,7 +2,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, On
 
 
 @Entity('order_details')
-export class User extends BaseEntity {
+export class Order_details extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

@@ -1,7 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('payment_data')
-export class Payment_method extends BaseEntity {
+export class Payment_data extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

@@ -1,8 +1,8 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
-@Entity('order_details')
-export class User extends BaseEntity {
+@Entity('order_status')
+export class Order_status extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
