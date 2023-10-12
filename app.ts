@@ -14,10 +14,6 @@ app.post('test', (req, res) => {
     res.send(`We are here`)
 })
 
-app.get('/', (req, res) => {
-    res.send(`we are here frrom get`)
-})
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     next(createError(404));
