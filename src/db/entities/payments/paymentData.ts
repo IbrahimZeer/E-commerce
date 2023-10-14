@@ -1,8 +1,8 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PaymentNS } from "../../../../@types/type_payment.js";
 
-@Entity('transactionStatus')
-export class TransactionStatus extends BaseEntity {
+@Entity('paymentData')
+export class PaymentData extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: PaymentNS.paymentData;
 

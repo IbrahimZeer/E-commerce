@@ -1,22 +1,23 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ReviewNS } from '../../../@types/type_review';
+import { AdminNS } from '../../../@types/type_admin';
 
-@Entity('review')
-export class Review extends BaseEntity {
+
+@Entity('admin')
+export class Admin extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: ReviewNS.Review
-
-    @Column('uuid')
-    userId: ReviewNS.Review;
+    id: AdminNS.Admin
 
     @Column()
-    fullName: ReviewNS.Review;
-
-    @Column('uuid')
-    productId: ReviewNS.Review;
+    userName: AdminNS.Admin;
 
     @Column()
-    comments: ReviewNS.Review;
+    displayName: AdminNS.Admin;
+
+    @Column()
+    email: AdminNS.Admin;
+
+    @Column()
+    password: AdminNS.Admin;
 
     @CreateDateColumn({
         type: 'timestamp',
