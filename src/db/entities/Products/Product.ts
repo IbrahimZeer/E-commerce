@@ -4,6 +4,7 @@ import { Size } from "./Size";
 import { Color } from "./Color";
 import { Category } from "./Category";
 import { ManyToOne } from "typeorm/browser";
+import { Brand } from "./Brand";
 
 @Entity('product')
 export class Product extends BaseEntity {
@@ -62,4 +63,7 @@ export class Product extends BaseEntity {
     color: Color[]
     @ManyToOne(() => Category, (category) => category.product)
     category: Category
+
+    @ManyToOne(() => Brand, (brand) => brand.products)
+    brand: Brand
 }
