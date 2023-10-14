@@ -1,6 +1,9 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OneToMany } from "typeorm/browser";
 import { Size } from "./Size";
+import { Color } from "./Color";
+import { Category } from "./Category";
+import { ManyToOne } from "typeorm/browser";
 
 @Entity('product')
 export class Product extends BaseEntity {
@@ -55,5 +58,8 @@ export class Product extends BaseEntity {
 
     @OneToMany(() => Size, (size) => size.product)
     size: Size[]
-
+    @OneToMany(() => Color, (color) => color.product)
+    color: Color[]
+    @ManyToOne(() => Category, (category) => category.product)
+    category: Category
 }
