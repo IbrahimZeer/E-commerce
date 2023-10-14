@@ -23,39 +23,17 @@ import { PaymentData } from "./entities/payments/PaymentData.js";
 import { PaymentMethod } from "./entities/payments/PaymentMethod.js";
 import { Transaction } from "./entities/payments/Transaction.js";
 import { TransactionStatus } from "./entities/payments/TransactionStatus.js";
+
 dotenv.config()
 
 const dataSource = new DataSource({
-    type: 'mysql',
+    type: "mysql",
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    entities: [
-        Review,
-        Admin,
-        Attachment,
-        Brand,
-        Category,
-        Color,
-        Product,
-        Size,
-        City,
-        Country,
-        Customer,
-        Phone,
-        Profile,
-        Order,
-        OrderDetails,
-        OrderStatus,
-        Status,
-        PaymentData,
-        PaymentMethod,
-        Transaction,
-        TransactionStatus,
-    ],
-    migrations: ['./**/migration/*.ts'],
+    entities: [],
     synchronize: true,
     logging: false
 });

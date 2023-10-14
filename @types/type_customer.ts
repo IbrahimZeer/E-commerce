@@ -9,7 +9,7 @@ export namespace CustomerNS {
         password: string,
         createdAt: Date,
         updatedAt: Date,
-        role: 'customer'
+        role: 'checkout' | 'review' | 'show product'
     }
     export interface Profile {
         id: string,

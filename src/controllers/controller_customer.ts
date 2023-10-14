@@ -4,13 +4,22 @@ import { CustomerNS } from '../../@types/type_customer.js';
 import { Customer } from '../db/entities/customers/Customer.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
-import { Product } from '../db/entities/Products/Product.js'
+
+
+
 
 
 const insertCustomer = async (payload: CustomerNS.Customer) => {
-
+    return dataSource.manager.transaction(
+        async transaction => {
+            // const role = await Role.findOneBy({ name: payload.role });
+            // const newCustomer = Customer.create({
+            //     ...payload,
+            //     roles: [role] as Role[]
+            // });
+            // await transaction.save(newCustomer);
+        });
 }
-
 const updateCustomer = async (payload: CustomerNS.Customer) => {
 
 }
@@ -50,10 +59,10 @@ const getCustomers = () => {
     return Customers
 }
 
-const getProducts = () => {
-    const products = Product.find()
-    return products
-}
+// const getProducts = () => {
+//     const products = Product.find()
+//     return products
+// }
 
 const getRoles = () => {
     const roles = Role.find()
@@ -76,7 +85,7 @@ export {
     inssertRole,
     insertPermission,
     getCustomers,
-    getProducts,
+    //getProducts,
     getRoles,
     getPermission
 }
