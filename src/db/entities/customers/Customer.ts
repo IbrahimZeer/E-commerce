@@ -1,6 +1,15 @@
-import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
+import { BaseEntity, ManyToOne, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import bcrypt from 'bcrypt';
 import { Profile } from "./Profile.js";
+import { Phone } from "./Phone.js";
+import { Country } from "./Country.js";
+import { Review } from "../review.js";
+import { JoinColumn } from "typeorm/browser";
+import { Order } from "../orders/order.js";
+import bcrypt from 'bcrypt';
+import { Profile } from "./Profile.js";
+
 @Entity('customer')
 export class Customer extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
@@ -38,6 +47,24 @@ export class Customer extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+  
+    @OneToOne(() => Profile, profile => profile.customer, { eager: true })
+    profile: Partial<Profile>;
+    //----------------
+    @OneToOne(() => Phone, phone => phone.customer, { eager: true })
+    phone: Partial<Phone>;
+
+    @ManyToOne(() => Country,
+        (country) => country.customer)
+    country: Country;
+
+    @ManyToOne(() => Review, (review) => review.customer)
+    review: Review
+    
+    @OneToOne(() => Order)
+    @JoinColumn()
+    order: Order
+
 
     @OneToOne(() => Profile, profile => profile.user, { eager: true })
     profile: Partial<Profile>;

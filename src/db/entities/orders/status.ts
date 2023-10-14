@@ -1,3 +1,6 @@
+import { OrderNS } from "../../../../@types/type_order.js";
+import { OrderStatus } from "./orderStatus.js";
+import { JoinColumn } from "typeorm/browser";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrderNS } from "../../../../@types/type_order.js";
 
@@ -23,4 +26,9 @@ export class Status extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+
+
+    @OneToOne(() => OrderStatus)
+    @JoinColumn()
+    orderStatus: OrderStatus
 }
