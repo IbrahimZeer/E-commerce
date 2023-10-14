@@ -27,7 +27,7 @@ export class Size extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
-
+///////////many to many
     @ManyToOne(() => Product, (product) => product.size)
     product: Product
 }

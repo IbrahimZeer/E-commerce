@@ -29,5 +29,4 @@ export class City extends BaseEntity {
     @JoinColumn()
     country: Country;
   
-
 }

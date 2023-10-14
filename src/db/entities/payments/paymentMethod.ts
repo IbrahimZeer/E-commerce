@@ -1,6 +1,7 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PaymentNS } from "../../../../@types/type_payment.js";
 import { PaymentData } from "./paymentData.js";
+import { Order } from "../orders/order.js";
 
 @Entity('paymentMethod')
 export class PaymentMethod extends BaseEntity {
@@ -26,4 +27,9 @@ export class PaymentMethod extends BaseEntity {
     UpdatedAt: string;
     @ManyToOne(() => PaymentData, (paymentData) => paymentData.paymentMethod)
     paymentData: PaymentData
+
+    @ManyToOne(() => Order, (order) => order.paymentMethod)
+    order: Order
+
+
 }

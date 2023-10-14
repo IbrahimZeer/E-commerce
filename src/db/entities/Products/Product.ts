@@ -61,6 +61,7 @@ export class Product extends BaseEntity {
     size: Size[]
     @OneToMany(() => Color, (color) => color.product)
     color: Color[]
+    //many to many
     @ManyToOne(() => Category, (category) => category.product)
     category: Category
 

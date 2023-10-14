@@ -1,8 +1,10 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PaymentNS } from "../../../../@types/type_payment.js";
 import { PaymentData } from "./paymentData.js";
 import { JoinColumn } from "typeorm/browser";
 import { PaymentMethod } from "./paymentMethod.js";
+import { ManyToOne } from "typeorm/browser";
+import { Order } from "../orders/order.js";
 
 @Entity('transaction')
 export class Transaction extends BaseEntity {
@@ -45,4 +47,6 @@ export class Transaction extends BaseEntity {
     @OneToOne(() => PaymentMethod)
     @JoinColumn()
     paymentMethod: PaymentMethod
+    @ManyToOne(() => Order, (order) => order.paymentMethod)
+    order: Order
 }
