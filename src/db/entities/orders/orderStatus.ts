@@ -1,5 +1,8 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrderNS } from "../../../../@types/type_order.js";
+import { OrderNS } from "../../../../@types/type_order.js";
+import { Order } from "./order.js";
+import { OneToMany } from "typeorm/browser";
 
 @Entity('orderStatus')
 export class OrderStatus extends BaseEntity {
@@ -26,4 +29,8 @@ export class OrderStatus extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+
+    //orederStatus OneToOne With status   
+    @OneToMany(() => Order, (order) => order.orderStatus)
+    order: Order
 }

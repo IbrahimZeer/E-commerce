@@ -1,4 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "./Product";
 
 @Entity('attachment')
 export class Attachment extends BaseEntity {
@@ -35,4 +36,9 @@ export class Attachment extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+
+    @OneToOne(() => Product)
+    @JoinColumn()
+    product: Product
+
 }

@@ -1,5 +1,10 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrderNS } from "../../../../@types/type_order.js";
+import { OrderDetails } from "./orderDetails.js";
+import { OrderStatus } from "./orderStatus.js";
+import { OneToMany } from "typeorm/browser";
+import { Product } from "../Products/Product.js";
+import { PaymentMethod } from "../payments/paymentMethod.js";
 
 @Entity('order')
 export class Order extends BaseEntity {
@@ -43,5 +48,20 @@ export class Order extends BaseEntity {
     UpdatedAt: string;
 
 
+    //many to many with orderDetails
+    @ManyToMany(() => OrderDetails)
+    @JoinTable()
+    orderDetails: OrderDetails[]
+  
+    //one to many with  orderStatus
+    @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.order)
+    orderStatus: OrderStatus
+
+    @ManyToMany(() => Product)
+    @JoinTable()
+    categories: Product[]
+  
+    @OneToMany(() => PaymentMethod, (paymentMethod) => paymentMethod.order)
+    paymentMethod: PaymentMethod[]
 
 }

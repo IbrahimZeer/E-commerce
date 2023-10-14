@@ -1,3 +1,4 @@
+import { Country } from "./Country";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -24,6 +25,8 @@ export class City extends BaseEntity {
     })
     UpdatedAt: string;
 
-
+    @ManyToOne(() => Country, country => country.cities, { cascade: true, eager: true, nullable: true })
+    @JoinColumn()
+    country: Country;
 
 }
