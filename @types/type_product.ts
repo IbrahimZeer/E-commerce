@@ -1,5 +1,3 @@
-import { Timestamp } from "typeorm"
-
 export namespace ProductNS {
 
     export interface Product {
