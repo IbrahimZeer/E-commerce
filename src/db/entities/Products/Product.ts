@@ -1,7 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('product')
-export class Phone extends BaseEntity {
+export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

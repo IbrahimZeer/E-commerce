@@ -4,6 +4,8 @@ import createError from 'http-errors';
 import express from 'express';
 import cors from 'cors';
 import dataSource from './src/db/dataSource.js';
+import adminRouter from './src/routes/route_admin.js'
+import customerRouter from './src/routes/route_customer.js'
 
 
 const app = express();
@@ -13,6 +15,8 @@ dotenv.config();
 const PORT = 5000
 
 app.use(express.json());
+app.use('/', adminRouter);
+app.use('/', customerRouter);
 
 
 app.use((req, res, next) => {

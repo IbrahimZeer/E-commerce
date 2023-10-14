@@ -2,8 +2,8 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, On
 import { ReviewNS } from '../../../@types/type_review';
 
 
-@Entity('transactionStatus')
-export class TransactionStatus extends BaseEntity {
+@Entity('review')
+export class Review extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: ReviewNS.Review
 

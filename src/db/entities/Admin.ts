@@ -1,22 +1,29 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { PaymentNS } from "../../../../@types/type_payment.js";
+import { AdminNS } from '../../../@types/type_admin';
 
-@Entity('paymentData')
-export class PaymentData extends BaseEntity {
+
+@Entity('admin')
+export class Admin extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: PaymentNS.paymentData;
-
-    @Column('uuid')
-    transactionId: PaymentNS.paymentData;
+    id: AdminNS.Admin
 
     @Column()
-    data: PaymentNS.paymentData;
+    userName: AdminNS.Admin;
+
+    @Column()
+    displayName: AdminNS.Admin;
+
+    @Column()
+    email: AdminNS.Admin;
+
+    @Column()
+    password: AdminNS.Admin;
 
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    createdAt: Date;
+    revDate: Date;
 
     @CreateDateColumn({
         type: 'timestamp',
