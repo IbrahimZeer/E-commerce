@@ -38,5 +38,5 @@ export class Profile extends BaseEntity {
 
     @OneToOne(() => Customer, customer => customer.profile)
     @JoinColumn()
-    user: Partial<Customer>;
+    customer: Partial<Customer>;
 }

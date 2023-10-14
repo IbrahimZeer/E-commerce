@@ -1,4 +1,5 @@
-import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity,JoinColumn, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Customer } from "./Customer";
 
 
 @Entity('phone')
@@ -22,5 +23,7 @@ export class Phone extends BaseEntity {
     UpdatedAt: string;
 
 
-
+    @OneToOne(() => Customer, customer => customer.phone)
+    @JoinColumn()
+    customer: Partial<Customer>;
 }

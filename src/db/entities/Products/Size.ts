@@ -1,7 +1,9 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "./Product";
+import { ManyToOne } from "typeorm/browser";
 
 @Entity('size')
-export class Phone extends BaseEntity {
+export class Size extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -10,7 +12,7 @@ export class Phone extends BaseEntity {
 
     @Column({ length: 255, nullable: false })
     sizeSymblo: string;
-    
+
     @Column({ length: 255, nullable: false })
     sizeDesc: string;
 
@@ -25,4 +27,7 @@ export class Phone extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+
+    @ManyToOne(() => Product, (product) => product.size)
+    product: Product
 }

@@ -1,7 +1,9 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { OneToMany } from "typeorm/browser";
+import { Size } from "./Size";
 
 @Entity('product')
-export class Phone extends BaseEntity {
+export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -51,6 +53,7 @@ export class Phone extends BaseEntity {
     })
     UpdatedAt: string;
 
-
+    @OneToMany(() => Size, (size) => size.product)
+    size: Size[]
 
 }

@@ -1,4 +1,6 @@
-import { BaseEntity, Column, Entity, CreateDateColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, CreateDateColumn, JoinTable, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { City } from "./City";
+import { Customer } from "./Customer";
 
 
 @Entity('country')
@@ -23,5 +25,11 @@ export class Country extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     updatedAt: Date;
+
+    @OneToMany(() => City, city => city.country)
+    cities: City[];
+
+    @OneToMany(() => Customer, customer => customer.country)
+    customer: Customer[];
 
 }

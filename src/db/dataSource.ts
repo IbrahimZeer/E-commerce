@@ -1,7 +1,28 @@
-import { DataSource } from "typeorm";
+import dotenv from "dotenv"
 import { Role } from "./entities/Role.js";
 import { Permission } from "./entities/Permission.js";
-import dotenv from "dotenv"
+import { DataSource } from "typeorm";
+import { Review } from "./entities/review.js";
+import { Admin } from "./entities/Admin.js";
+import { Attachment } from "./entities/Products/Attachment.js";
+import { Brand } from "./entities/Products/Brand.js";
+import { Category } from "./entities/Products/Category.js";
+import { Color } from "./entities/Products/Color.js";
+import { Product } from "./entities/Products/Product.js";
+import { Size } from "./entities/Products/Size.js";
+import { City } from "./entities/customers/City.js";
+import { Country } from "./entities/customers/Country.js";
+import { Customer } from "./entities/customers/Customer.js";
+import { Phone } from "./entities/customers/Phone.js";
+import { Profile } from "./entities/customers/Profile.js";
+import { Order } from "./entities/orders/order.js";
+import { OrderDetails } from "./entities/orders/orderDetails.js";
+import { OrderStatus } from "./entities/orders/orderStatus.js";
+import { Status } from "./entities/orders/status.js";
+import { PaymentData } from "./entities/payments/paymentData.js";
+import { PaymentMethod } from "./entities/payments/paymentMethod.js";
+import { Transaction } from "./entities/payments/transaction.js";
+import { TransactionStatus } from "./entities/payments/transactionStatus.js";
 dotenv.config()
 
 const dataSource = new DataSource({
@@ -11,7 +32,29 @@ const dataSource = new DataSource({
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    entities: [],
+    entities: [
+        Review,
+        Admin,
+        Attachment,
+        Brand,
+        Category,
+        Color,
+        Product,
+        Size,
+        City,
+        Country,
+        Customer,
+        Phone,
+        Profile,
+        Order,
+        OrderDetails,
+        OrderStatus,
+        Status,
+        PaymentData,
+        PaymentMethod,
+        Transaction,
+        TransactionStatus,
+    ],
     migrations: ['./**/migration/*.ts'],
     synchronize: true,
     logging: false
