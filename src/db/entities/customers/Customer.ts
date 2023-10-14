@@ -9,6 +9,7 @@ import { JoinColumn } from "typeorm/browser";
 import { Order } from "../orders/order.js";
 import bcrypt from 'bcrypt';
 import { Profile } from "./Profile.js";
+import { Role } from "../Role.js";
 
 @Entity('customer')
 export class Customer extends BaseEntity {
@@ -20,6 +21,9 @@ export class Customer extends BaseEntity {
 
     @Column({ length: 255, nullable: false })
     lName: string;
+
+    @Column()
+    displayName: string;
 
     @Column({ length: 255, nullable: false })
     email: string;
@@ -35,6 +39,10 @@ export class Customer extends BaseEntity {
 
     @PrimaryGeneratedColumn('uuid')
     profiled: string;
+
+    @ManyToMany(() => Role, role => role.customers, { eager: true })
+    @JoinTable()
+    roles: Role[];
 
     @CreateDateColumn({
         type: 'timestamp',

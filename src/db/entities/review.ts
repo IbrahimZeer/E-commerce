@@ -1,6 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ReviewNS } from '../../../@types/type_review';
-import { Customer } from "./customers/Customer";
+
+import { Customer } from "./customers";
 import { OneToMany } from "typeorm";
 
 @Entity('review')
@@ -13,7 +14,6 @@ export class Review extends BaseEntity {
 
     @Column()
     fullName: string;
-
 
     @Column('uuid')
     productId: ReviewNS.Review;

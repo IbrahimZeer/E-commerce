@@ -23,10 +23,11 @@ import { PaymentData } from "./entities/payments/PaymentData.js";
 import { PaymentMethod } from "./entities/payments/PaymentMethod.js";
 import { Transaction } from "./entities/payments/Transaction.js";
 import { TransactionStatus } from "./entities/payments/TransactionStatus.js";
+
 dotenv.config()
 
 const dataSource = new DataSource({
-    type: 'mysql',
+    type: "mysql",
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
     username: process.env.DB_USERNAME,

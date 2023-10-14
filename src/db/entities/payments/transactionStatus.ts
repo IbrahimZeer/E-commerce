@@ -1,5 +1,5 @@
 import { Transaction } from "./transaction.js";
-import { JoinColumn } from "typeorm/browser";
+import { JoinColumn } from "typeorm";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PaymentNS } from "../../../../@types/type_payment.js";
 

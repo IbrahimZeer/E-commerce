@@ -1,33 +1,33 @@
 import express from 'express';
 import dataSource from '../db/dataSource.js';
-import { AdminNS } from '../../@types/type_admin.js';
-import { Admin } from '../db/entities/Admin.js'
+import { OrderNS } from '../../@types/type_order.js';
+import { Order } from '../db/entities/orders/Order.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
 
 
-const insertAdmin = async (payload: AdminNS.Admin) => {
+const insertOrder = async (payload: OrderNS.Order) => {
 
 }
 
-const updateAdmin = async (payload: AdminNS.Admin) => {
+const updateOrder = async (payload: OrderNS.Order) => {
 
 }
 
-const deleteAdmin = async (payload: AdminNS.Admin) => {
+const deleteOrder = async (payload: OrderNS.Order) => {
 
 }
 
-const insertProduct = async (payload: AdminNS.Admin) => {
+const insertProduct = async (payload: OrderNS.Order) => {
 
 }
 
-const updateProduct = async (payload: AdminNS.Admin) => {
+const updateProduct = async (payload: OrderNS.Order) => {
 
 }
 
-const deleteProduct = async (payload: AdminNS.Admin) => {
+const deleteProduct = async (payload: OrderNS.Order) => {
 
 }
 
@@ -36,18 +36,18 @@ const login = async () => {
 }
 
 
-const inssertRole = async (payload: AdminNS.Role) => {
+const inssertRole = async (payload: OrderNS.Order) => {
 
 }
 
 
-const insertPermission = async (payload: AdminNS.Permission) => {
+const insertPermission = async (payload: OrderNS.Order) => {
 
 }
 
-const getAdmins = () => {
-    const admins = Admin.find()
-    return admins
+const getOrders = () => {
+    const Orders = Order.find()
+    return Orders
 }
 
 const getProducts = () => {
@@ -66,16 +66,16 @@ const getPermission = () => {
 }
 
 export {
-    insertAdmin,
-    updateAdmin,
-    deleteAdmin,
+    insertOrder,
+    updateOrder,
+    deleteOrder,
     insertProduct,
     updateProduct,
     deleteProduct,
     login,
     inssertRole,
     insertPermission,
-    getAdmins,
+    getOrders,
     getProducts,
     getRoles,
     getPermission

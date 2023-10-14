@@ -47,6 +47,7 @@ export class Order extends BaseEntity {
     })
     UpdatedAt: string;
 
+
     //many to many with orderDetails
     @ManyToMany(() => OrderDetails)
     @JoinTable()

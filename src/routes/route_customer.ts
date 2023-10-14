@@ -1,10 +1,20 @@
 import express from 'express';
+import { insertCustomer } from '../controllers/controller_customer';
 
 const route = express.Router();
 
 route.post('/create_customer', (req, res) => {
-    console.log('create customer route')
-    res.status(200).send('customer created successfully');
+    const { fname, lname, displayName, email, password } = req.body;
+    if (fname && lname && displayName && email && password) {
+        insertCustomer(req.body).then(() => {
+            res.status(200).send('Customer created')
+        }).catch(err => {
+            console.log('somthing went wrong');
+            res.status(500).send('something went wrong , try again');
+        })
+    } else {
+        res.status(400).send('complete all required fields')
+    }
 })
 
 

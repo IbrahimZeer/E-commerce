@@ -4,7 +4,6 @@ import { Order } from "../orders/order.js";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PaymentNS } from "../../../../@types/type_payment.js";
 
-
 @Entity('paymentMethod')
 export class PaymentMethod extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
