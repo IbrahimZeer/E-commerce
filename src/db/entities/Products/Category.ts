@@ -1,8 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "./Product";
-import { OneToMany } from "typeorm/browser";
-import { ManyToMany } from "typeorm/browser";
-import { JoinTable } from "typeorm/browser";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, JoinTable, ManyToMany, OneToMany } from "typeorm";
 
 @Entity('category')
 export class Category extends BaseEntity {
@@ -26,9 +22,8 @@ export class Category extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
-
+  
     @ManyToMany(() => Product)
     @JoinTable()
     product: Product[]
-
 }

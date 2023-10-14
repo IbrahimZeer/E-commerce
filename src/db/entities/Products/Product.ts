@@ -1,9 +1,10 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { OneToMany } from "typeorm/browser";
+
+import { OneToMany } from "typeorm";
 import { Size } from "./Size";
 import { Color } from "./Color";
 import { Category } from "./Category";
-import { ManyToOne } from "typeorm/browser";
+import { ManyToOne } from "typeorm";
 import { Brand } from "./Brand";
 
 @Entity('product')
@@ -57,14 +58,17 @@ export class Product extends BaseEntity {
     })
     UpdatedAt: string;
 
+
     @OneToMany(() => Size, (size) => size.product)
     size: Size[]
     @OneToMany(() => Color, (color) => color.product)
     color: Color[]
+    
     //many to many
     @ManyToOne(() => Category, (category) => category.product)
     category: Category
 
     @ManyToOne(() => Brand, (brand) => brand.products)
     brand: Brand
+
 }

@@ -40,4 +40,5 @@ export class Attachment extends BaseEntity {
     @OneToOne(() => Product)
     @JoinColumn()
     product: Product
+
 }

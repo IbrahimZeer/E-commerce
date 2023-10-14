@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./Product";
-import { ManyToOne } from "typeorm/browser";
+import { ManyToOne } from "typeorm";
 
 @Entity('size')
 export class Size extends BaseEntity {
@@ -27,7 +27,9 @@ export class Size extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+  
 ///////////many to many
     @ManyToOne(() => Product, (product) => product.size)
     product: Product
+
 }

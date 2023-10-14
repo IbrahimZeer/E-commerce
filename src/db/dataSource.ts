@@ -15,14 +15,14 @@ import { Country } from "./entities/customers/Country.js";
 import { Customer } from "./entities/customers/Customer.js";
 import { Phone } from "./entities/customers/Phone.js";
 import { Profile } from "./entities/customers/Profile.js";
-import { Order } from "./entities/orders/order.js";
-import { OrderDetails } from "./entities/orders/orderDetails.js";
-import { OrderStatus } from "./entities/orders/orderStatus.js";
-import { Status } from "./entities/orders/status.js";
-import { PaymentData } from "./entities/payments/paymentData.js";
-import { PaymentMethod } from "./entities/payments/paymentMethod.js";
-import { Transaction } from "./entities/payments/transaction.js";
-import { TransactionStatus } from "./entities/payments/transactionStatus.js";
+import { Order } from "./entities/orders/Order.js";
+import { OrderDetails } from "./entities/orders/OrderDetails.js";
+import { OrderStatus } from "./entities/orders/OrderStatus.js";
+import { Status } from "./entities/orders/Status.js";
+import { PaymentData } from "./entities/payments/PaymentData.js";
+import { PaymentMethod } from "./entities/payments/PaymentMethod.js";
+import { Transaction } from "./entities/payments/Transaction.js";
+import { TransactionStatus } from "./entities/payments/TransactionStatus.js";
 dotenv.config()
 
 const dataSource = new DataSource({

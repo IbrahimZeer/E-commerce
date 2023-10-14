@@ -1,6 +1,6 @@
-import { BaseEntity, Column, Entity, CreateDateColumn, JoinTable, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { City } from "./City";
 import { Customer } from "./Customer";
+import { BaseEntity, Column, Entity, CreateDateColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('country')
@@ -31,5 +31,4 @@ export class Country extends BaseEntity {
 
     @OneToMany(() => Customer, customer => customer.country)
     customer: Customer[];
-
 }

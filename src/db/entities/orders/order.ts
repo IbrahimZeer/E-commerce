@@ -47,12 +47,11 @@ export class Order extends BaseEntity {
     })
     UpdatedAt: string;
 
-
     //many to many with orderDetails
-
     @ManyToMany(() => OrderDetails)
     @JoinTable()
     orderDetails: OrderDetails[]
+  
     //one to many with  orderStatus
     @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.order)
     orderStatus: OrderStatus
@@ -60,6 +59,8 @@ export class Order extends BaseEntity {
     @ManyToMany(() => Product)
     @JoinTable()
     categories: Product[]
+  
     @OneToMany(() => PaymentMethod, (paymentMethod) => paymentMethod.order)
     paymentMethod: PaymentMethod[]
+
 }
