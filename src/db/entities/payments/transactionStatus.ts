@@ -6,13 +6,13 @@ import { PaymentNS } from "../../../../@types/type_payment.js";
 @Entity('transactionStatus')
 export class TransactionStatus extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: PaymentNS.transactionStatus;
+    id: string;
 
     @Column()
-    statusName: PaymentNS.transactionStatus;
+    statusName: string;
 
     @Column()
-    statusCode: PaymentNS.transactionStatus;
+    statusCode: string;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -26,7 +26,7 @@ export class TransactionStatus extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @OneToOne(() => Transaction)
-    @JoinColumn()
-    transaction: Transaction
+    // @OneToOne(() => Transaction)
+    // @JoinColumn()
+    // transaction: Transaction
 }

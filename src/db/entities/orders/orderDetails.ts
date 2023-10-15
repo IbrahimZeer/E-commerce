@@ -4,22 +4,22 @@ import { OrderNS } from "../../../../@types/type_order.js";
 @Entity('orderDetails')
 export class OrderDetails extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: OrderNS.OrderDetails;
+    id: string;
 
     @Column('uuid')
-    orderId: OrderNS.OrderDetails;
+    orderId: string;
 
     @Column('uuid')
-    productId: OrderNS.OrderDetails;
+    productId: string;
 
     @Column()
-    quantity: OrderNS.OrderDetails;
+    quantity: string;
 
     @Column()
-    pricePerUnit: OrderNS.OrderDetails;
+    pricePerUnit: string;
 
     @Column()
-    price: OrderNS.OrderDetails;
+    price: string;
 
     @CreateDateColumn({
         type: 'timestamp',

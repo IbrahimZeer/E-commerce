@@ -1,5 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
-import { Product } from "./Product";
+import { Product } from "./Product.js";
 
 
 @Entity('color')
@@ -25,6 +25,6 @@ export class Color extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @ManyToOne(() => Product, (product) => product.color)
-    product: Product
+    // @ManyToOne(() => Product, (product) => product.color)
+    // product: Product
 }

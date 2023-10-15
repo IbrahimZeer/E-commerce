@@ -1,23 +1,23 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { AdminNS } from '../../../@types/type_admin';
+import { AdminNS } from '../../../@types/type_admin.js';
 
 
 @Entity('admin')
 export class Admin extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: AdminNS.Admin
+    id: string;
 
     @Column()
-    userName: AdminNS.Admin;
+    userName: string;
 
     @Column()
-    displayName: AdminNS.Admin;
+    displayName: string;
 
     @Column()
-    email: AdminNS.Admin;
+    email: string;
 
     @Column()
-    password: AdminNS.Admin;
+    password: string;
 
     @CreateDateColumn({
         type: 'timestamp',

@@ -1,34 +1,34 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 import { OneToMany } from "typeorm";
-import { Size } from "./Size";
-import { Color } from "./Color";
-import { Category } from "./Category";
+import { Size } from "./Size.js";
+import { Color } from "./Color.js";
+import { Category } from "./Category.js";
 import { ManyToOne } from "typeorm";
-import { Brand } from "./Brand";
+import { Brand } from "./Brand.js";
 
 @Entity('product')
 export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ length: 255, nullable: false })
+    @Column()
     productNo: number;
 
-    @Column({ length: 255, nullable: false })
+    @Column()
     productName: string;
 
     @PrimaryGeneratedColumn('uuid')
     catId: string;
 
 
-    @Column({ length: 255, nullable: false })
+    @Column()
     discription: string;
 
-    @Column({ length: 255, nullable: false })
+    @Column()
     quantity: number;
 
-    @Column({ length: 255, nullable: false })
+    @Column()
     price: number;
 
     //image
@@ -36,13 +36,15 @@ export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     attatchId: string;
 
-    @Column({ length: 255, nullable: false })
+    @Column()
     isSoled_Active: boolean;
 
     @PrimaryGeneratedColumn('uuid')
     brandId: string;
+
     @PrimaryGeneratedColumn('uuid')
     colorId: string;
+
     @PrimaryGeneratedColumn('uuid')
     sizeId: string;
 
@@ -59,16 +61,16 @@ export class Product extends BaseEntity {
     UpdatedAt: string;
 
 
-    @OneToMany(() => Size, (size) => size.product)
-    size: Size[]
-    @OneToMany(() => Color, (color) => color.product)
-    color: Color[]
-    
-    //many to many
-    @ManyToOne(() => Category, (category) => category.product)
-    category: Category
+    // @OneToMany(() => Size, (size) => size.product)
+    // size: Size[]
+    // @OneToMany(() => Color, (color) => color.product)
+    // color: Color[]
 
-    @ManyToOne(() => Brand, (brand) => brand.products)
-    brand: Brand
+    //many to many
+    // @ManyToOne(() => Category, (category) => category.product)
+    // category: Category
+
+    // @ManyToOne(() => Brand, (brand) => brand.products)
+    // brand: Brand
 
 }

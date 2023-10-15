@@ -2,38 +2,38 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, Ma
 import { OrderNS } from "../../../../@types/type_order.js";
 import { OrderDetails } from "./orderDetails.js";
 import { OrderStatus } from "./orderStatus.js";
-import { OneToMany } from "typeorm/browser";
+import { OneToMany } from "typeorm";
 import { Product } from "../Products/Product.js";
 import { PaymentMethod } from "../payments/paymentMethod.js";
 
 @Entity('order')
 export class Order extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: OrderNS.Order
+    id: string
 
     @Column('uuid')
-    customerId: OrderNS.Order
+    customerId: string
 
     @Column('uuid')
-    paymentID: OrderNS.Order
+    paymentID: string
 
     @Column()
-    orderAddress: OrderNS.Order
+    orderAddress: string
 
     @Column()
-    productPrice: OrderNS.Order
+    productPrice: number
 
     @Column()
-    deliveryCost: OrderNS.Order
+    deliveryCost: number
 
     @Column()
-    discount: OrderNS.Order
+    discount: number
 
     @Column()
-    totalPrice: OrderNS.Order
+    totalPrice: number
 
     @Column()
-    orderDate: OrderNS.Order
+    orderDate: Date
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -45,23 +45,23 @@ export class Order extends BaseEntity {
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    UpdatedAt: string;
+    UpdatedAt: Date;
 
 
-    //many to many with orderDetails
-    @ManyToMany(() => OrderDetails)
-    @JoinTable()
-    orderDetails: OrderDetails[]
-  
-    //one to many with  orderStatus
-    @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.order)
-    orderStatus: OrderStatus
+    // //many to many with orderDetails
+    // @ManyToMany(() => OrderDetails)
+    // @JoinTable()
+    // orderDetails: OrderDetails[]
 
-    @ManyToMany(() => Product)
-    @JoinTable()
-    categories: Product[]
-  
-    @OneToMany(() => PaymentMethod, (paymentMethod) => paymentMethod.order)
-    paymentMethod: PaymentMethod[]
+    // //one to many with  orderStatus
+    // @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.order)
+    // orderStatus: OrderStatus
+
+    // @ManyToMany(() => Product)
+    // @JoinTable()
+    // categories: Product[]
+
+    // @OneToMany(() => PaymentMethod, (paymentMethod) => paymentMethod.order)
+    // paymentMethod: PaymentMethod[]
 
 }

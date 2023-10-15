@@ -1,24 +1,25 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { ReviewNS } from '../../../@types/type_review';
+import { ReviewNS } from '../../../@types/type_review.js';
 import { Customer } from "./customers/Customer.js";
 import { OneToMany } from "typeorm";
+
 
 @Entity('review')
 export class Review extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: ReviewNS.Review
+    id: string
 
     @Column('uuid')
-    userId: ReviewNS.Review;
+    userId: string;
 
     @Column()
     fullName: string;
 
     @Column('uuid')
-    productId: ReviewNS.Review;
+    productId: string;
 
     @Column()
-    comments: ReviewNS.Review;
+    comments: string;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -32,6 +33,6 @@ export class Review extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @OneToMany(() => Customer, (customer) => customer.review)
-    customer: Customer[]
+    // @OneToMany(() => Customer, (customer) => customer.review)
+    // customer: Customer[]
 }

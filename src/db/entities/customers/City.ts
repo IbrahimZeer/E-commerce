@@ -1,7 +1,7 @@
-import { ManyToOne } from "typeorm/browser";
-import { Country } from "./Country";
+import { ManyToOne } from "typeorm";
+import { Country } from "./Country.js";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { JoinColumn } from "typeorm/browser";
+import { JoinColumn } from "typeorm";
 
 
 @Entity('city')
@@ -27,8 +27,8 @@ export class City extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @ManyToOne(() => Country, country => country.cities, { cascade: true, eager: true, nullable: true })
-    @JoinColumn()
-    country: Country;
+    // @ManyToOne(() => Country, country => country.cities, { cascade: true, eager: true, nullable: true })
+    // @JoinColumn()
+    // country: Country;
 
 }

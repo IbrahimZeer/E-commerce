@@ -22,8 +22,8 @@ export class Category extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
-  
-    @ManyToMany(() => Product)
-    @JoinTable()
-    product: Product[]
+
+    // @ManyToMany(() => Product)
+    // @JoinTable()
+    // product: Product[]
 }

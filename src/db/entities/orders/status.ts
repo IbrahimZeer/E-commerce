@@ -1,18 +1,18 @@
 import { OrderStatus } from "./orderStatus.js";
-import { JoinColumn } from "typeorm/browser";
+import { JoinColumn } from "typeorm";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrderNS } from "../../../../@types/type_order.js";
 
 @Entity('status')
 export class Status extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: OrderNS.Status;
+    id: string;
 
     @Column()
-    statusName: OrderNS.Status;
+    statusName: string;
 
     @Column('uuid')
-    statusCode: OrderNS.Status;
+    statusCode: string;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -26,7 +26,7 @@ export class Status extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @OneToOne(() => OrderStatus)
-    @JoinColumn()
-    orderStatus: OrderStatus
+    // @OneToOne(() => OrderStatus)
+    // @JoinColumn()
+    // orderStatus: OrderStatus
 }

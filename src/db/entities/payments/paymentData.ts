@@ -1,18 +1,17 @@
 import { PaymentNS } from "../../../../@types/type_payment.js";
-import { OneToMany } from "typeorm/browser";
 import { PaymentMethod } from "./paymentMethod.js";
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, OneToMany, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('paymentData')
 export class PaymentData extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: PaymentNS.paymentData;
+    id: string;
 
     @Column('uuid')
-    transactionId: PaymentNS.paymentData;
+    transactionId: string;
 
     @Column()
-    data: PaymentNS.paymentData;
+    data: string;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -26,6 +25,6 @@ export class PaymentData extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @OneToMany(() => PaymentMethod, (paymentMethod) => paymentMethod.paymentData)
-    paymentMethod: PaymentMethod[]
+    // @OneToMany(() => PaymentMethod, (paymentMethod) => paymentMethod.paymentData)
+    // paymentMethod: PaymentMethod[]
 }

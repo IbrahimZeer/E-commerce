@@ -1,6 +1,6 @@
-import { OneToMany } from "typeorm/browser";
-import { City } from "./City";
-import { Customer } from "./Customer";
+import { OneToMany } from "typeorm";
+import { City } from "./City.js";
+import { Customer } from "./Customer.js";
 import { BaseEntity, Column, Entity, CreateDateColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 

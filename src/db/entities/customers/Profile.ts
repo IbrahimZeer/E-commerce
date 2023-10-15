@@ -36,8 +36,8 @@ export class Profile extends BaseEntity {
     UpdatedAt: string;
 
 
-    @OneToOne(() => Customer, customer => customer.profile)
-    @JoinColumn()
-    customer: Partial<Customer>;
+    // @OneToOne(() => Customer, customer => customer.profile)
+    // @JoinColumn()
+    // customer: Partial<Customer>;
 
 }

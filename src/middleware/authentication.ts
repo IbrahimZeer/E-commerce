@@ -1,6 +1,6 @@
 import Express from "express"
 import jwt from "jsonwebtoken"
-import { Customer } from "../db/entities/customers/Customer";
+import { Customer } from "../db/entities/customers/Customer.js";
 import dotenv from "dotenv"
 dotenv.config()
 const authenticate = async (req: Express.Request, res: Express.Response, next: Express.NextFunction) => {

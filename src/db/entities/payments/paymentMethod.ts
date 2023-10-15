@@ -1,19 +1,18 @@
 import { PaymentNS } from "../../../../@types/type_payment.js";
-import { PaymentData } from "./PaymentData.js";
-import { Order } from "../orders/Order.js";
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { PaymentNS } from "../../../../@types/type_payment.js";
+import { PaymentData } from "./paymentData.js";
+import { Order } from "../orders/order.js";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, OneToMany, ManyToMany, OneToOne, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 
 @Entity('paymentMethod')
 export class PaymentMethod extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: PaymentNS.paymentMethod;
+    id: string;
 
     @Column()
-    paymentTypeName: PaymentNS.paymentMethod;
+    paymentTypeName: string;
 
     @Column()
-    paymentTypeCode: PaymentNS.paymentMethod;
+    paymentTypeCode: string;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -27,9 +26,9 @@ export class PaymentMethod extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @ManyToOne(() => PaymentData, (paymentData) => paymentData.paymentMethod)
-    paymentData: PaymentData
+    // @ManyToOne(() => PaymentData, (paymentData) => paymentData.paymentMethod)
+    // paymentData: PaymentData
 
-    @ManyToOne(() => Order, (order) => order.paymentMethod)
-    order: Order
+    // @ManyToOne(() => Order, (order) => order.paymentMethod)
+    // order: Order
 }

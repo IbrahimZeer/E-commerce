@@ -1,22 +1,21 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrderNS } from "../../../../@types/type_order.js";
-import { OrderNS } from "../../../../@types/type_order.js";
-import { Order } from "./Order.js";
-import { OneToMany } from "typeorm/browser";
+import { Order } from "./order.js";
+import { OneToMany } from "typeorm";
 
 @Entity('orderStatus')
 export class OrderStatus extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: OrderNS.OrderStatus;
+    id: string;
 
     @Column('uuid')
-    orderId: OrderNS.OrderStatus;
+    orderId: string;
 
     @Column('uuid')
-    orderNote: OrderNS.OrderStatus;
+    orderNote: string;
 
     @Column('uuid')
-    statusCode: OrderNS.OrderStatus;
+    statusCode: string;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -31,6 +30,6 @@ export class OrderStatus extends BaseEntity {
     UpdatedAt: string;
 
     //orederStatus OneToOne With status   
-    @OneToMany(() => Order, (order) => order.orderStatus)
-    order: Order
+    // @OneToMany(() => Order, (order) => order.orderStatus)
+    // order: Order
 }

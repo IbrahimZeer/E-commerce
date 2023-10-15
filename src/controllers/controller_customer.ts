@@ -11,16 +11,8 @@ import jwt from "jsonwebtoken"
 
 
 
-const insertCustomer = async (payload: CustomerNS.Customer) => {
-    return dataSource.manager.transaction(
-        async transaction => {
-            // const role = await Role.findOneBy({ name: payload.role });
-            // const newCustomer = Customer.create({
-            //     ...payload,
-            //     roles: [role] as Role[]
-            // });
-            // await transaction.save(newCustomer);
-        });
+const insertCustomer = async (payload: Customer) => {
+    return console.log(payload)
 }
 
 

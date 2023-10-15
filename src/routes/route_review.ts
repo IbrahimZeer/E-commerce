@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertReview } from '../controllers/controller_review';
+import { insertReview } from '../controllers/controller_review.js';
 
 const route = express.Router();
 
@@ -20,12 +20,12 @@ route.post('/create_review', async (req, res, next) => {
 });
 
 
-    // insertReview(req.body).then(data => {
-    //   res.status(201).send(data).send("reviews added")
-    // }).catch(error => {
-    //   res.status(500).send("something went wrong")
-    // })
-  
+//     insertReview(req.body).then(data => {
+//       res.status(201).send(data).send("reviews added")
+//     }).catch(error => {
+//       res.status(500).send("something went wrong")
+//     })
+
 // route.post('/create_review', (req, res) => {
 //     console.log('create review route')
 //     res.status(200).send('review created successfully');
@@ -33,20 +33,20 @@ route.post('/create_review', async (req, res, next) => {
 
 
 route.put('/update_review', (req, res) => {
-    console.log('update review route details')
-    res.status(200).send('review updated successfully');
+  console.log('update review route details')
+  res.status(200).send('review updated successfully');
 })
 
 
 route.delete('/delete_review', (req, res) => {
-    console.log('delete review route details')
-    res.status(200).send('review deleted successfully');
+  console.log('delete review route details')
+  res.status(200).send('review deleted successfully');
 });
 
 
 route.get('/all_review', (req, res) => {
-    console.log('list of reviews')
-    res.status(200).send('list of reviews returned successfully');
+  console.log('list of reviews')
+  res.status(200).send('list of reviews returned successfully');
 })
 
 

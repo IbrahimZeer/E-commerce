@@ -15,22 +15,23 @@ import { Country } from "./entities/customers/Country.js";
 import { Customer } from "./entities/customers/Customer.js";
 import { Phone } from "./entities/customers/Phone.js";
 import { Profile } from "./entities/customers/Profile.js";
-import { Order } from "./entities/orders/Order.js";
+import { Order } from "./entities/orders/order.js";
 import { OrderDetails } from "./entities/orders/orderDetails.js";
 import { OrderStatus } from "./entities/orders/orderStatus.js";
 import { Status } from "./entities/orders/status.js";
-import { PaymentData } from "./entities/payments/PaymentData.js";
+import { PaymentData } from "./entities/payments/paymentData.js";
 import { PaymentMethod } from "./entities/payments/paymentMethod.js";
 import { Transaction } from "./entities/payments/transaction.js";
 import { TransactionStatus } from "./entities/payments/transactionStatus.js";
 
 dotenv.config()
 
+
 const dataSource = new DataSource({
     type: "mysql",
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
-    username: process.env.DB_USERNAME,
+    username: process.env.DB_USER_NAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     entities: [

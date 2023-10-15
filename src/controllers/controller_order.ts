@@ -1,7 +1,7 @@
 import express from 'express';
 import dataSource from '../db/dataSource.js';
 import { OrderNS } from '../../@types/type_order.js';
-import { Order } from '../db/entities/orders/Order.js'
+import { Order } from '../db/entities/orders/order.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'

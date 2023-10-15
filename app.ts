@@ -11,8 +11,8 @@ import routePayment from './src/routes/route_payment.js'
 import routeProduct from './src/routes/route_product.js'
 import routeReview from './src/routes/route_review.js'
 
-dotenv.config()
 
+dotenv.config()
 
 const app = express();
 

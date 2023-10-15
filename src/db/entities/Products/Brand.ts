@@ -1,5 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "./Product";
+import { Product } from "./Product.js";
 
 @Entity('brand')
 export class Brand extends BaseEntity {
@@ -20,7 +20,7 @@ export class Brand extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
-  
-    @OneToMany(()=>Product,products=>products.brand)
-    products: Product
+
+    // @OneToMany(() => Product, products => products.brand)
+    // products: Product
 }

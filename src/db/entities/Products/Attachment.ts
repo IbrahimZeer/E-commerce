@@ -1,5 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "./Product";
+import { Product } from "./Product.js";
 
 @Entity('attachment')
 export class Attachment extends BaseEntity {
