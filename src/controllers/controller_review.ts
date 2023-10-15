@@ -1,27 +1,27 @@
 import express from 'express';
-import { Request, Response } from 'express';
 
 import dataSource from '../db/dataSource.js';
 import { ReviewNS } from '../../@types/type_review.js';
 import { Review } from '../db/entities/review.js'
 import { getRepository } from 'typeorm';
 
-const insertReview = async (payload: ReviewNS.Review) => {
-    try {
-        const { userId, fullName, productId, comment } = payload;
 
-        const reviewRepository = getRepository(Review);
-        const newReview = reviewRepository.create({
-            userId,
-            fullName,
-            productId,
-            comment,
-        });
+const insertReview = async (payload:ReviewNS.Review) => {
+    const reviewRepository = getRepository(Review);
+  
+    // Create a new review entity using payload properties
+    const newReview = reviewRepository.create({
+      userId: payload.userId,
+      fullName: payload.fullName,
+      productId: payload.productId,
+      comments: payload.comment,
+      //...payload
+    });
+  
+    // Save the new review entity to the database
+    await reviewRepository.save(newReview);
+  };
 
-        await reviewRepository.save(newReview);
-
-    }
-}
 const updateReview = async (payload: ReviewNS.Review) => {
 
 }
