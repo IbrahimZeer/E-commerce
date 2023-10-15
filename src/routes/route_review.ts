@@ -7,7 +7,7 @@ const route = express.Router();
 
 route.post('/create_review', (req, res, next) => {
     insertReview(req.body).then(data => {
-      res.status(201).send(data)
+      res.status(201).send(data).send("reviews added")
     }).catch(error => {
       res.status(500).send("something went wrong")
     })

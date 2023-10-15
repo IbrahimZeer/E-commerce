@@ -8,19 +8,19 @@ import { getRepository } from 'typeorm';
 
 const insertReview = async (payload: ReviewNS.Review) => {
     try {
-        const { userId, fullName, productId, comments } = req.body;
-  
+        const { userId, fullName, productId, comment } = payload;
+
         const reviewRepository = getRepository(Review);
         const newReview = reviewRepository.create({
-          userId,
-          fullName,
-          productId,
-          comments,
+            userId,
+            fullName,
+            productId,
+            comment,
         });
-  
+
         await reviewRepository.save(newReview);
-  
-}
+
+    }
 }
 const updateReview = async (payload: ReviewNS.Review) => {
 
