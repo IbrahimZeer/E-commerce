@@ -1,6 +1,6 @@
 import { PaymentNS } from "../../../../@types/type_payment.js";
-import { PaymentData } from "./paymentData.js";
-import { Order } from "../orders/order.js";
+import { PaymentData } from "./PaymentData.js";
+import { Order } from "../orders/Order.js";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PaymentNS } from "../../../../@types/type_payment.js";
 

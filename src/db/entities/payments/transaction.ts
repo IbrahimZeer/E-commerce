@@ -1,9 +1,9 @@
 import { PaymentNS } from "../../../../@types/type_payment.js";
-import { PaymentData } from "./paymentData.js";
+import { PaymentData } from "./PaymentData.js";
 import { JoinColumn } from "typeorm/browser";
 import { PaymentMethod } from "./paymentMethod.js";
 import { ManyToOne } from "typeorm/browser";
-import { Order } from "../orders/order.js";
+import { Order } from "../orders/Order.js";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('transaction')

@@ -4,6 +4,8 @@ import { CustomerNS } from '../../@types/type_customer.js';
 import { Customer } from '../db/entities/customers/Customer.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
+import bcrypt from 'bcrypt';
+import jwt from "jsonwebtoken"
 
 
 
@@ -20,6 +22,9 @@ const insertCustomer = async (payload: CustomerNS.Customer) => {
             // await transaction.save(newCustomer);
         });
 }
+
+
+
 const updateCustomer = async (payload: CustomerNS.Customer) => {
 
 }
@@ -40,8 +45,38 @@ const deleteProduct = async (payload: CustomerNS.Customer) => {
 
 }
 
-const login = async () => {
 
+const login = async (email: string, password: string) => {
+    try {
+        const customer = await Customer.findOneBy({
+            email
+        });
+
+        if (!customer) {
+            return undefined
+        }
+
+        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+
+        if (customer && passwordMatching) {
+            const token = jwt.sign({
+                email: customer.email,
+                userName: customer.fName,
+                displayName: customer.displayName
+            }, process.env.SECRET_KEY || "", {
+                expiresIn: "14d"
+            })
+
+            return {
+                userName: customer.displayName,
+                token
+            }
+        } else {
+            throw ("invalid email or password")
+        }
+    } catch (error) {
+        throw ("invalid email or password")
+    }
 }
 
 

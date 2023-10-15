@@ -6,9 +6,7 @@ import { Phone } from "./Phone.js";
 import { Country } from "./Country.js";
 import { Review } from "../review.js";
 import { JoinColumn } from "typeorm/browser";
-import { Order } from "../orders/order.js";
-import bcrypt from 'bcrypt';
-import { Profile } from "./Profile.js";
+import { Order } from "../orders/Order.js";
 import { Role } from "../Role.js";
 
 @Entity('customer')
@@ -74,7 +72,6 @@ export class Customer extends BaseEntity {
     order: Order
 
 
-    @OneToOne(() => Profile, profile => profile.user, { eager: true })
-    profile: Partial<Profile>;
+   
 
 }

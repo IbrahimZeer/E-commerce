@@ -1,5 +1,7 @@
+import { ManyToOne } from "typeorm/browser";
 import { Country } from "./Country";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { JoinColumn } from "typeorm/browser";
 
 
 @Entity('city')

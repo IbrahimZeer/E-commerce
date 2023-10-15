@@ -1,7 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ReviewNS } from '../../../@types/type_review';
-
-import { Customer } from "./customers";
+import { Customer } from "./customers/Customer.js";
 import { OneToMany } from "typeorm";
 
 @Entity('review')
