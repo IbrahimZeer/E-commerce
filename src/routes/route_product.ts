@@ -1,9 +1,10 @@
 import express from 'express';
+import { insertProduct } from '../controllers/controller_customer';
 
 const route = express.Router();
 
 route.post('/add_order', (req, res) => {
-    console.log('add order route')
+    insertProduct(req.body)
     res.status(200).send('order adding successfully');
 })
 
