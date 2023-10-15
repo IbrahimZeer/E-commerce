@@ -6,22 +6,22 @@ import { ReviewNS } from '../../@types/type_review.js';
 import { Review } from '../db/entities/review.js'
 import { getRepository } from 'typeorm';
 
-// const insertReview = async (payload: ReviewNS.Review) => {
-//     try {
-//         const { userId, fullName, productId, comments } = req.body;
+const insertReview = async (payload: ReviewNS.Review) => {
+    try {
+        const { userId, fullName, productId, comments } = req.body;
   
-//         const reviewRepository = getRepository(Review);
-//         const newReview = reviewRepository.create({
-//           userId,
-//           fullName,
-//           productId,
-//           comments,
-//         });
+        const reviewRepository = getRepository(Review);
+        const newReview = reviewRepository.create({
+          userId,
+          fullName,
+          productId,
+          comments,
+        });
   
-//         await reviewRepository.save(newReview);
+        await reviewRepository.save(newReview);
   
-// }
-// }
+}
+}
 const updateReview = async (payload: ReviewNS.Review) => {
 
 }
@@ -36,7 +36,7 @@ const getReviews = () => {
 }
 
 export {
-    // insertReview,
+    insertReview,
     updateReview,
     deleteReview,
     getReviews
