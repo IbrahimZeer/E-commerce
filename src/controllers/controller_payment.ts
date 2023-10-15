@@ -1,7 +1,7 @@
 import express from 'express';
 import dataSource from '../db/dataSource.js';
 import { PaymentNS } from '../../@types/type_payment.js';
-import { Transaction } from '../db/entities/payments/Transaction.js'
+import { Transaction } from '../db/entities/payments/transaction.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'

@@ -1,7 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrderNS } from "../../../../@types/type_order.js";
 import { OrderNS } from "../../../../@types/type_order.js";
-import { Order } from "./order.js";
+import { Order } from "./Order.js";
 import { OneToMany } from "typeorm/browser";
 
 @Entity('orderStatus')

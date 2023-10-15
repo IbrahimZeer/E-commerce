@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertCustomer } from '../controllers/controller_customer';
+import { insertCustomer, login } from '../controllers/controller_customer';
 
 const route = express.Router();
 
@@ -17,6 +17,20 @@ route.post('/create_customer', (req, res) => {
     }
 })
 
+/* Login Customer. */
+route.post("/login", (req, res) => {
+    if (req.body.email && req.body.password) {
+      login(req.body.email, req.body.password).then((data) => {
+        res.cookie('userName', data?.userName, { maxAge: 2 * 60 * 1000 })
+        res.send(data?.token)
+      }).catch((error) => {
+        res.status(400).send(error)
+      })
+    } else {
+      res.status(404).send("email and password are required")
+    }
+  })
+  
 
 route.put('/update_customer', (req, res) => {
     console.log('update customer route details')
