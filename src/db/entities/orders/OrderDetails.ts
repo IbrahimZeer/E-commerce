@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Order } from "./Order.js";
 import { Product } from "../Products/Product.js";
 
@@ -27,8 +27,10 @@ export class OrderDetails extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: Date;
+
     @ManyToOne(() => Order, (order) => order.orderDetails)
     order: Partial<Order>
+    
     @ManyToOne(() => Product, product => product.orderDetails)
     product: Partial<Product>
 }
