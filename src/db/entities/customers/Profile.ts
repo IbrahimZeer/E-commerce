@@ -8,12 +8,6 @@ export class Profile extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ length: 255, nullable: false })
-    street: string;
-
-    @Column({ length: 255, nullable: false })
-    postalCode: string;
-
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
@@ -29,6 +23,7 @@ export class Profile extends BaseEntity {
     @OneToMany(() => Phone, phone => phone.profile)
     phones: Phone[]
 
-    @OneToMany(() => Country, country => country.profile)
-    countries: Country[]
+    @OneToOne(() => Country)
+    @JoinColumn()
+    country: Partial<Country>
 }

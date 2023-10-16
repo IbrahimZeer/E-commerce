@@ -7,12 +7,13 @@ export namespace CustomerNS {
         userName: string,
         email: string
         password: string,
-        createdAt: Date,
+        registrationDate: Date,
         updatedAt: Date,
         role: 'checkout' | 'review' | 'show product'
     }
     export interface Profile {
         id: string,
+        age: number,
         cityId: string,
         countryId: string,
         phoneId: string,

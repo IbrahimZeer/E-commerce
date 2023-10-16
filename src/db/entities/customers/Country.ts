@@ -27,10 +27,6 @@ export class Country extends BaseEntity {
     })
     updatedAt: Date;
 
-    @ManyToOne(() => Profile, profile => profile.countries)
-    profile: Partial<Profile>
-
-
     @OneToMany(() => City, city => city.country)
     cities: City[]
 }
