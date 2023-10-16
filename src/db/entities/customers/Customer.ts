@@ -52,8 +52,8 @@ export class Customer extends BaseEntity {
     @OneToMany(() => Order, order => order.customer)
     orders: Order[]
 
-    //   @OneToMany(() => Cart, cart => cart.customer)
-    //   cart: Cart[]
+    @OneToMany(() => Cart, cart => cart.customer)
+    carts: Cart[]
 
 
     @OneToMany(() => Country, country => country.customer)
