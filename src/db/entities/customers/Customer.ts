@@ -56,4 +56,5 @@ export class Customer extends BaseEntity {
 
     @OneToMany(() => Country, country => country.customer)
     country: Country[]
+
 }

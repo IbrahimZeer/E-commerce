@@ -1,5 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, OneToMany, ManyToMany, OneToOne, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
-
+import {Transaction} from './Transaction.js'
 @Entity('paymentMethod')
 export class PaymentMethod extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
@@ -22,4 +22,7 @@ export class PaymentMethod extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+
+    @ManyToOne(() => Transaction, (transaction) => transaction.paymentMethod)
+    transaction: Partial<Transaction>
 }
