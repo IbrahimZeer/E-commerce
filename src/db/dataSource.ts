@@ -58,6 +58,7 @@ const dataSource = new DataSource({
         PaymentMethod,
         Transaction,
         TransactionStatus,
+        Cart
     ],
     migrations: ['./**/migration/*.ts'],
     synchronize: false,

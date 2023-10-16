@@ -1,14 +1,18 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne, OneToMany } from "typeorm";
 import { Customer } from "./customers/Customer.js";
 import { Product } from "./Products/Product.js";
+import { OrderDetails } from "./orders/OrderDetails.js";
 
 @Entity('cart')
 export class Cart extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-
     id: string;
+
     @Column()
-    quantity: string;
+    quantity: number;
+
+    @Column()
+    isPuecashed: boolean;
 
     @CreateDateColumn({
         
@@ -23,9 +27,9 @@ export class Cart extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @Column()
-    isPuecashed: boolean;
 
+    @OneToMany(() => OrderDetails, orderDetails => orderDetails.product)
+    details: OrderDetails[]
 
     @ManyToOne(() => Customer, customer => customer.carts)
     customer: Partial<Customer>
@@ -33,4 +37,5 @@ export class Cart extends BaseEntity {
 
     @ManyToOne(() => Product, product => product.carts)
     product: Partial<Product>
+
 }
