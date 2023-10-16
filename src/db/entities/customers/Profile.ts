@@ -7,7 +7,7 @@ import { Country } from "./Country.js";
 export class Profile extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
-
+  
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
@@ -19,6 +19,9 @@ export class Profile extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+
+    @OneToMany(() => Phone, phone => phone.profile)
+    phones: Phone[]
 
     @OneToMany(() => Phone, phone => phone.profile)
     phones: Phone[]
