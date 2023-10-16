@@ -1,7 +1,8 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "./Product.js";
 
 @Entity('brand')
-export class Phone extends BaseEntity {
+export class Brand extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -19,4 +20,7 @@ export class Phone extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+
+    // @OneToMany(() => Product, products => products.brand)
+    // products: Product
 }

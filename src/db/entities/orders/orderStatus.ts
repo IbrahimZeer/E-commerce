@@ -1,15 +1,12 @@
-import { ManyToOne } from "typeorm";
-import { Country } from "./Country.js";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-
-@Entity('city')
-export class City extends BaseEntity {
+@Entity('orderStatus')
+export class OrderStatus extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ length: 255, nullable: false })
-    CityName: string;
+    @Column()
+    orderNote: string;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -22,7 +19,4 @@ export class City extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
-
-    @ManyToOne(() => Country, country => country.cities)
-    country: Partial<Country>
 }

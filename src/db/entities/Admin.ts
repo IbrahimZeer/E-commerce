@@ -1,28 +1,33 @@
-import { ManyToOne } from "typeorm";
-import { Country } from "./Country.js";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { AdminNS } from '../../../@types/type_admin.js';
 
 
-@Entity('city')
-export class City extends BaseEntity {
+@Entity('admin')
+export class Admin extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ length: 255, nullable: false })
-    CityName: string;
+    @Column()
+    userName: string;
+
+    @Column()
+    displayName: string;
+
+    @Column()
+    email: string;
+
+    @Column()
+    password: string;
 
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    createdAt: Date;
+    revDate: Date;
 
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
-
-    @ManyToOne(() => Country, country => country.cities)
-    country: Partial<Country>
 }

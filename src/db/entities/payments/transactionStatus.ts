@@ -1,15 +1,15 @@
-import { ManyToOne } from "typeorm";
-import { Country } from "./Country.js";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-
-@Entity('city')
-export class City extends BaseEntity {
+@Entity('transactionStatus')
+export class TransactionStatus extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ length: 255, nullable: false })
-    CityName: string;
+    @Column()
+    statusName: string;
+
+    @Column()
+    statusCode: string;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -23,6 +23,4 @@ export class City extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @ManyToOne(() => Country, country => country.cities)
-    country: Partial<Country>
 }

@@ -1,5 +1,6 @@
 import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Permission } from "./Permission.js";
+import { Customer } from "./customers/Customer.js";
 
 @Entity('roles')
 export class Role extends BaseEntity {
@@ -13,9 +14,6 @@ export class Role extends BaseEntity {
         unique: true
     })
     name: 'user' | 'admin' | 'editor';
-
-    // @ManyToMany(() => User, user => user.roles, { cascade: true })
-    // users: User[];
 
     @ManyToMany(() => Permission, { cascade: true, eager: true })
     @JoinTable()

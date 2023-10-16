@@ -1,4 +1,7 @@
-import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+
+import { BaseEntity, JoinColumn, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Customer } from "./Customer.js";
+import { Profile } from "./Profile.js";
 
 
 @Entity('phone')
@@ -21,6 +24,6 @@ export class Phone extends BaseEntity {
     })
     UpdatedAt: string;
 
-
-
+    @ManyToOne(() => Profile, profile => profile.phones)
+    profile: Partial<Profile>
 }

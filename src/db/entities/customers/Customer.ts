@@ -1,6 +1,11 @@
-import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, ManyToOne, JoinColumn, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import bcrypt from 'bcrypt';
 import { Profile } from "./Profile.js";
+import { Country } from "./Country.js";
+import { Review } from "../Review.js";
+import { Order } from "../orders/Order.js";
+import { Role } from "../Role.js";
+
 @Entity('customer')
 export class Customer extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
@@ -11,6 +16,9 @@ export class Customer extends BaseEntity {
 
     @Column({ length: 255, nullable: false })
     lName: string;
+
+    @Column()
+    userName: string;
 
     @Column({ length: 255, nullable: false })
     email: string;
@@ -24,14 +32,11 @@ export class Customer extends BaseEntity {
     @Column({ nullable: false })
     password: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    profiled: string;
-
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    createdAt: Date;
+    registrationDate: Date;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -39,7 +44,8 @@ export class Customer extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @OneToOne(() => Profile, profile => profile.user, { eager: true })
+    @OneToOne(() => Profile)
+    @JoinColumn()
     profile: Partial<Profile>;
 
 }
