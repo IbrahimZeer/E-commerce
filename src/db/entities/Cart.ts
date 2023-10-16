@@ -3,7 +3,6 @@ import { Customer } from "./customers/Customer.js";
 import { Product } from "./Products/Product.js";
 import { OrderDetails } from "./orders/OrderDetails.js";
 
-
 @Entity('cart')
 export class Cart extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
@@ -16,6 +15,7 @@ export class Cart extends BaseEntity {
     isPuecashed: boolean;
 
     @CreateDateColumn({
+        
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
@@ -27,9 +27,15 @@ export class Cart extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @ManyToOne(() => Customer, customer => customer.carts)
-    customer: Partial<Customer>
 
     @OneToMany(() => OrderDetails, orderDetails => orderDetails.product)
     details: OrderDetails[]
+
+    @ManyToOne(() => Customer, customer => customer.carts)
+    customer: Partial<Customer>
+
+
+    @ManyToOne(() => Product, product => product.carts)
+    product: Partial<Product>
+
 }
