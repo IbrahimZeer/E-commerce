@@ -27,5 +27,5 @@ export class City extends BaseEntity {
     UpdatedAt: string;
 
     @ManyToOne(() => Country, country => country.cities)
-    country: Country
+    country: Partial<Country>
 }

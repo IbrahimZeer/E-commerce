@@ -25,5 +25,5 @@ export class Phone extends BaseEntity {
     UpdatedAt: string;
 
     @ManyToOne(() => Profile, profile => profile.phones)
-    profile: Profile
+    profile: Partial<Profile>
 }
