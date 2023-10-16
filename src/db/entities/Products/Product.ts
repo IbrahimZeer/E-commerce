@@ -42,4 +42,14 @@ export class Product extends BaseEntity {
     })
     UpdatedAt: string;
 
+    @ManyToOne(() => Category, category => category.products)
+    category: Partial<Category>
+
+
+    @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.product)
+    orderDetails: OrderDetails[]
+
+
+    //  @OneToMany(() => Cart, (cart) => cart.product)
+    //  cart: Cart[]
 }

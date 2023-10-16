@@ -42,6 +42,9 @@ export class Order extends BaseEntity {
 
     @OneToMany(() => OrderDetails, orderDetails => orderDetails.order)
     details: OrderDetails[]
+
+    @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.order)
+    orderDetails: OrderDetails[]
 }
 
 
