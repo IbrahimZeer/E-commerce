@@ -1,7 +1,7 @@
-import { OneToMany } from "typeorm";
+import { ManyToOne, OneToMany } from "typeorm";
 import { City } from "./City.js";
-import { Customer } from "./Customer.js";
 import { BaseEntity, Column, Entity, CreateDateColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Profile } from "./Profile.js";
 
 
 @Entity('country')
@@ -27,9 +27,10 @@ export class Country extends BaseEntity {
     })
     updatedAt: Date;
 
-    @OneToMany(() => City, city => city.country)
-    cities: City[];
+    @ManyToOne(() => Profile, profile => profile.countries)
+    profile: Profile
 
-    @OneToMany(() => Customer, customer => customer.country)
-    customer: Customer[];
+
+    @OneToMany(() => City, city => city.country)
+    cities: City[]
 }

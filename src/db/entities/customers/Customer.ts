@@ -1,11 +1,8 @@
-
-import { BaseEntity, ManyToOne, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, ManyToOne, JoinColumn, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import bcrypt from 'bcrypt';
 import { Profile } from "./Profile.js";
-import { Phone } from "./Phone.js";
 import { Country } from "./Country.js";
 import { Review } from "../review.js";
-import { JoinColumn } from "typeorm";
 import { Order } from "../orders/order.js";
 import { Role } from "../Role.js";
 
@@ -53,6 +50,10 @@ export class Customer extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
+
+    @OneToOne(() => Profile)
+    @JoinColumn()
+    profile: Partial<Profile>;
 
     // @OneToOne(() => Profile, profile => profile.customer, { eager: true })
     // profile: Partial<Profile>;
