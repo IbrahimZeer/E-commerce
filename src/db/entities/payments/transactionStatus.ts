@@ -1,7 +1,4 @@
-import { Transaction } from "./transaction.js";
-import { JoinColumn } from "typeorm";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { PaymentNS } from "../../../../@types/type_payment.js";
 
 @Entity('transactionStatus')
 export class TransactionStatus extends BaseEntity {
@@ -26,7 +23,4 @@ export class TransactionStatus extends BaseEntity {
     })
     UpdatedAt: string;
 
-    // @OneToOne(() => Transaction)
-    // @JoinColumn()
-    // transaction: Transaction
 }

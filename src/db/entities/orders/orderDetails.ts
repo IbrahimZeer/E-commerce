@@ -1,25 +1,18 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { OrderNS } from "../../../../@types/type_order.js";
 
 @Entity('orderDetails')
 export class OrderDetails extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column('uuid')
-    orderId: string;
-
-    @Column('uuid')
-    productId: string;
+    @Column()
+    quantity: number;
 
     @Column()
-    quantity: string;
+    pricePerUnit: number;
 
     @Column()
-    pricePerUnit: string;
-
-    @Column()
-    price: string;
+    price: number;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -31,5 +24,5 @@ export class OrderDetails extends BaseEntity {
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    UpdatedAt: string;
+    UpdatedAt: Date;
 }
