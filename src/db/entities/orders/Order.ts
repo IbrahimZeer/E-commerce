@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { OrderDetails } from "./OrderDetails.js";
 
 @Entity('order')
 export class Order extends BaseEntity {
@@ -35,4 +36,6 @@ export class Order extends BaseEntity {
     })
     UpdatedAt: Date;
 
+    @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.order)
+    orderDetails: OrderDetails[]
 }
