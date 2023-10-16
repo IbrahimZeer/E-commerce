@@ -2,8 +2,8 @@ import { BaseEntity, ManyToOne, JoinColumn, BeforeInsert, Column, CreateDateColu
 import bcrypt from 'bcrypt';
 import { Profile } from "./Profile.js";
 import { Country } from "./Country.js";
-import { Review } from "../review.js";
-import { Order } from "../orders/order.js";
+import { Review } from "../Review.js";
+import { Order } from "../orders/Order.js";
 import { Role } from "../Role.js";
 
 @Entity('customer')
@@ -32,13 +32,6 @@ export class Customer extends BaseEntity {
     @Column({ nullable: false })
     password: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    profiled: string;
-
-    // @ManyToMany(() => Role, role => role.customers, { eager: true })
-    // @JoinTable()
-    // roles: Role[];
-
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
@@ -54,25 +47,5 @@ export class Customer extends BaseEntity {
     @OneToOne(() => Profile)
     @JoinColumn()
     profile: Partial<Profile>;
-
-    // @OneToOne(() => Profile, profile => profile.customer, { eager: true })
-    // profile: Partial<Profile>;
-    // //----------------
-    // @OneToOne(() => Phone, phone => phone.customer, { eager: true })
-    // phone: Partial<Phone>;
-
-    // @ManyToOne(() => Country,
-    //     (country) => country.customer)
-    // country: Country;
-
-    // @ManyToOne(() => Review, (review) => review.customer)
-    // review: Review
-
-    // @OneToOne(() => Order)
-    // @JoinColumn()
-    // order: Order
-
-
-
 
 }

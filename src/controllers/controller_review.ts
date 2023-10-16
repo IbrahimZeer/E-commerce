@@ -2,7 +2,7 @@ import express from 'express';
 
 import dataSource from '../db/dataSource.js';
 import { ReviewNS } from '../../@types/type_review.js';
-import { Review } from '../db/entities/review.js'
+import { Review } from '../db/entities/Review.js'
 import { getRepository } from 'typeorm';
 
 

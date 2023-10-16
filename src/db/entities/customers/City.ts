@@ -11,9 +11,6 @@ export class City extends BaseEntity {
     @Column({ length: 255, nullable: false })
     CityName: string;
 
-    @PrimaryGeneratedColumn('uuid')
-    CountryId: string;
-
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"

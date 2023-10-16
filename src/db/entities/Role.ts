@@ -15,17 +15,6 @@ export class Role extends BaseEntity {
     })
     name: 'user' | 'admin' | 'editor';
 
-    // @ManyToMany(() => User, user => user.roles, { cascade: true })
-    // users: User[];
-
-
-    @ManyToMany(
-        () => Customer,     // select
-        customer => customer.roles,     // where
-        { cascade: true }       // extra think
-    )
-    customers: Customer[];
-
     @ManyToMany(() => Permission, { cascade: true, eager: true })
     @JoinTable()
     permissions: Permission[];

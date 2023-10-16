@@ -11,19 +11,8 @@ export class Profile extends BaseEntity {
     @Column({ length: 255, nullable: false })
     street: string;
 
-
-    @PrimaryGeneratedColumn('uuid')
-    cityId: string;
-
-    @PrimaryGeneratedColumn('uuid')
-    countryId: string;
-
     @Column({ length: 255, nullable: false })
     postalCode: string;
-
-
-    @PrimaryGeneratedColumn('uuid')
-    phoneId: string;
 
     @CreateDateColumn({
         type: 'timestamp',
