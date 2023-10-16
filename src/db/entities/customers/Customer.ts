@@ -48,4 +48,7 @@ export class Customer extends BaseEntity {
     @JoinColumn()
     profile: Partial<Profile>;
 
+    @OneToMany(() => Order, order => order.customer)
+    orders: Order[]
+
 }

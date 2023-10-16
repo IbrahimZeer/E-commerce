@@ -5,6 +5,7 @@ import { Color } from "./Color.js";
 import { Category } from "./Category.js";
 import { ManyToOne } from "typeorm";
 import { Brand } from "./Brand.js";
+import { OrderDetails } from "../orders/OrderDetails.js";
 
 @Entity('product')
 export class Product extends BaseEntity {
@@ -40,8 +41,5 @@ export class Product extends BaseEntity {
         default: () => "CURRENT_TIMESTAMP()"
     })
     UpdatedAt: string;
-
-    @ManyToOne(() => Category, category => category.products)
-    category: Partial<Category>
 
 }

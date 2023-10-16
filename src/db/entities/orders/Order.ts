@@ -1,4 +1,6 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Customer } from "../customers/Customer.js";
+import { OrderDetails } from "./OrderDetails.js";
 
 @Entity('order')
 export class Order extends BaseEntity {
@@ -35,4 +37,11 @@ export class Order extends BaseEntity {
     })
     UpdatedAt: Date;
 
+    @ManyToOne(() => Customer, customer => customer.orders)
+    customer: Partial<Customer>
+
+    @OneToMany(() => OrderDetails, orderDetails => orderDetails.order)
+    details: OrderDetails[]
 }
+
+
