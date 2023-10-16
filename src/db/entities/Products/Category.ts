@@ -1,4 +1,5 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, JoinTable, ManyToMany, OneToMany } from "typeorm";
+import { Product } from "./Product.js";
 
 @Entity('category')
 export class Category extends BaseEntity {
@@ -23,7 +24,6 @@ export class Category extends BaseEntity {
     })
     UpdatedAt: string;
 
-    // @ManyToMany(() => Product)
-    // @JoinTable()
-    // product: Product[]
+    @OneToMany(() => Product, product => product.category)
+    products: Product[]
 }

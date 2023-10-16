@@ -18,7 +18,7 @@ export class Customer extends BaseEntity {
     lName: string;
 
     @Column()
-    displayName: string;
+    userName: string;
 
     @Column({ length: 255, nullable: false })
     email: string;
@@ -36,7 +36,7 @@ export class Customer extends BaseEntity {
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    createdAt: Date;
+    registrationDate: Date;
 
     @CreateDateColumn({
         type: 'timestamp',

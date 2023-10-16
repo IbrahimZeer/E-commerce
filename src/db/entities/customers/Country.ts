@@ -29,8 +29,7 @@ export class Country extends BaseEntity {
 
     @ManyToOne(() => Profile, profile => profile.countries)
     profile: Partial<Profile>
-
-
+      
     @OneToMany(() => City, city => city.country)
     cities: City[]
 }

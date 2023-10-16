@@ -86,10 +86,9 @@ const getCustomers = () => {
     return Customers
 }
 
-// const getProducts = () => {
-//     const products = Product.find()
-//     return products
-// }
+const getProducts = () => {
+
+}
 
 const getRoles = () => {
     const roles = Role.find()
@@ -112,7 +111,7 @@ export {
     inssertRole,
     insertPermission,
     getCustomers,
-    //getProducts,
+    getProducts,
     getRoles,
     getPermission
 }

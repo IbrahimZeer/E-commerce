@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import createError from 'http-errors';
 import express from 'express';
 import cors from 'cors';
+import morgan from 'morgan';
 import dataSource from './src/db/dataSource.js';
 import adminRouter from './src/routes/route_admin.js'
 import customerRouter from './src/routes/route_customer.js'
@@ -20,6 +21,7 @@ dotenv.config();
 
 const PORT = 5000
 
+app.use(morgan('tiny'));
 app.use(express.json());
 
 // routes of application
