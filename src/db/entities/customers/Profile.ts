@@ -4,6 +4,7 @@ import { Phone } from "./Phone.js";
 import { Country } from "./Country.js";
 import { Payment } from "../payments/Payment.js";
 
+
 @Entity('profile')
 export class Profile extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')

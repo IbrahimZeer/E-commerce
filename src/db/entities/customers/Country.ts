@@ -33,7 +33,7 @@ export class Country extends BaseEntity {
       
     @OneToMany(() => City, city => city.country)
     cities: City[]
+
     @ManyToOne(() => Customer, customer => customer.country)
     customer: Partial<Customer>
-      
 }
