@@ -40,4 +40,7 @@ route.get('/all_customer', (req, res) => {
   res.status(200).send('list of customers returned successfully');
 })
 
+
+// get user by id
+
 export default route;

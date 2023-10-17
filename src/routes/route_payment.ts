@@ -25,4 +25,7 @@ route.get('/all_payment', (req, res) => {
     res.status(200).send('list of payments returned successfully');
 })
 
+// user payment history
+// payment details
+
 export default route;
