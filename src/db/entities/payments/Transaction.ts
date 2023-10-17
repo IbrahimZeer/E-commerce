@@ -1,4 +1,7 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Payment } from "./Payment.js";
+import { PaymentMethod } from "./PaymentMethod.js";
+import { TransactionStatus } from "./TransactionStatus.js";
 
 @Entity('transaction')
 export class Transaction extends BaseEntity {
@@ -6,27 +9,17 @@ export class Transaction extends BaseEntity {
     id: string;
 
     @Column()
-    transactionRefNo: number;
-
-    @Column()
     amount: number;
 
     @Column()
-    transDate: Date;
+    transactionDate: Date;
 
-    @Column()
-    ccNo: number;
+    @ManyToOne(() => Payment, (payment) => payment.transactions)
+    payment: Partial<Payment>
 
-    @CreateDateColumn({
-        type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
-    })
-    createdAt: Date;
+    @OneToMany(() => PaymentMethod, paymentMethod => paymentMethod.transaction)
+    paymentMethods: PaymentMethod[]
 
-    @CreateDateColumn({
-        type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
-    })
-    UpdatedAt: string;
-
+    @ManyToOne(() => TransactionStatus, (transactionStatus) => transactionStatus.transactions)
+    transactionStatus: Partial<TransactionStatus>
 }

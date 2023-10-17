@@ -5,6 +5,8 @@ import { Country } from "./Country.js";
 import { Review } from "../Review.js";
 import { Order } from "../orders/Order.js";
 import { Role } from "../Role.js";
+import { Cart } from "../Cart.js";
+import { Payment } from "../payments/Payment.js";
 
 @Entity('customer')
 export class Customer extends BaseEntity {
@@ -48,4 +50,9 @@ export class Customer extends BaseEntity {
     @JoinColumn()
     profile: Partial<Profile>;
 
+    @OneToMany(() => Order, order => order.customer)
+    orders: Order[]
+
+    @OneToMany(() => Cart, cart => cart.customer)
+    carts: Cart[]
 }

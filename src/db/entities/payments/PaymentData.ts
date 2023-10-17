@@ -6,17 +6,17 @@ export class PaymentData extends BaseEntity {
     id: string;
 
     @Column()
-    data: string;
+    cardholderName: string;
 
-    @CreateDateColumn({
-        type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
-    })
-    createdAt: Date;
+    @Column()
+    cardNo: number;
 
-    @CreateDateColumn({
-        type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
-    })
-    UpdatedAt: string;
+    @Column()
+    exp: Date;
+
+    @Column()
+    cvv: number;
+
+    @Column()
+    billingAddress: string;
 }
