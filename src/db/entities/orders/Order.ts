@@ -1,6 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Customer } from "../customers/Customer.js";
 import { OrderDetails } from "./OrderDetails.js";
+import { Payment } from "../payments/Payment.js";
 
 @Entity('order')
 export class Order extends BaseEntity {
@@ -45,6 +46,9 @@ export class Order extends BaseEntity {
 
     @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.order)
     orderDetails: OrderDetails[]
+
+    @OneToMany(() => Payment, payment => payment.order)
+    payments: Payment[]
 }
 
 

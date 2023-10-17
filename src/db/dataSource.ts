@@ -24,6 +24,7 @@ import { PaymentMethod } from "./entities/payments/PaymentMethod.js";
 import { Transaction } from "./entities/payments/Transaction.js";
 import { TransactionStatus } from "./entities/payments/TransactionStatus.js";
 import { Cart } from "./entities/Cart.js";
+import { Payment } from "./entities/payments/Payment.js";
 
 dotenv.config()
 
@@ -58,7 +59,8 @@ const dataSource = new DataSource({
         PaymentMethod,
         Transaction,
         TransactionStatus,
-        Cart
+        Cart,
+        Payment
     ],
     migrations: ['./**/migration/*.ts'],
     synchronize: false,
