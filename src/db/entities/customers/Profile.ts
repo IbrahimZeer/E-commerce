@@ -2,6 +2,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToMany, On
 import { Customer } from './Customer.js'
 import { Phone } from "./Phone.js";
 import { Country } from "./Country.js";
+import { Payment } from "../payments/Payment.js";
 
 @Entity('profile')
 export class Profile extends BaseEntity {
@@ -26,4 +27,7 @@ export class Profile extends BaseEntity {
     @OneToOne(() => Country)
     @JoinColumn()
     country: Partial<Country>
+
+    @OneToMany(() => Payment, payment => payment.profile)
+    payments: Payment[]
 }

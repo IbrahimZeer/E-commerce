@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Transaction } from "./Transaction.js";
 
 @Entity('transactionStatus')
 export class TransactionStatus extends BaseEntity {
@@ -11,16 +12,6 @@ export class TransactionStatus extends BaseEntity {
     @Column()
     statusCode: string;
 
-    @CreateDateColumn({
-        type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
-    })
-    createdAt: Date;
-
-    @CreateDateColumn({
-        type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
-    })
-    UpdatedAt: string;
-
+    @OneToMany(() => Transaction, transaction => transaction.transactionStatus)
+    transactions: Transaction[]
 }
