@@ -47,12 +47,12 @@ export class Customer extends BaseEntity {
     UpdatedAt: string;
 
 
-    @Column({
-        type: 'enum',
-        enum: ['admin', 'customer'],
-        default: 'customer'
-    })
-    type: 'customer' | 'admin';
+    // @Column({
+    //     type: 'enum',
+    //     enum: ['admin', 'customer'],
+    //     default: 'customer'
+    // })
+    // type: 'customer' | 'admin';
 
     @OneToOne(() => Profile)
     @JoinColumn()
@@ -69,7 +69,7 @@ export class Customer extends BaseEntity {
     @OneToMany(() => Country, country => country.customer)
     country: Order[]
 
-    @ManyToOne(() => Role, role => role.customers, { cascade: true, eager: true, nullable: true })
-    @JoinColumn()
-    role: Role;
+    // @ManyToOne(() => Role, role => role.customers, { cascade: true, eager: true, nullable: true })
+    // @JoinColumn()
+    // role: Role;
 }

@@ -20,10 +20,10 @@ export class Role extends BaseEntity {
     @Column({ unique: true })
     name: string;
 
-    @ManyToMany(() => Permission, { cascade: true, eager: true })
-    @JoinTable()
-    permissions: Permission[];
+    // @ManyToMany(() => Permission, { cascade: true, eager: true })
+    // @JoinTable()
+    // permissions: Permission[];
 
-    @OneToMany(() => Customer, customer => customer.role)
-    customers: Customer[];
+    // @OneToMany(() => Customer, customer => customer.role)
+    // customers: Customer[];
 }
