@@ -21,6 +21,7 @@ const insertCustomerController = async (payload: Customer) => {
         });
 
         await transaction.save(newUser);
+    });
         // if (payload.type === 'employee') {
         //     const employee = EmployeeProfile.create({
         //         applications: [],
@@ -33,7 +34,7 @@ const insertCustomerController = async (payload: Customer) => {
         //     company.user = newUser;
         //     await transaction.save(company);
         // }
-    });
+   
     // // const user = await Customer.findOneBy({ id: payload.id })
     // const newCustomer = Customer.create({
     //     fName: payload.fName,

@@ -25,7 +25,7 @@ app.use(express.json());
 // routes of application
 app.use('/admin', adminRouter);
 app.use('/users', customerRouter);
-app.use('/', routeOrder);
+app.use('/orders', routeOrder);
 app.use('/', routePayment);
 app.use('/', routeProduct);
 app.use('/', routeReview);

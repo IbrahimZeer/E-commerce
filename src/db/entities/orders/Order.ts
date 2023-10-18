@@ -2,7 +2,6 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, Ma
 import { Customer } from "../customers/Customer.js";
 import { OrderDetails } from "./OrderDetails.js";
 import { Payment } from "../payments/Payment.js";
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('order')

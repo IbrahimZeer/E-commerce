@@ -1,30 +1,48 @@
 import express from 'express';
-
+import { deleteOrder, getOrders, insertOrder, updateOrder } from '../controllers/controller_order.js';
+import { OrderNS } from '../../@types/type_order.js';
+import { getRepository } from 'typeorm';
+import { Order } from '../db/entities/orders/Order.js';
+import { authenticate } from '../middleware/authentication.js';
 const route = express.Router();
 
-route.post('/create_order', (req, res) => {
-    console.log('create order route')
-    res.status(200).send('order created successfully');
+route.post('/create_order', async (req, res) => {
+    const payload: OrderNS.Order = req.body;
+    const newOrder = await insertOrder(payload);
+    res.json(newOrder);
+
 })
 
 
-route.put('/update_order', (req, res) => {
-    console.log('update order route details')
-    res.status(200).send('order updated successfully');
+route.put('/update_order/:orderId', async (req, res) => {
+    const orderId: string = req.params.orderId;
+    const payload: OrderNS.Order = req.body;
+    const updatedOrder = await updateOrder(orderId, payload);
+    res.json(updatedOrder);
 })
 
 
-route.delete('/delete_order', (req, res) => {
-    console.log('delete order route details')
-    res.status(200).send('order deleted successfully');
+route.delete('/delete_order/:orderId', async (req, res) => {
+    try {
+        const orderId = req.params.orderId;
+        await deleteOrder(orderId);
+
+        res.status(200).send('Order deleted successfully');
+    } catch (error) {
+        res.status(500).send('An error occurred while deleting the order');
+    }
 });
 
 
-route.get('/all_order', (req, res) => {
-    console.log('list of orders')
-    res.status(200).send('list of orders returned successfully');
+route.get('/all_order', (req, res, next) => {
+    getOrders().then(data => {
+        res.status(200).send(data)
+    }).catch(error => {
+        res.status(404).send(error)
+    })
+
 })
 
-// get order by id , other think
 
 export default route;
+
