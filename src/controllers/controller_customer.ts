@@ -39,36 +39,36 @@ const deleteProduct = async (payload: CustomerNS.Customer) => {
 
 
 const login = async (email: string, password: string) => {
-    try {
-        const customer = await Customer.findOneBy({
-            email
-        });
+    // try {
+    //     const customer = await Customer.findOneBy({
+    //         email
+    //     });
 
-        if (!customer) {
-            return undefined
-        }
+    //     if (!customer) {
+    //         return undefined
+    //     }
 
-        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+    //     const passwordMatching = await bcrypt.compare(password, customer?.password || '')
 
-        if (customer && passwordMatching) {
-            const token = jwt.sign({
-                email: customer.email,
-                userName: customer.fName,
-                displayName: customer.displayName
-            }, process.env.SECRET_KEY || "", {
-                expiresIn: "14d"
-            })
+    //     if (customer && passwordMatching) {
+    //         const token = jwt.sign({
+    //             email: customer.email,
+    //             userName: customer.fName,
+    //             displayName: customer.displayName
+    //         }, process.env.SECRET_KEY || "", {
+    //             expiresIn: "14d"
+    //         })
 
-            return {
-                userName: customer.displayName,
-                token
-            }
-        } else {
-            throw ("invalid email or password")
-        }
-    } catch (error) {
-        throw ("invalid email or password")
-    }
+    //         return {
+    //             userName: customer.displayName,
+    //             token
+    //         }
+    //     } else {
+    //         throw ("invalid email or password")
+    //     }
+    // } catch (error) {
+    //     throw ("invalid email or password")
+    // }
 }
 
 

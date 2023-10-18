@@ -63,7 +63,7 @@ const dataSource = new DataSource({
         Payment
     ],
     migrations: ['./**/migration/*.ts'],
-    synchronize: false,
+    synchronize: true,
     logging: false
 });
 
