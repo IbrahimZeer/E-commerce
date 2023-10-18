@@ -1,11 +1,19 @@
 import express from 'express';
-import { insertCustomer } from '../controllers/controller_customer.js';
+import { insertCustomerController } from '../controllers/controller_customer.js';
 
 const route = express.Router();
 
-route.post('/create_customer', (req, res) => {
-  insertCustomer(req.body)
-  res.send('im in');
+route.post('/signup', async (req, res) => {
+  try {
+    // const { userName, email, password } = req.body;
+    console.log(req.body);
+    await insertCustomerController(req.body).then(() => {
+      res.status(201).send('Customer successfully')
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).send('rnternal server error')
+  }
 })
 
 // /* Login Customer. */

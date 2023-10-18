@@ -1,10 +1,19 @@
 import express from 'express';
+import { insertAdmin } from '../controllers/controller_admin.js';
 
 const route = express.Router();
 
-route.post('/create', (req, res) => {
-    console.log('create admin route')
-    res.status(200).send('admin created successfully');
+route.post('/signup', async (req, res) => {
+    try {
+        // const { userName, email, password } = req.body;
+        console.log(req.body);
+        await insertAdmin(req.body).then(() => {
+            res.status(201).send('Admin successfully')
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('rnternal server error')
+    }
 })
 
 

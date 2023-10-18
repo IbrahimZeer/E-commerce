@@ -1,9 +1,12 @@
 import express from 'express';
+import { insertProduct } from '../controllers/controller_product.js';
 
 const route = express.Router();
 
 route.post('/add_product', (req, res) => {
-    res.status(200).send('product adding successfully');
+    insertProduct(req.body).then(() => {
+        res.status(200).send('product created');
+    })
 })
 
 

@@ -31,20 +31,16 @@ const inssertRole = async (payload: ProductNS.Product) => {
 const insertPermission = async (payload: ProductNS.Product) => {
 
 }
-() => {
-    const products = Product.find()
-    return products
-}
 
-const getRoles = () => {
-    const roles = Role.find()
-    return roles
-}
+// const getRoles = () => {
+//     const roles = Role.find()
+//     return roles
+// }
 
-const getPermission = () => {
-    const permissions = Permission.find()
-    return permissions
-}
+// const getPermission = () => {
+//     const permissions = Permission.find()
+//     return permissions
+// }
 
 export {
     insertProduct,
@@ -52,7 +48,7 @@ export {
     deleteProduct,
     login,
     inssertRole,
-    insertPermission,
-    getRoles,
-    getPermission
+    insertPermission
+    // getRoles,
+    // getPermission
 }

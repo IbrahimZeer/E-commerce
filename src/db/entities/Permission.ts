@@ -1,16 +1,10 @@
-import { BaseEntity, Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Role } from "./Role.js";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('permissions')
 export class Permission extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
-    id: string;
+    id: number;
 
-    @Column({
-        unique: true
-    })
+    @Column({ unique: true })
     name: string;
-
-    @ManyToMany(() => Role, role => role.permissions)
-    roles: Role[];
 }

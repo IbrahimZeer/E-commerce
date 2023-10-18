@@ -17,16 +17,14 @@ dotenv.config()
 
 const app = express();
 
-dotenv.config();
-
 const PORT = 5000
 
 app.use(morgan('tiny'));
 app.use(express.json());
 
 // routes of application
-app.use('/', adminRouter);
-app.use('/', customerRouter);
+app.use('/admin', adminRouter);
+app.use('/users', customerRouter);
 app.use('/', routeOrder);
 app.use('/', routePayment);
 app.use('/', routeProduct);

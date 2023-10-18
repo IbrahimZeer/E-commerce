@@ -1,5 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { AdminNS } from '../../../@types/type_admin.js';
+import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import bcrypt from 'bcrypt';
 
 
 @Entity('admin')
@@ -11,11 +11,17 @@ export class Admin extends BaseEntity {
     userName: string;
 
     @Column()
-    displayName: string;
+    adminName: string;
 
     @Column()
     email: string;
 
+    @BeforeInsert()
+    async hashPassword() {
+        if (this.password) {
+            this.password = await bcrypt.hash(this.password, 10)
+        }
+    }
     @Column()
     password: string;
 

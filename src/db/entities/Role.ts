@@ -1,21 +1,29 @@
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    PrimaryGeneratedColumn,
+    OneToMany,
+    JoinTable,
+    ManyToMany
+}
+    from "typeorm";
+
 import { Permission } from "./Permission.js";
 import { Customer } from "./customers/Customer.js";
 
 @Entity('roles')
 export class Role extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
-    id: string;
+    id: number;
 
-    @Column({
-        type: 'enum',
-        enum: ['user', 'admin', 'editor'],
-        default: "user",
-        unique: true
-    })
-    name: 'user' | 'admin' | 'editor';
+    @Column({ unique: true })
+    name: string;
 
     @ManyToMany(() => Permission, { cascade: true, eager: true })
     @JoinTable()
     permissions: Permission[];
+
+    @OneToMany(() => Customer, customer => customer.role)
+    customers: Customer[];
 }
