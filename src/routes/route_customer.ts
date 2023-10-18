@@ -29,7 +29,7 @@ route.post("/login", (req, res) => {
       res.status(400).send(error)
     })
   } else {
-    res.status(404).send("email and password are required")
+    res.status(404).send("Email and Password are required")
   }
 })
 
