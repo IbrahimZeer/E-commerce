@@ -97,8 +97,8 @@ const login = async (email: string, password: string) => {
         if (customer && passwordMatching) {
             const token = jwt.sign({
                 email: customer.email,
-                userName: customer.fName,
-                password: customer.password
+                userName: customer.userName,
+                fName:customer.fName
             }, process.env.SECRET_KEY || "", {
                 expiresIn: "14d"
             })
