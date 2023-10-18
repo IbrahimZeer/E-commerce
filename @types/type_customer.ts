@@ -7,6 +7,7 @@ export namespace CustomerNS {
         userName: string,
         email: string
         password: string,
+        isAdmin: string,
         registrationDate: Date,
         updatedAt: Date,
         role: 'checkout' | 'review' | 'show product'

@@ -11,10 +11,53 @@ import jwt from "jsonwebtoken"
 
 
 
-const insertCustomer = async (payload: Customer) => {
-    return console.log(payload)
-}
+const insertCustomerController = async (payload: Customer) => {
 
+    return dataSource.manager.transaction(async transaction => {
+        // const role = await Role.findOneBy({ name: payload.type });
+        const newUser = Customer.create({
+            ...payload
+            // role: role as Role
+        });
+
+        await transaction.save(newUser);
+        // if (payload.type === 'employee') {
+        //     const employee = EmployeeProfile.create({
+        //         applications: [],
+        //         cvUrl: payload.cvUrl || ''
+        //     });
+        //     employee.user = newUser;
+        //     await transaction.save(employee);
+        // } else if (payload.type === 'employer') {
+        //     const company = new CompanyProfile();
+        //     company.user = newUser;
+        //     await transaction.save(company);
+        // }
+    });
+    // // const user = await Customer.findOneBy({ id: payload.id })
+    // const newCustomer = Customer.create({
+    //     fName: payload.fName,
+    //     lName: payload.lName,
+    //     email: payload.email,
+    //     password: payload.password
+    // })
+    // newCustomer.save()
+    // return {
+    //     newCustomer
+    //     // token
+    // }
+    // if (!user) {
+    // } else {
+    //     // throw new Error(`already have customer`)
+    // }
+    // const token = jwt.sign({
+    //     id: payload.id,
+    //     email: payload.email
+    //     // isAdmin: payload.isAdmin
+    // }, process.env.SECRET_KEY || "", {
+    //     expiresIn: "14d"
+    // })
+}
 
 
 const updateCustomer = async (payload: CustomerNS.Customer) => {
@@ -39,36 +82,36 @@ const deleteProduct = async (payload: CustomerNS.Customer) => {
 
 
 const login = async (email: string, password: string) => {
-    try {
-        const customer = await Customer.findOneBy({
-            email
-        });
+    // try {
+    //     const customer = await Customer.findOneBy({
+    //         email
+    //     });
 
-        if (!customer) {
-            return undefined
-        }
+    //     if (!customer) {
+    //         return undefined
+    //     }
 
-        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+    //     const passwordMatching = await bcrypt.compare(password, customer?.password || '')
 
-        if (customer && passwordMatching) {
-            const token = jwt.sign({
-                email: customer.email,
-                userName: customer.fName,
-                displayName: customer.displayName
-            }, process.env.SECRET_KEY || "", {
-                expiresIn: "14d"
-            })
+    //     if (customer && passwordMatching) {
+    //         const token = jwt.sign({
+    //             email: customer.email,
+    //             userName: customer.fName,
+    //             displayName: customer.displayName
+    //         }, process.env.SECRET_KEY || "", {
+    //             expiresIn: "14d"
+    //         })
 
-            return {
-                userName: customer.displayName,
-                token
-            }
-        } else {
-            throw ("invalid email or password")
-        }
-    } catch (error) {
-        throw ("invalid email or password")
-    }
+    //         return {
+    //             userName: customer.displayName,
+    //             token
+    //         }
+    //     } else {
+    //         throw ("invalid email or password")
+    //     }
+    // } catch (error) {
+    //     throw ("invalid email or password")
+    // }
 }
 
 
@@ -101,7 +144,7 @@ const getPermission = () => {
 }
 
 export {
-    insertCustomer,
+    insertCustomerController,
     updateCustomer,
     deleteCustomer,
     insertProduct,

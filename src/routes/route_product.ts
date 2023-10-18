@@ -1,27 +1,31 @@
 import express from 'express';
+import { insertProduct } from '../controllers/controller_product.js';
 
 const route = express.Router();
 
-route.post('/add_order', (req, res) => {
-    res.status(200).send('order adding successfully');
+route.post('/add_product', (req, res) => {
+    insertProduct(req.body).then(() => {
+        res.status(200).send('product created');
+    })
 })
 
 
-route.put('/update_order', (req, res) => {
-    console.log('update order route details')
-    res.status(200).send('order updated successfully');
+route.put('/update_product', (req, res) => {
+    console.log('update product route details')
+    res.status(200).send('product updated successfully');
 })
 
 
-route.delete('/delete_order', (req, res) => {
-    console.log('delete order route details')
-    res.status(200).send('order deleted successfully');
+route.delete('/delete_product', (req, res) => {
+    console.log('delete product route details')
+    res.status(200).send('product deleted successfully');
 });
 
 
-route.get('/all_order', (req, res) => {
-    console.log('list of orders')
-    res.status(200).send('list of orders returned successfully');
+route.get('/all_product', (req, res) => {
+    console.log('list of products')
+    res.status(200).send('list of products returned successfully');
 })
 
+// get product by id , other thinks
 export default route;

@@ -49,5 +49,9 @@ route.get('/all_review', (req, res) => {
   res.status(200).send('list of reviews returned successfully');
 })
 
+// get all reviews for a product
+// get reviews by customer
+// update review
+// delete review
 
 export default route;

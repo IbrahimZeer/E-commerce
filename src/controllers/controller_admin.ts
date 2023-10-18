@@ -7,8 +7,16 @@ import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
 
 
-const insertAdmin = async (payload: AdminNS.Admin) => {
-
+const insertAdmin = async (payload: Admin) => {
+    const newAdmin = Admin.create({
+        userName: payload.userName,
+        email: payload.email,
+        password: payload.password
+    }).save()
+    return {
+        newAdmin
+        // token
+    }
 }
 
 const updateAdmin = async (payload: AdminNS.Admin) => {
