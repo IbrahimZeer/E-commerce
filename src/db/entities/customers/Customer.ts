@@ -44,7 +44,7 @@ export class Customer extends BaseEntity {
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    UpdatedAt: string;
+    UpdatedAt: Date;
 
     @OneToOne(() => Profile)
     @JoinColumn()

@@ -18,22 +18,22 @@ export class Country extends BaseEntity {
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
     createdAt: Date;
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
     updatedAt: Date;
 
     @ManyToOne(() => Profile, profile => profile.country)
     profile: Partial<Profile>
-      
+
     @OneToMany(() => City, city => city.country)
     cities: City[]
     @ManyToOne(() => Customer, customer => customer.country)
     customer: Partial<Customer>
-      
+
 }

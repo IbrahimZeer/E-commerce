@@ -13,13 +13,13 @@ export class City extends BaseEntity {
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
     createdAt: Date;
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
     UpdatedAt: string;
 
