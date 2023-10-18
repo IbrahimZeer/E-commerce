@@ -5,11 +5,13 @@ const route = express.Router();
 
 route.post('/signup', async (req, res) => {
   try {
-    // const { userName, email, password } = req.body;
-    console.log(req.body);
-    await insertCustomerController(req.body).then(() => {
+    const { email, password, userName } = req.body;
+    if (!email || !password || !userName) {
+      return res.status(400).json({ error: "All fields are required." });
+    }
+    await insertCustomerController(req.body);
       res.status(201).send('Customer successfully')
-    })
+
   } catch (error) {
     console.log(error)
     res.status(500).send('rnternal server error')
