@@ -22,7 +22,7 @@ const insertOrder = async (payload: OrderNS.Order) => {
 
         return newOrder;
     } catch (error) {
-        
+
         throw new Error('Failed to insert order ');
     }
 };
@@ -46,7 +46,7 @@ const updateOrder = async (orderId: any, payload: OrderNS.Order) => {
         order.orderDate = payload.orderDate;
         await order.save();
 
-        return order; 
+        return order;
     } catch (error) {
         throw new Error('Failed to update order ');
     }
