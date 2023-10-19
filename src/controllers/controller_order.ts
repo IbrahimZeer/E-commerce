@@ -5,10 +5,11 @@ import { Order } from '../db/entities/orders/Order.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
-import { getManager } from 'typeorm';
 
 
 const insertOrder = async (payload: OrderNS.Order) => {
+    console.log(payload);
+
     try {
         const newOrder = new Order();
         newOrder.orderAddress = payload.orderAddress;
@@ -31,44 +32,28 @@ const insertOrder = async (payload: OrderNS.Order) => {
 
 
 const updateOrder = async (orderId: any, payload: OrderNS.Order) => {
+
+};
+
+const deleteOrder = async (payload: OrderNS.Order) => {
+
     try {
-        const order = await Order.findOne(orderId);
-
-        if (!order) {
-            throw new Error('Order not found');
+        const id = parseInt(payload.id, 10);
+        const order = await Order.findOneBy({ id })
+        if (order) {
+            order.remove()
         }
+        else {
 
-        order.orderAddress = payload.orderAddress;
-        order.productPrice = payload.productPrice;
-        order.deliveryCost = payload.deliveryCost;
-        order.discount = payload.discount;
-        order.totalPrice = payload.totalPrice;
-        order.orderDate = payload.orderDate;
-        await order.save();
+            throw ("Orderid not found")
 
-        return order;
+        }
     } catch (error) {
-        throw new Error('Failed to update order ');
+        throw ('An error occurred while deleting the order');
     }
 };
 
-const deleteOrder = async (orderId: string) => {
-    try {
-        const entityManager = getManager();
-        const orderToDelete = await entityManager.findOne(Order, { where: { id: orderId } });
-
-        if (!orderToDelete) {
-            throw new Error('Order not found');
-        }
-
-        await entityManager.remove(Order, orderToDelete);
-
-    } catch (error) {
-        throw new Error('Failed to delete order: ');
-    }
-};
-
-const insertProduct = async (payload: OrderNS.Order) => {
+const addProduct = async (payload: OrderNS.Order) => {
 
 }
 
@@ -76,7 +61,7 @@ const updateProduct = async (payload: OrderNS.Order) => {
 
 }
 
-const deleteProduct = async (payload: OrderNS.Order) => {
+const removeProduct = async (payload: OrderNS.Order) => {
 
 }
 
@@ -116,11 +101,11 @@ const getPermission = () => {
 
 export {
     insertOrder,
-    updateOrder,
+    // updateOrder,
     deleteOrder,
-    insertProduct,
+    addProduct,
     updateProduct,
-    deleteProduct,
+    removeProduct,
     login,
     inssertRole,
     insertPermission,

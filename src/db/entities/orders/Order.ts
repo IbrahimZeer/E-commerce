@@ -6,12 +6,9 @@ import { Payment } from "../payments/Payment.js";
 
 @Entity('order')
 export class Order extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
-
     @PrimaryGeneratedColumn('increment')
-    orderNo: number
-    
+    id: number
+
     @Column()
     orderAddress: string
 
