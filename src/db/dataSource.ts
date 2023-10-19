@@ -37,15 +37,15 @@ const dataSource = new DataSource({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     entities: [
-        Cart,
-        Review,
-        Admin,
-        Attachment,
-        Brand,
+        // Cart,
+        // Review,
+        // Admin,
+        // Attachment,
+        // Brand,
         Category,
-        Color,
+        // Color,
         Product,
-        Size,
+        // Size,
         City,
         Country,
         Customer,
@@ -54,14 +54,19 @@ const dataSource = new DataSource({
         Order,
         OrderDetails,
         OrderStatus,
-        Status,
+        // Status,
         PaymentData,
         PaymentMethod,
         Transaction,
         TransactionStatus,
         Cart,
+<<<<<<< HEAD
         Payment
         , Role
+=======
+        Payment,
+        // Role
+>>>>>>> cdec901d65952678ef6421c9f05f53af0609fcf3
     ],
     migrations: ['./**/migration/*.ts'],
     synchronize: true,

@@ -64,12 +64,6 @@ export class Customer extends BaseEntity {
     @OneToMany(() => Cart, cart => cart.customer)
     carts: Cart[]
 
-    @OneToMany(() => Order, order => order.customer)
-
     @OneToMany(() => Country, country => country.customer)
     country: Order[]
-
-    // @ManyToOne(() => Role, role => role.customers, { cascade: true, eager: true, nullable: true })
-    // @JoinColumn()
-    // role: Role;
 }

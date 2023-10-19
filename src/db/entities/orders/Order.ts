@@ -6,12 +6,9 @@ import { Payment } from "../payments/Payment.js";
 
 @Entity('order')
 export class Order extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
-
     @PrimaryGeneratedColumn('increment')
-    orderNo: number
-    
+    id: number
+
     @Column()
     orderAddress: string
 
@@ -40,7 +37,7 @@ export class Order extends BaseEntity {
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    UpdatedAt: Date;
+    orderUpdated: Date;
 
     @ManyToOne(() => Customer, customer => customer.orders)
     customer: Partial<Customer>

@@ -9,16 +9,16 @@ import {
 }
     from "typeorm";
 
-import { Permission } from "./Permission.js";
-import { Customer } from "./customers/Customer.js";
+// import { Permission } from "./Permission.js";
+// import { Customer } from "./customers/Customer.js";
 
-@Entity('roles')
+@Entity('role')
 export class Role extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({ unique: true })
-    name: string;
+    // @Column({ unique: true })
+    // name: string;
 
     // @ManyToMany(() => Permission, { cascade: true, eager: true })
     // @JoinTable()
