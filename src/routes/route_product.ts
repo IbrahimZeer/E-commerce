@@ -30,7 +30,6 @@ route.put('/update_product/:id', async (req, res) => {
     }
 });
 
-
 route.delete('/delete_product', (req, res) => {
     console.log('delete product route details')
     res.status(200).send('product deleted successfully');
