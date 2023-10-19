@@ -30,47 +30,42 @@ dotenv.config()
 
 console.log(process.env.DB_NAME)
 const dataSource = new DataSource({
-    type: "mysql",
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    username: process.env.DB_USER_NAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    entities: [
-        // Cart,
-        // Review,
-        // Admin,
-        // Attachment,
-        // Brand,
-        Category,
-        // Color,
-        Product,
-        // Size,
-        City,
-        Country,
-        Customer,
-        Phone,
-        Profile,
-        Order,
-        OrderDetails,
-        OrderStatus,
-        // Status,
-        PaymentData,
-        PaymentMethod,
-        Transaction,
-        TransactionStatus,
-        Cart,
-<<<<<<< HEAD
-        Payment
-        , Role
-=======
-        Payment,
-        // Role
->>>>>>> cdec901d65952678ef6421c9f05f53af0609fcf3
-    ],
-    migrations: ['./**/migration/*.ts'],
-    synchronize: true,
-    logging: false
+        type: "mysql",
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
+        username: process.env.DB_USER_NAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        entities: [
+                Cart,
+                Review,
+                Admin,
+                Attachment,
+                Brand,
+                Category,
+                Color,
+                Product,
+                Size,
+                City,
+                Country,
+                Customer,
+                Phone,
+                Profile,
+                Order,
+                OrderDetails,
+                OrderStatus,
+                Status,
+                PaymentData,
+                PaymentMethod,
+                Transaction,
+                TransactionStatus,
+                Cart,
+                Payment,
+                Role
+        ],
+        migrations: ['./**/migration/*.ts'],
+        synchronize: true,
+        logging: false
 });
 
 export default dataSource;
