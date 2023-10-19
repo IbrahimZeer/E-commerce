@@ -44,14 +44,14 @@ const login = async () => {
 }
 
 
-const inssertRole = async (payload: AdminNS.Role) => {
+// const inssertRole = async (payload: AdminNS.Role) => {
 
-}
+// }
 
 
-const insertPermission = async (payload: AdminNS.Permission) => {
+// const insertPermission = async (payload: AdminNS.Permission) => {
 
-}
+// }
 
 const getAdmins = () => {
     const admins = Admin.find()
@@ -81,8 +81,8 @@ export {
     updateProduct,
     deleteProduct,
     login,
-    inssertRole,
-    insertPermission,
+    // inssertRole,
+    // insertPermission,
     getAdmins,
     getProducts,
     getRoles,

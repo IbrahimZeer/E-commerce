@@ -1,6 +1,7 @@
 import express from 'express';
 import { insertProduct } from '../controllers/controller_product.js';
-import { updateProduct } from '../controllers/controller_admin.js';
+// import { updateProduct } from '../controllers/controller_admin.js';
+import { updateProduct } from '../controllers/controller_product.js';
 import { ProductNS } from '../../@types/type_product.js';
 
 const route = express.Router();
@@ -20,11 +21,10 @@ route.post('/add_product', async (req, res) => {
 route.put('/update_product/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
-
         // Assuming the request body contains the updated product data
-        const updatedProduct = await updateProduct(id, req.body);
+        const update = await updateProduct(id, req.body);
 
-        res.status(200).json(updatedProduct);
+        res.status(200).json(update);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update the product' });
     }
