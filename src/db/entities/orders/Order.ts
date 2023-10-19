@@ -37,7 +37,7 @@ export class Order extends BaseEntity {
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    UpdatedAt: Date;
+    orderUpdated: Date;
 
     @ManyToOne(() => Customer, customer => customer.orders)
     customer: Partial<Customer>

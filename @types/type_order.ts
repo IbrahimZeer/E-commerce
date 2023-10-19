@@ -2,9 +2,7 @@ export namespace OrderNS {
 
     export interface Order {
         id: string,
-        orderNo:number,
-        customerId: string,
-        paymentId: string,
+        orderNo: number,
         orderAddress: string,
         productPrice: number,
         deliveryCost: number,
@@ -12,24 +10,26 @@ export namespace OrderNS {
         totalPrice: number,
         orderDate: Date,
         orderUpdated: Date,
+        customer: any,
+        details: any[],
+        orderDetails: any[],
+        payments: any[]
     }
     export interface OrderDetails {
         id: string,
-        orderId: string,
-        productId: string,
         quantity: number,
         pricePerUnit: number,
         price: number,
         createdAt: Date,
-        updatedAt: Date
+        updatedAt: Date,
+        order: any,
+        product: any
     }
     export interface OrderStatus {
         id: string,
-        orderId: string,
         orderNote: string,
-        statusCode: string,
         createdAt: Date,
-        updatedAt: Date
+        updatedAt: Date,
     }
 
 

@@ -6,17 +6,7 @@ export namespace AdminNS {
         email: string
         password: string,
         createdAt: Date,
-        role: 'add' | 'update' | 'delete'
-    }
-
-    export interface Role {
-        id: number,
-        name: 'add' | 'update' | 'delete',
-        permission: number
-    }
-    export interface Permission {
-        id: number,
-        name: 'add_product' | 'update_product' | 'delete_product',
+        updatedAt: Date
     }
 
 }
