@@ -7,10 +7,10 @@ import { Payment } from "../payments/Payment.js";
 @Entity('order')
 export class Order extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: string
+    id: number
 
-    @PrimaryGeneratedColumn('increment')
-    orderNo: number
+    // @PrimaryGeneratedColumn('increment') // This sets 'orderNo' as an incrementing primary key.
+    // orderNo: number
     
     @Column()
     orderAddress: string

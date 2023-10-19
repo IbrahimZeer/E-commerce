@@ -5,10 +5,11 @@ import { Order } from '../db/entities/orders/Order.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
-import { getManager } from 'typeorm';
 
 
 const insertOrder = async (payload: OrderNS.Order) => {
+   console.log(payload);
+   
     try {
         const newOrder = new Order();
         newOrder.orderAddress = payload.orderAddress;
@@ -31,41 +32,42 @@ const insertOrder = async (payload: OrderNS.Order) => {
 
 
 const updateOrder = async (orderId: any, payload: OrderNS.Order) => {
-    try {
-        const order = await Order.findOne(orderId);
 
-        if (!order) {
-            throw new Error('Order not found');
-        }
+    // try {
+    //     const order = await Order.findOne(orderId);
 
-        order.orderAddress = payload.orderAddress;
-        order.productPrice = payload.productPrice;
-        order.deliveryCost = payload.deliveryCost;
-        order.discount = payload.discount;
-        order.totalPrice = payload.totalPrice;
-        order.orderDate = payload.orderDate;
-        await order.save();
+    //     if (!order) {
+    //         throw new Error('Order not found');
+    //     }
 
-        return order; 
-    } catch (error) {
-        throw new Error('Failed to update order ');
-    }
+    //     order.orderAddress = payload.orderAddress;
+    //     order.productPrice = payload.productPrice;
+    //     order.deliveryCost = payload.deliveryCost;
+    //     order.discount = payload.discount;
+    //     order.totalPrice = payload.totalPrice;
+    //     order.orderDate = payload.orderDate;
+    //     await order.save();
+
+    //     return order; 
+    // } catch (error) {
+    //     throw new Error('Failed to update order ');
+    // }
 };
 
 const deleteOrder = async (orderId: string) => {
-    try {
-        const entityManager = getManager();
-        const orderToDelete = await entityManager.findOne(Order, { where: { id: orderId } });
+    // try {
+    //     const entityManager = getManager();
+    //     const orderToDelete = await entityManager.findOne(Order,  { orderNo: orderId } );
 
-        if (!orderToDelete) {
-            throw new Error('Order not found');
-        }
+    //     if (!orderToDelete) {
+    //         throw new Error('Order not found');
+    //     }
 
-        await entityManager.remove(Order, orderToDelete);
+    //     await entityManager.remove(Order, orderToDelete);
 
-    } catch (error) {
-        throw new Error('Failed to delete order: ');
-    }
+    // } catch (error) {
+    //     throw new Error('Failed to delete order: ');
+    // }
 };
 
 const insertProduct = async (payload: OrderNS.Order) => {
@@ -116,7 +118,7 @@ const getPermission = () => {
 
 export {
     insertOrder,
-    updateOrder,
+    // updateOrder,
     deleteOrder,
     insertProduct,
     updateProduct,
