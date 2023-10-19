@@ -36,15 +36,23 @@ export class Customer extends BaseEntity {
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
     registrationDate: Date;
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
     UpdatedAt: Date;
+
+
+    // @Column({
+    //     type: 'enum',
+    //     enum: ['admin', 'customer'],
+    //     default: 'customer'
+    // })
+    // type: 'customer' | 'admin';
 
     @OneToOne(() => Profile)
     @JoinColumn()
@@ -53,9 +61,15 @@ export class Customer extends BaseEntity {
     @OneToMany(() => Order, order => order.customer)
     orders: Order[]
 
-    @OneToMany(() => Country, country => country.customer)
-    country: Country[]
-
     @OneToMany(() => Cart, cart => cart.customer)
     carts: Cart[]
+
+    @OneToMany(() => Order, order => order.customer)
+
+    @OneToMany(() => Country, country => country.customer)
+    country: Order[]
+
+    // @ManyToOne(() => Role, role => role.customers, { cascade: true, eager: true, nullable: true })
+    // @JoinColumn()
+    // role: Role;
 }

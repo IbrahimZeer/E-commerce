@@ -9,7 +9,6 @@ export class Color extends BaseEntity {
 
     @Column({ length: 255, nullable: false })
     colorName: string;
-
     @Column({ length: 255, nullable: false })
     colorSymbol: string;
 

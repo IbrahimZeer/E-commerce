@@ -12,7 +12,6 @@ export class Size extends BaseEntity {
 
     @Column({ length: 255, nullable: false })
     sizeSymblo: string;
-
     @Column({ length: 255, nullable: false })
     sizeDesc: string;
 

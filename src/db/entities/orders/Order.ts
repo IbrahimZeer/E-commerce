@@ -3,6 +3,7 @@ import { Customer } from "../customers/Customer.js";
 import { OrderDetails } from "./OrderDetails.js";
 import { Payment } from "../payments/Payment.js";
 
+
 @Entity('order')
 export class Order extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
@@ -50,5 +51,3 @@ export class Order extends BaseEntity {
     @OneToMany(() => Payment, payment => payment.order)
     payments: Payment[]
 }
-
-

@@ -5,19 +5,68 @@ import { Order } from '../db/entities/orders/Order.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
+import { getManager } from 'typeorm';
 
 
 const insertOrder = async (payload: OrderNS.Order) => {
+    try {
+        const newOrder = new Order();
+        newOrder.orderAddress = payload.orderAddress;
+        newOrder.productPrice = payload.productPrice;
+        newOrder.deliveryCost = payload.deliveryCost;
+        newOrder.discount = payload.discount;
+        newOrder.totalPrice = payload.totalPrice;
+        newOrder.orderDate = payload.orderDate;
 
-}
+        await newOrder.save();
 
-const updateOrder = async (payload: OrderNS.Order) => {
+        return newOrder;
+    } catch (error) {
+        
+        throw new Error('Failed to insert order ');
+    }
+};
 
-}
 
-const deleteOrder = async (payload: OrderNS.Order) => {
 
-}
+
+const updateOrder = async (orderId: any, payload: OrderNS.Order) => {
+    try {
+        const order = await Order.findOne(orderId);
+
+        if (!order) {
+            throw new Error('Order not found');
+        }
+
+        order.orderAddress = payload.orderAddress;
+        order.productPrice = payload.productPrice;
+        order.deliveryCost = payload.deliveryCost;
+        order.discount = payload.discount;
+        order.totalPrice = payload.totalPrice;
+        order.orderDate = payload.orderDate;
+        await order.save();
+
+        return order; 
+    } catch (error) {
+        throw new Error('Failed to update order ');
+    }
+};
+
+const deleteOrder = async (orderId: string) => {
+    try {
+        const entityManager = getManager();
+        const orderToDelete = await entityManager.findOne(Order, { where: { id: orderId } });
+
+        if (!orderToDelete) {
+            throw new Error('Order not found');
+        }
+
+        await entityManager.remove(Order, orderToDelete);
+
+    } catch (error) {
+        throw new Error('Failed to delete order: ');
+    }
+};
 
 const insertProduct = async (payload: OrderNS.Order) => {
 

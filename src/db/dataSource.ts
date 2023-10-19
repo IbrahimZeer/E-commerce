@@ -28,7 +28,7 @@ import { Payment } from "./entities/payments/Payment.js";
 
 dotenv.config()
 
-
+console.log(process.env.DB_NAME)
 const dataSource = new DataSource({
     type: "mysql",
     host: process.env.DB_HOST,
@@ -61,6 +61,7 @@ const dataSource = new DataSource({
         TransactionStatus,
         Cart,
         Payment
+        ,Role
     ],
     migrations: ['./**/migration/*.ts'],
     synchronize: true,
