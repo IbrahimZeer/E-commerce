@@ -9,6 +9,9 @@ export class Order extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
+    @PrimaryGeneratedColumn('increment')
+    orderNo: number
+    
     @Column()
     orderAddress: string
 
