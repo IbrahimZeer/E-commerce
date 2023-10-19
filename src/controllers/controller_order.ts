@@ -53,7 +53,7 @@ const deleteOrder = async (payload: OrderNS.Order) => {
     }
 };
 
-const insertProduct = async (payload: OrderNS.Order) => {
+const addProduct = async (payload: OrderNS.Order) => {
 
 }
 
@@ -61,7 +61,7 @@ const updateProduct = async (payload: OrderNS.Order) => {
 
 }
 
-const deleteProduct = async (payload: OrderNS.Order) => {
+const removeProduct = async (payload: OrderNS.Order) => {
 
 }
 
@@ -103,9 +103,9 @@ export {
     insertOrder,
     // updateOrder,
     deleteOrder,
-    insertProduct,
+    addProduct,
     updateProduct,
-    deleteProduct,
+   removeProduct,
     login,
     inssertRole,
     insertPermission,

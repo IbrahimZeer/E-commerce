@@ -32,15 +32,7 @@ const insertPermission = async (payload: ProductNS.Product) => {
 
 }
 
-// const getRoles = () => {
-//     const roles = Role.find()
-//     return roles
-// }
 
-// const getPermission = () => {
-//     const permissions = Permission.find()
-//     return permissions
-// }
 
 export {
     insertProduct,
@@ -49,6 +41,5 @@ export {
     login,
     inssertRole,
     insertPermission
-    // getRoles,
-    // getPermission
+   
 }
