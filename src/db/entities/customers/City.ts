@@ -1,6 +1,7 @@
-import { ManyToOne } from "typeorm";
+import { ManyToOne ,OneToMany} from "typeorm";
 import { Country } from "./Country.js";
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Address } from "./Address.js";
 
 
 @Entity('city')
@@ -31,4 +32,7 @@ export class City extends BaseEntity {
 
     @ManyToOne(() => Country, country => country.cities)
     country: Partial<Country>
+
+    @OneToMany(() => Address, address => address.city)
+    addresses: Address[]
 }
