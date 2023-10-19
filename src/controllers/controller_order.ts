@@ -6,10 +6,8 @@ import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
 
-
 const insertOrder = async (payload: OrderNS.Order) => {
     console.log(payload);
-
     try {
         const newOrder = new Order();
         newOrder.orderAddress = payload.orderAddress;
@@ -30,9 +28,24 @@ const insertOrder = async (payload: OrderNS.Order) => {
 
 
 
-
-const updateOrder = async (orderId: any, payload: OrderNS.Order) => {
-
+const updateOrder = async (id: number, data: OrderNS.Order) => {
+    try {
+        const order = await Order.findOne({ where: { id } });
+        if (order) {
+            order.orderAddress = data.orderAddress;
+            order.productPrice = data.productPrice;
+            order.deliveryCost = data.deliveryCost;
+            order.discount = data.discount;
+            order.totalPrice = data.totalPrice;
+            order.orderDate = data.orderDate;
+            await order.save();
+            return order;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        throw new Error('Failed to update the order');
+    }
 };
 
 const deleteOrder = async (payload: OrderNS.Order) => {
@@ -44,15 +57,12 @@ const deleteOrder = async (payload: OrderNS.Order) => {
             order.remove()
         }
         else {
-
             throw ("Orderid not found")
-
         }
     } catch (error) {
         throw ('An error occurred while deleting the order');
     }
 };
-
 const addProduct = async (payload: OrderNS.Order) => {
 
 }
@@ -101,7 +111,7 @@ const getPermission = () => {
 
 export {
     insertOrder,
-    // updateOrder,
+    updateOrder,
     deleteOrder,
     addProduct,
     updateProduct,

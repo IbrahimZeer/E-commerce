@@ -7,12 +7,11 @@ import { ManyToOne } from "typeorm";
 import { Brand } from "./Brand.js";
 import { OrderDetails } from "../orders/OrderDetails.js";
 import { Cart } from "../Cart.js";
-
-@Entity('product')
+@Entity('products')
 export class Product extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-
+    @PrimaryGeneratedColumn('increment')
+    id: number;
+    
     @Column()
     productNo: number;
 
@@ -20,7 +19,7 @@ export class Product extends BaseEntity {
     productName: string;
 
     @Column()
-    discription: string;
+    description: string; // Corrected property name
 
     @Column()
     quantity: number;
@@ -29,19 +28,20 @@ export class Product extends BaseEntity {
     price: number;
 
     @Column()
-    isSoled_Active: boolean;
+    isSold_Active: boolean; // Corrected property name
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => 'CURRENT_TIMESTAMP()'
     })
     createdAt: Date;
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => 'CURRENT_TIMESTAMP()'
     })
-    UpdatedAt: string;
+    UpdatedAt: Date; // Corrected property name
+
 
     @ManyToOne(() => Category, category => category.products)
     category: Partial<Category>
