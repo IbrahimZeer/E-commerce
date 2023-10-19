@@ -1,9 +1,8 @@
 import express from 'express';
-import { deleteOrder, getOrders, insertOrder } from '../controllers/controller_order.js';
+import { deleteOrder, getOrders, insertOrder, updateOrder } from '../controllers/controller_order.js';
 import { OrderNS } from '../../@types/type_order.js';
 import { Order } from '../db/entities/orders/Order.js';
 import { authenticate } from '../middleware/authentication.js';
-import { getManager } from 'typeorm';
 
 const route = express.Router();
 
@@ -22,25 +21,15 @@ route.post('/create_order', async (req, res) => {
 route.put('/update_order/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
-        const order = await Order.findOneBy({ id })
+        const order = await updateOrder(id, req.body); 
         if (order) {
-            order.orderAddress = req.body.orderAddress;
-            order.productPrice = req.body.productPrice;
-            order.deliveryCost = req.body.deliveryCost;
-            order.discount = req.body.discount;
-            order.totalPrice = req.body.totalPrice;
-            order.orderDate = req.body.orderDate;
-            console.log(order);
-            await order.save();
             res.status(201).send('Order Updated');
-
         } else {
             res.status(404).send('Order not found!');
         }
     } catch (error) {
         res.status(500).json({ error: 'Failed to update the order' });
     }
-
 });
 
 route.delete('/delete_order/:id', async (req, res) => {

@@ -8,8 +8,6 @@ import { Payment } from "../payments/Payment.js";
 export class Order extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number
-
-   
     
     @Column()
     orderAddress: string

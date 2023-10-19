@@ -27,7 +27,7 @@ app.use('/admin', adminRouter);
 app.use('/users', customerRouter);
 app.use('/orders', routeOrder);
 app.use('/', routePayment);
-app.use('/', routeProduct);
+app.use('/Products', routeProduct);
 app.use('/', routeReview);
 
 

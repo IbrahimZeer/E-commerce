@@ -2,7 +2,6 @@ export namespace OrderNS {
 
     export interface Order {
         id: string,
-        orderNo:number,
         customerId: string,
         paymentId: string,
         orderAddress: string,
