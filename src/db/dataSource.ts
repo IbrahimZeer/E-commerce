@@ -64,7 +64,7 @@ const dataSource = new DataSource({
         ,Role
     ],
     migrations: ['./**/migration/*.ts'],
-    synchronize: false,
+    synchronize: true,
     logging: false
 });
 

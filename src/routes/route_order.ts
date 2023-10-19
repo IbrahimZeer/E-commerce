@@ -19,19 +19,18 @@ route.post('/create_order', async (req, res) => {
     }
 })
 
-
-route.put('/update_order:id', async (req, res) => {
+route.put('/update_order/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
         const order = await Order.findOneBy({ id })
         if (order) {
-
-            order.orderAddress = order.orderAddress;
-            order.productPrice = order.productPrice;
-            order.deliveryCost = order.deliveryCost;
-            order.discount = order.discount;
-            order.totalPrice = order.totalPrice;
-            order.orderDate = order.orderDate;
+            order.orderAddress = req.body.orderAddress;
+            order.productPrice = req.body.productPrice;
+            order.deliveryCost = req.body.deliveryCost;
+            order.discount = req.body.discount;
+            order.totalPrice = req.body.totalPrice;
+            order.orderDate = req.body.orderDate;
+            console.log(order);
             await order.save();
             res.status(201).send('Order Updated');
 
@@ -41,34 +40,17 @@ route.put('/update_order:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Failed to update the order' });
     }
-    // const id = req.params.id;
-    // const task = await Todo.findOneBy({ id });
-    // if (task) {
-    //   // task.title = req.body.title;
-    //   // task.description = req.body.description;
-    //   task.status = 'done';
-    //   task.save();
-    //   res.send('Task Updated');
-    // } else {
-    //   res.status(404).send('Task not found!');
-    // }
-
 
 });
 
+route.delete('/delete_order/:id', async (req, res) => {
+   
+    deleteOrder(req.body)
+
+    res.status(200).send('Order deleted successfully');
 
 
-route.delete('/delete_order/:orderId', async (req, res) => {
-    try {
-        const orderId = req.params.orderId;
-        await deleteOrder(orderId);
-
-        res.status(200).send('Order deleted successfully');
-    } catch (error) {
-        res.status(500).send('An error occurred while deleting the order');
-    }
 });
-
 
 route.get('/all_order', (req, res, next) => {
     getOrders().then(data => {
