@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteOrder, getOrders, insertOrder, updateOrder } from '../controllers/controller_order.js';
+import { deleteOrder, getOrders, insertOrder } from '../controllers/controller_order.js';
 import { OrderNS } from '../../@types/type_order.js';
 import { Order } from '../db/entities/orders/Order.js';
 import { authenticate } from '../middleware/authentication.js';
@@ -20,15 +20,40 @@ route.post('/create_order', async (req, res) => {
 })
 
 
-route.put('/update_order:orderId', async (req, res) => {
+route.put('/update_order:id', async (req, res) => {
     try {
-        const orderId: string = req.params.orderId;
-        const payload: OrderNS.Order = req.body;
-        const updatedOrder = await updateOrder(orderId, payload);
-        res.status(200).json(updatedOrder);
+        const id = parseInt(req.params.id, 10);
+        const order = await Order.findOneBy({ id })
+        if (order) {
+
+            order.orderAddress = order.orderAddress;
+            order.productPrice = order.productPrice;
+            order.deliveryCost = order.deliveryCost;
+            order.discount = order.discount;
+            order.totalPrice = order.totalPrice;
+            order.orderDate = order.orderDate;
+            await order.save();
+            res.status(201).send('Order Updated');
+
+        } else {
+            res.status(404).send('Order not found!');
+        }
     } catch (error) {
         res.status(500).json({ error: 'Failed to update the order' });
     }
+    // const id = req.params.id;
+    // const task = await Todo.findOneBy({ id });
+    // if (task) {
+    //   // task.title = req.body.title;
+    //   // task.description = req.body.description;
+    //   task.status = 'done';
+    //   task.save();
+    //   res.send('Task Updated');
+    // } else {
+    //   res.status(404).send('Task not found!');
+    // }
+
+
 });
 
 
