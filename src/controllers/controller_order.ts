@@ -105,7 +105,7 @@ export {
     deleteOrder,
     addProduct,
     updateProduct,
-   removeProduct,
+    removeProduct,
     login,
     inssertRole,
     insertPermission,

@@ -11,9 +11,6 @@ export class Admin extends BaseEntity {
     userName: string;
 
     @Column()
-    adminName: string;
-
-    @Column()
     email: string;
 
     @BeforeInsert()
@@ -29,7 +26,7 @@ export class Admin extends BaseEntity {
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    revDate: Date;
+    createdAt: Date;
 
     @CreateDateColumn({
         type: 'timestamp',

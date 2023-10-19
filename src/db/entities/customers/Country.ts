@@ -18,13 +18,13 @@ export class Country extends BaseEntity {
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
     createdAt: Date;
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
     updatedAt: Date;
 
@@ -36,5 +36,5 @@ export class Country extends BaseEntity {
 
     @ManyToOne(() => Customer, customer => customer.country)
     customer: Partial<Customer>
-      
+
 }

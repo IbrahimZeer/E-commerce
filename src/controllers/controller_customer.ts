@@ -22,19 +22,19 @@ const insertCustomerController = async (payload: Customer) => {
 
         await transaction.save(newUser);
     });
-        // if (payload.type === 'employee') {
-        //     const employee = EmployeeProfile.create({
-        //         applications: [],
-        //         cvUrl: payload.cvUrl || ''
-        //     });
-        //     employee.user = newUser;
-        //     await transaction.save(employee);
-        // } else if (payload.type === 'employer') {
-        //     const company = new CompanyProfile();
-        //     company.user = newUser;
-        //     await transaction.save(company);
-        // }
-   
+    // if (payload.type === 'employee') {
+    //     const employee = EmployeeProfile.create({
+    //         applications: [],
+    //         cvUrl: payload.cvUrl || ''
+    //     });
+    //     employee.user = newUser;
+    //     await transaction.save(employee);
+    // } else if (payload.type === 'employer') {
+    //     const company = new CompanyProfile();
+    //     company.user = newUser;
+    //     await transaction.save(company);
+    // }
+
     // // const user = await Customer.findOneBy({ id: payload.id })
     // const newCustomer = Customer.create({
     //     fName: payload.fName,
@@ -99,7 +99,7 @@ const login = async (email: string, password: string) => {
             const token = jwt.sign({
                 email: customer.email,
                 userName: customer.userName,
-                fName:customer.fName
+                fName: customer.fName
             }, process.env.SECRET_KEY || "", {
                 expiresIn: "14d"
             })
