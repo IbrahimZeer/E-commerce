@@ -34,10 +34,9 @@ route.post("/login", (req, res) => {
 })
 
 
-
+//create update on customer details
 route.put('/update_customer', (req, res) => {
-  console.log('update customer route details')
-  res.status(200).send('customer updated successfully');
+  
 })
 
 

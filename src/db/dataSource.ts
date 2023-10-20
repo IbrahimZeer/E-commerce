@@ -66,7 +66,7 @@ const dataSource = new DataSource({
                 Address
         ],
         migrations: ['./**/migration/*.ts'],
-        synchronize: true,
+        synchronize: false,
         logging: false
 });
 

@@ -75,5 +75,5 @@ export {
     login,
     inssertRole,
     insertPermission
-   
+
 }

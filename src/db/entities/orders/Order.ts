@@ -8,7 +8,7 @@ import { Payment } from "../payments/Payment.js";
 export class Order extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number
-    
+
     @Column()
     orderAddress: string
 
@@ -41,9 +41,6 @@ export class Order extends BaseEntity {
 
     @ManyToOne(() => Customer, customer => customer.orders)
     customer: Partial<Customer>
-
-    @OneToMany(() => OrderDetails, orderDetails => orderDetails.order)
-    details: OrderDetails[]
 
     @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.order)
     orderDetails: OrderDetails[]

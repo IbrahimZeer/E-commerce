@@ -1,9 +1,10 @@
 import express from 'express';
+import { addCategoryController } from '../controllers/controller_categories';
 
 const route = express.Router();
 
 route.post('/add_categorie', (req, res) => {
-    res.status(200).send('categorie adding successfully');
+    addCategoryController
 })
 
 

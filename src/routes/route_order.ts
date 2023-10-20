@@ -21,7 +21,7 @@ route.post('/create_order', async (req, res) => {
 route.put('/update_order/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
-        const order = await updateOrder(id, req.body); 
+        const order = await updateOrder(id, req.body);
         if (order) {
             res.status(201).send('Order Updated');
         } else {
@@ -34,7 +34,6 @@ route.put('/update_order/:id', async (req, res) => {
 
 route.delete('/delete_order/:id', async (req, res) => {
     deleteOrder(req.body)
-
     res.status(200).send('Order deleted successfully');
 
 
