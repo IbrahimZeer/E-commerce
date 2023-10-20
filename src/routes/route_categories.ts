@@ -1,6 +1,11 @@
 import express from 'express';
-import { insertCategory, updateCategory } from '../controllers/controller_category.js';
+import { delete_categorie, insertCategory, updateCategory } from '../controllers/controller_category.js';
+import { Category } from '../db/entities/Products/Category.js';
+import e from 'express';
 const route = express.Router();
+
+
+
 route.post('/add_categorie', async (req, res) => {
     try {
         const newCategory = await insertCategory(req.body);
@@ -24,9 +29,18 @@ route.put('/update_categorie/:id', async (req, res) => {
 
 
 
-route.delete('/delete_categorie', (req, res) => {
-    console.log('delete categorie route details')
-    res.status(200).send('categorie deleted successfully');
+route.delete('/delete_categorie/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    Category.findOneBy({ id: id })
+    if (id) {
+        delete_categorie(id, req.body).then(() => {
+            res.status(200).send('Category deleted successfully');
+        }).catch(error => {
+            res.status(401).send('category not found')
+        })
+    } else {
+        res.status(404).send('something went wrong');
+    }
 });
 
 

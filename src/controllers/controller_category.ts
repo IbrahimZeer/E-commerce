@@ -39,8 +39,18 @@ const updateCategory = async (id: number, payload: CategoryNs.Category) => {
 };
 
 
-const delete_categorie = async (payload: CategoryNs.Category) => {
-
+const delete_categorie = async (id: number, payload: CategoryNs.Category) => {
+    try {
+        // Find the product based on the provided ID and delete it
+        const category = await Category.findOneBy({ id });
+        if (!category) {
+            return; // Product not found
+        }
+        await category.remove();
+        return category;
+    } catch (error) {
+        throw new Error(`Failed to delete the product`);
+    }
 }
 export {
     insertCategory,
