@@ -120,7 +120,6 @@ export {
     inssertRole,
     insertPermission,
     getOrders,
-    getProducts,
     getRoles,
     getPermission
 }

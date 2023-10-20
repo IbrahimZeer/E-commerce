@@ -3,6 +3,8 @@ import { insertProduct } from '../controllers/controller_product.js';
 // import { updateProduct } from '../controllers/controller_admin.js';
 import { updateProduct } from '../controllers/controller_product.js';
 import { ProductNS } from '../../@types/type_product.js';
+import { getProducts } from '../controllers/controller_product.js';
+import { deleteProduct } from '../controllers/controller_product.js';
 
 const route = express.Router();
 
@@ -30,16 +32,28 @@ route.put('/update_product/:id', async (req, res) => {
     }
 });
 
-route.delete('/delete_product', (req, res) => {
-    console.log('delete product route details')
-    res.status(200).send('product deleted successfully');
+route.delete('/delete_product/:id', async (req, res) => {
+    try {
+        const id = parseInt(req.params.id, 10);
+        const update = await updateProduct(id, req.body);
+
+        if (!update) {
+            res.status(404).send('Product not found');
+        } else {
+            res.status(200).send('Product deleted successfully');
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete the product' });
+    }
 });
+route.get('/all_product', (req, res, next) => {
+    getProducts().then(data => {
+        res.status(200).send(data)
+    }).catch(error => {
+        res.status(404).send(error)
+    })
 
-
-route.get('/all_product', (req, res) => {
-    console.log('list of products')
-    res.status(200).send('list of products returned successfully');
 })
 
-// get product by id , other thinks
+
 export default route;
