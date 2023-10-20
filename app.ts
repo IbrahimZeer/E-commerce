@@ -11,6 +11,7 @@ import routeOrder from './src/routes/route_order.js'
 import routePayment from './src/routes/route_payment.js'
 import routeProduct from './src/routes/route_product.js'
 import routeReview from './src/routes/route_review.js'
+import routeCategory from './src/routes/route_categories.js'
 
 
 dotenv.config()
@@ -27,8 +28,9 @@ app.use('/admin', adminRouter);
 app.use('/users', customerRouter);
 app.use('/orders', routeOrder);
 app.use('/', routePayment);
-app.use('/', routeProduct);
+app.use('/Products', routeProduct);
 app.use('/', routeReview);
+app.use('/category', routeCategory);
 
 
 app.use((req, res, next) => {

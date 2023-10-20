@@ -5,8 +5,6 @@ import { Product } from '../db/entities/Products/Product.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { OrderNS } from '../../@types/type_order.js';
-
-
 const insertProduct = async (payload: ProductNS.Product) => {
     try {
         const newProduct = new Product();
@@ -18,7 +16,6 @@ const insertProduct = async (payload: ProductNS.Product) => {
         newProduct.isSold_Active = payload.isSold_Active;
 
         await newProduct.save();
-
         return newProduct;
     } catch (error) {
         throw new Error('Failed to insert the product');
@@ -48,9 +45,20 @@ const updateProduct = async (id: number, payload: ProductNS.Product) => {
     }
 };
 
-const deleteProduct = async (payload: ProductNS.Product) => {
+const deleteProduct = async (id: number) => {
+    try {
+        // Find the product based on the provided ID and delete it
+        const product = await Product.findOne({ where: { id } });
+        if (!product) {
+            return null; // Product not found
+        }
+        await product.remove();
+        return product;
+    } catch (error) {
+        throw new Error(`Failed to delete the product`);
+    }
+};
 
-}
 
 const login = async () => {
 
@@ -66,6 +74,10 @@ const insertPermission = async (payload: ProductNS.Product) => {
 
 }
 
+const getProducts = () => {
+    const Products = Product.find()
+    return Products
+}
 
 
 export {
@@ -74,6 +86,7 @@ export {
     deleteProduct,
     login,
     inssertRole,
-    insertPermission
+    insertPermission,
+    getProducts
 
 }
