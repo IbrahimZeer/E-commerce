@@ -1,6 +1,7 @@
 import express from 'express';
-import { deleteCategoryController, getCategoriesController, updateCategoryController, insertCategoryController } from '../controllers/controller_category.js';
+import { deleteCategoryController, getCategoriesController, updateCategoryController, insertCategoryController, getCategoryByIdController, getCategoryProductsController } from '../controllers/controller_category.js';
 import { Category } from '../db/entities/Products/Category.js';
+import { OneToOne, Relation, } from 'typeorm';
 const route = express.Router();
 
 
@@ -55,7 +56,7 @@ route.get('/categorie/:id', (req, res) => {
     const id = parseInt(req.params.id);
     Category.findOneBy({ id: id })
     if (id) {
-        getCategoriesController().then((categories) => {
+        getCategoryByIdController(id, req.body).then((categories) => {
             res.status(200).json(categories);
         }).catch(error => {
             res.status(500).json({ error: 'Failed to fetch categories' });
@@ -65,6 +66,30 @@ route.get('/categorie/:id', (req, res) => {
     }
 })
 
+route.post('/add_product_in_categorie/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    Category.findOneBy({ id: id })
+    if (id) {
+        Category.findOneBy({ id: id }).then((categories) => {
+            if (categories) {
+                categories.products.push(req.body);
+                categories.save();
+                res.status(200).json(categories);
+            } else {
+                res.status(404).send('Category not found');
+            }
+        }).catch(error => {
+            res.status(500).json({ error: 'Failed to fetch categories' });
+        })
+    } else {
+        res.status(404).send('Something went wrong');
+    }
+})
+
+route.get('/all_product_in_category/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    getCategoryProductsController(id, req.body)
+}); // get all product in categorie
 
 // get categorie by id , other thinks
 export default route;
