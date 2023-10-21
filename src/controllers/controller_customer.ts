@@ -139,32 +139,43 @@ const login = async (email: string, password: string) => {
     }
 }
 
-const profile = async (payload: CustomerNS.Customer) => {
-    const relate = await dataSource.createQueryBuilder().relation(Customer, "profile").of(payload).loadOne()
-    const profile = await Profile.findOneBy({ id: payload.id })
-    if (!profile) {
-        if (relate) {
-            const newProfile = Profile.create({
-                ...payload.profile,
-                customer: payload,
-            })
-            await newProfile.save()
-            return newProfile
-        } else {
-            throw new Error('there are something wrong')
-        }
-    } else {
-        if (relate) {
-            const newProfile = Profile.create({
-                ...payload.profile,
-                customer: payload,
-                profile: profile as Profile
-            })
-            await newProfile.save()
-            return newProfile
-        } else {
-            throw new Error('there are something wrong')
-        }
+const profile = async (payload: CustomerNS.Profile) => {
+    // const relate = await dataSource.createQueryBuilder().relation(Customer, "profile").of(payload).loadOne()
+    // const profile = await Profile.findOneBy({ id: payload.id })
+    // if (!profile) {
+    //     if (relate) {
+    //         const newProfile = Profile.create({
+    //             ...payload.profile,
+    //             customer: payload,
+    //         })
+    //         await newProfile.save()
+    //         return newProfile
+    //     } else {
+    //         throw new Error('there are something wrong')
+    //     }
+    // } else {
+    //     if (relate) {
+    //         const newProfile = Profile.create({
+    //             ...payload.profile,
+    //             customer: payload,
+    //             profile: profile as Profile
+    //         })
+    //         await newProfile.save()
+    //         return newProfile
+    //     } else {
+    //         throw new Error('there are something wrong')
+    //     }
+    // }
+
+    try {
+        const profile = Profile.create({
+            ...payload
+        });
+        await profile.save();
+        return profile;
+    } catch (error) {
+        console.log(error);
+        throw ("Something went wrong");
     }
 }
 
