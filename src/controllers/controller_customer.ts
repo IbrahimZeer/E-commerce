@@ -30,29 +30,6 @@ const insertUser = (payload: CustomerNS.Customer) => {
                 expiresIn: "1d"
             })
             await transaction.save(newCustomer);
-        } else {
-            throw ("invalid email or password")
-        }
-    });
-}
-
-const insertCustomerController = async (payload: Customer) => {
-    try {
-        const newCustomer = Customer.create({ ...payload })
-        const { email, password } = payload;
-
-        const customer = await Customer.findOneBy({ email });
-        if (!customer) { return undefined }
-        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
-        if (customer && passwordMatching) {
-            const token = jwt.sign({
-                email: customer.email,
-                userName: customer.userName,
-                fName: customer.fName
-            }, process.env.SECRET_KEY || "", {
-                expiresIn: "1d"
-            })
-            await newCustomer.save()
             return {
                 newCustomer,
                 token
@@ -60,7 +37,18 @@ const insertCustomerController = async (payload: Customer) => {
         } else {
             throw ("invalid email or password")
         }
+    });
+}
+
+const insertCustomerController = async (payload: Customer) => {
+    console.log(payload + 'from controller')
+    try {
+        const newCustomer = Customer.create({ ...payload })
+        await newCustomer.save()
+        console.log(payload)
+        return newCustomer
     } catch (error) {
+        console.log(payload + 'from controller catch')
         throw new Error('there are something wrong')
     }
 };

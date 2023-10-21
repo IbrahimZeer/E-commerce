@@ -6,6 +6,5 @@ export namespace CategoryNs {
         catDes: string,
         createdAt: Date,
         UpdatedAt: Date,
-       
     }
 }

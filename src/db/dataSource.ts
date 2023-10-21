@@ -63,10 +63,12 @@ const dataSource = new DataSource({
                 Cart,
                 Payment,
                 Role,
-                Address
+                Address,
+                Permission
         ],
         migrations: ['./**/migration/*.ts'],
         synchronize: true,
+        // dropSchema: true,
         logging: false
 });
 

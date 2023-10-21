@@ -1,9 +1,13 @@
 export namespace CartNs {
 
+    export enum Type {
+        inOrder = 'inOrder',
+        outOrder = 'outOrder',
+    }
     export interface Cart {
         id: string,
         quantity: number,
-        isPuecashed: boolean,
+        inOrder: Type,
         createdAt: Date,
         UpdatedAt: Date,
         details: any[],

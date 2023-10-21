@@ -54,9 +54,9 @@ export class Customer extends BaseEntity {
     })
     type: 'customer' | 'admin';
 
-    @ManyToOne(() => Role, role => role.customers)
-    @JoinColumn()
-    role: Role;
+    // @ManyToOne(() => Role, role => role.customers)
+    // @JoinColumn()
+    // role: Role;
 
     @OneToOne(() => Profile)
     @JoinColumn()

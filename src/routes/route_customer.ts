@@ -9,20 +9,23 @@ import { ExpressNS } from '../../@types/index.js';
 const route = express.Router();
 
 route.post('/signup', async (req, res) => {
+  const { email, password, userName, fName, lName } = req.body;
   try {
-    const { email, password, userName, fName, lName } = req.body;
-    if (!email || !password || !userName || fName || lName) {
+    if (!email || !password || !userName || !fName || !lName) {
       return res.status(400).send({ error: "All fields are required." });
     }
-    const existingCustomer = await Customer.findOne({ where: { email: req.body.email } });
-    if (existingCustomer) {
-      return res.status(400).send({ error: "Customer already exists." });
+    const existingCustomerbyEmail = await Customer.findOne({ where: { email: req.body.email } });
+    const existingCustomerbyUserName = await Customer.findOne({ where: { userName: req.body.userName } });
+    if (existingCustomerbyEmail && existingCustomerbyUserName) {
+      return res.status(400).send({ error: "Customer already exists. , change your Email or userName" });
     }
+
+    console.log(email, password, userName, fName, lName + 'from try route')
     await insertCustomerController(req.body);
     res.status(201).send('Customer successfully')
 
   } catch (error) {
-    console.log(error)
+    console.log(email, password, userName, fName, lName + 'from catch route')
     res.status(500).send('Internal server error')
   }
 })
@@ -61,11 +64,11 @@ route.post("/login", async (req, res) => {
   }
 })
 
-// route.post('/profile', authenticate, async (req, res) => {
-//   profile(req.body).then(data => {
-//     res.status(200).send(data)
-//   })
-// })
+route.post('/profile', async (req, res) => {
+  profile(req.body).then(data => {
+    res.status(200).send(data)
+  })
+})
 
 //create update on customer details
 // route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {

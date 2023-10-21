@@ -11,11 +11,15 @@ export class Cart extends BaseEntity {
     @Column()
     quantity: number;
 
-    @Column()
-    isPuecashed: boolean;
+    @Column({
+        type: 'enum',
+        enum: ['inOrder', 'outOrder'],
+        default: 'inOrder'
+    })
+    inOrder: 'inOrder' | 'outOrder';
 
     @CreateDateColumn({
-        
+
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })

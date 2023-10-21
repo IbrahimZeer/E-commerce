@@ -3,6 +3,7 @@ import { deleteOrder, getOrders, insertOrder, updateOrder } from '../controllers
 import { OrderNS } from '../../@types/type_order.js';
 import { Order } from '../db/entities/orders/Order.js';
 import { authenticate } from '../middleware/authentication.js';
+import { Customer } from '../db/entities/customers/Customer.js';
 
 const route = express.Router();
 
