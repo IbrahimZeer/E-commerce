@@ -5,11 +5,11 @@ import { updateProduct } from '../controllers/controller_product.js';
 import { ProductNS } from '../../@types/type_product.js';
 import { getProducts } from '../controllers/controller_product.js';
 import { deleteProduct } from '../controllers/controller_product.js';
-import { authenticate } from '../middleware/authentication.js';
+import { Adminauthentication } from '../middleware/admin_authentication.js';
 
 const route = express.Router();
 
-route.post('/add_product', async (req, res) => {
+route.post('/add_product', Adminauthentication, async (req, res) => {
     try {
         const payload = req.body; // Assuming the request body contains the necessary product data
         const newProduct = await insertProduct(payload);
@@ -21,7 +21,7 @@ route.post('/add_product', async (req, res) => {
 
 
 
-route.put('/update_product/:id', async (req, res) => {
+route.put('/update_product/:id', Adminauthentication, async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
         // Assuming the request body contains the updated product data
@@ -33,7 +33,7 @@ route.put('/update_product/:id', async (req, res) => {
     }
 });
 
-route.delete('/delete_product/:id', async (req, res) => {
+route.delete('/delete_product/:id', Adminauthentication, async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
         const update = await updateProduct(id, req.body);

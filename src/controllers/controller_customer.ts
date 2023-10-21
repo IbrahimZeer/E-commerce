@@ -11,36 +11,55 @@ import { Profile } from '../db/entities/customers/Profile.js';
 
 
 const insertUser = (payload: CustomerNS.Customer) => {
-    // return dataSource.manager.transaction(async transaction => {
-    //     const role = await Role.findOneBy({ name: payload.type });
-    //     const newCustomer = Customer.create({
-    //         ...payload,
-    //         role: role as Role
-    //     });
-
-    //     await transaction.save(newCustomer);
-    //     if (payload.type === 'customer') {
-    //         const customer = Profile.create({
-    //             phones: payload.profile || '',
-
-    //         });
-    //         employee.user = newUser;
-    //         await transaction.save(employee);
-    //     } else if (payload.type === 'employer') {
-    //         const company = new CompanyProfile();
-    //         company.user = newUser;
-    //         company.description = payload.description || '';
-    //         company.name = payload.fullName || '';
-    //         await transaction.save(company);
-    //     }
-    // });
+    return dataSource.manager.transaction(async transaction => {
+        const profile = await Profile.findOneBy({ id: payload.profile });
+        const newCustomer = Customer.create({
+            ...payload,
+            profile: profile as Profile
+        });
+        const { email, password } = payload;
+        const customer = await Customer.findOneBy({ email });
+        if (!customer) { return undefined }
+        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+        if (customer && passwordMatching) {
+            const token = jwt.sign({
+                email: customer.email,
+                userName: customer.userName,
+                fName: customer.fName
+            }, process.env.SECRET_KEY || "", {
+                expiresIn: "1d"
+            })
+            await transaction.save(newCustomer);
+        } else {
+            throw ("invalid email or password")
+        }
+    });
 }
 
 const insertCustomerController = async (payload: Customer) => {
     try {
         const newCustomer = Customer.create({ ...payload })
-        await newCustomer.save()
-        return newCustomer
+        const { email, password } = payload;
+
+        const customer = await Customer.findOneBy({ email });
+        if (!customer) { return undefined }
+        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+        if (customer && passwordMatching) {
+            const token = jwt.sign({
+                email: customer.email,
+                userName: customer.userName,
+                fName: customer.fName
+            }, process.env.SECRET_KEY || "", {
+                expiresIn: "1d"
+            })
+            await newCustomer.save()
+            return {
+                newCustomer,
+                token
+            }
+        } else {
+            throw ("invalid email or password")
+        }
     } catch (error) {
         throw new Error('there are something wrong')
     }
@@ -84,7 +103,18 @@ const insertCustomerController = async (payload: Customer) => {
 
 
 
-const updateCustomer = async (payload: CustomerNS.Customer) => {
+const updateCustomer = async (payload: CustomerNS.Customer, customerIn: Customer) => {
+    const customer = await Customer.findOneBy({ id: customerIn.id })
+    if (!customer) {
+        throw new Error('user not found')
+    }
+    if (payload.fName) { customer.fName = payload.fName }
+    if (payload.lName) { customer.lName = payload.lName }
+    if (payload.email) { customer.email = payload.email }
+    const profile = await Profile.findOneBy({ id: customer.profile?.id })
+
+    customer.save()
+
 
 }
 
@@ -128,8 +158,8 @@ const login = async (email: string, password: string) => {
             })
 
             return {
-                userName:customer.userName,
-                token 
+                customer,
+                token
             }
         } else {
             throw ("invalid email or password")
@@ -166,14 +196,13 @@ const profile = async (payload: CustomerNS.Profile) => {
     //         throw new Error('there are something wrong')
     //     }
     // }
-
+    const relate = await dataSource.createQueryBuilder().relation(Customer, "profile").of(payload).loadOne()
     try {
         const profile = Profile.create({
             ...payload
         });
-        // const relate = await dataSource.createQueryBuilder().relation(Customer, "profile").of(payload).loadOne()
-
-        // await relate.save();
+        relate.profile = profile;
+        await relate.save();
         await profile.save();
         return profile;
     } catch (error) {
@@ -224,5 +253,6 @@ export {
     getProducts,
     getRoles,
     getPermission,
-    profile
+    profile,
+    insertUser
 }
