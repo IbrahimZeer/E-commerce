@@ -19,10 +19,10 @@ export class Customer extends BaseEntity {
     @Column({ length: 255, nullable: false })
     lName: string;
 
-    @Column()
+    @Column({ nullable: true, unique: true })
     userName: string;
 
-    @Column({ length: 255, nullable: false })
+    @Column({ length: 255, nullable: false, unique: true })
     email: string;
 
     @BeforeInsert()
@@ -33,6 +33,7 @@ export class Customer extends BaseEntity {
     }
     @Column({ nullable: false })
     password: string;
+
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -46,13 +47,16 @@ export class Customer extends BaseEntity {
     })
     UpdatedAt: Date;
 
+    @Column({
+        type: 'enum',
+        enum: ['admin', 'customer'],
+        default: 'customer'
+    })
+    type: 'customer' | 'admin';
 
-    // @Column({
-    //     type: 'enum',
-    //     enum: ['admin', 'customer'],
-    //     default: 'customer'
-    // })
-    // type: 'customer' | 'admin';
+    @ManyToOne(() => Role, role => role.customers)
+    @JoinColumn()
+    role: Role;
 
     @OneToOne(() => Profile)
     @JoinColumn()
@@ -65,7 +69,7 @@ export class Customer extends BaseEntity {
     carts: Cart[]
 
     @OneToMany(() => Country, country => country.customer)
-    country: Order[]
+    country: Country[]
 
     @ManyToOne(() => Role, role => role.customers)
     roles: Partial<Role>
