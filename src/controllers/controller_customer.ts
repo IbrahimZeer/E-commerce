@@ -107,38 +107,45 @@ const deleteProduct = async (payload: CustomerNS.Customer) => {
 //------->LOGIN-------------->
 
 const login = async (email: string, password: string) => {
-    // try {
-    //     const customer = await Customer.findOneBy({
-    //         email
-    //     });
-
-    //     if (!customer) {
-    //         return undefined
-    //     }
-
-    //     const passwordMatching = await bcrypt.compare(password, customer?.password || '')
-
-    //     if (customer && passwordMatching) {
-    //         const token = jwt.sign({
-    //             email: customer.email,
-    //             userName: customer.userName,
-    //             fName: customer.fName
-    //         }, process.env.SECRET_KEY || "", {
-    //             expiresIn: "14d"
-    //         })
-
-    //         return {
-    //             userName: customer.userName,
-    //             token
-    //         }
-    //     } else {
-    //         throw ("invalid email or password")
-    //     }
-    // } catch (error) {
-    //     throw ("invalid email or password")
-    // }
+    try {
+        const customer = await Customer.findOneBy({ email });
+        if (!customer) { return undefined }
+        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+        if (customer && passwordMatching) {
+            const token = jwt.sign({
+                email: customer.email,
+                userName: customer.userName,
+                fName: customer.fName
+            }, process.env.SECRET_KEY || "", {
+                expiresIn: "1d"
+            })
+            return {
+                userName: customer.userName,
+                token
+            }
+        } else {
+            throw ("invalid email or password")
+        }
+    } catch (error) {
+        throw ("invalid email or password")
+    }
 }
 
+const profile = async (payload: CustomerNS.Customer) => {
+    const relate = await dataSource.createQueryBuilder().relation(Customer, "profile").of(payload).loadOne()
+    const profile = await Profile.findOneBy({ id: payload.id })
+    if (relate) {
+        const newProfile = Profile.create({
+            ...payload.profile,
+            customer: payload,
+            profile: profile as Profile
+        })
+        await newProfile.save()
+        return newProfile
+    } else {
+        throw new Error('there are something wrong')
+    }
+}
 
 const inssertRole = async (payload: CustomerNS.Customer) => {
 
@@ -181,5 +188,6 @@ export {
     getCustomers,
     getProducts,
     getRoles,
-    getPermission
+    getPermission,
+    profile
 }
