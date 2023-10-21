@@ -1,5 +1,9 @@
 export namespace CustomerNS {
 
+    export enum Type {
+        customer = 'customer',
+        admin = 'admin',
+    }
     export interface Customer {
         id: string,
         fName: string,
@@ -7,6 +11,7 @@ export namespace CustomerNS {
         userName: string,
         email: string
         password: string,
+        type: Type,
         registrationDate: Date,
         updatedAt: Date,
         profile: any,
@@ -17,7 +22,8 @@ export namespace CustomerNS {
     }
     export interface Profile {
         id: string,
-        countryId: string,
+        age: number,
+        profilePic: string,
         createdAt: Date,
         updatedAt: Date,
         phones: any[],

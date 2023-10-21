@@ -7,6 +7,4 @@ export class Permission extends BaseEntity {
 
     @Column({ unique: true })
     name: string;
-
-
 }

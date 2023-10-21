@@ -52,7 +52,7 @@ route.get('/all_categorie', (req, res) => {
     })
 })
 
-route.get('/categorie/:id', (req, res) => {
+route.get('/category/:id', (req, res) => {
     const id = parseInt(req.params.id);
     Category.findOneBy({ id: id })
     if (id) {
@@ -66,7 +66,7 @@ route.get('/categorie/:id', (req, res) => {
     }
 })
 
-route.post('/add_product_in_categorie/:id', (req, res) => {
+route.post('/add_products_in_category/:id', (req, res) => {
     const id = parseInt(req.params.id);
     Category.findOneBy({ id: id })
     if (id) {

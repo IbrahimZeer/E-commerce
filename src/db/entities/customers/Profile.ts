@@ -10,6 +10,12 @@ export class Profile extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
+    @Column()
+    age: number;
+
+    @Column({ default: "https://www.hardiagedcare.com.au/wp-content/uploads/2019/02/default-avatar-profile-icon-vector-18942381.jpg" })
+    profilePic: string;
+
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
