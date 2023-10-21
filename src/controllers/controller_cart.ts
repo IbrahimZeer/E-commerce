@@ -19,6 +19,7 @@ const insertCartController = async (customerName: string, Id: number, quantity: 
         }
         const cart = await Cart.findOneBy({ id: payload.id })
         if (cart) {
+            cart.product = product;
             cart.quantity = cartQuantity;
             cart.inOrder = cartInOrder;
             await cart.save();
@@ -31,6 +32,10 @@ const insertCartController = async (customerName: string, Id: number, quantity: 
     } catch (error) {
         throw ({ message: "Internal server error" })
     }
+}
+
+const addProductToCartController = async (payload: Cart) => {
+    const cart = await Cart.create({ ...payload })
 }
 
 const getCartController = async (payload: Cart) => {
@@ -47,7 +52,7 @@ const updateCartController = async (id: string | number, data: CartNs.Cart) => {
             await cart.save();
             return cart;
         } else {
-            return null;
+            return ({ message: "Cart not found" });
         }
     } catch (error) {
         throw new Error('Failed to update the cart');
@@ -57,5 +62,6 @@ const updateCartController = async (id: string | number, data: CartNs.Cart) => {
 export {
     insertCartController,
     getCartController,
-    updateCartController
+    updateCartController,
+    addProductToCartController
 }
