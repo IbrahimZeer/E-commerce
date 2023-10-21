@@ -171,6 +171,7 @@ const profile = async (payload: CustomerNS.Profile) => {
         const profile = Profile.create({
             ...payload
         });
+        await dataSource.createQueryBuilder().relation(Customer, "profile").of(payload).loadOne()
         await profile.save();
         return profile;
     } catch (error) {
