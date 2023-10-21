@@ -134,16 +134,29 @@ const login = async (email: string, password: string) => {
 const profile = async (payload: CustomerNS.Customer) => {
     const relate = await dataSource.createQueryBuilder().relation(Customer, "profile").of(payload).loadOne()
     const profile = await Profile.findOneBy({ id: payload.id })
-    if (relate) {
-        const newProfile = Profile.create({
-            ...payload.profile,
-            customer: payload,
-            profile: profile as Profile
-        })
-        await newProfile.save()
-        return newProfile
+    if (!profile) {
+        if (relate) {
+            const newProfile = Profile.create({
+                ...payload.profile,
+                customer: payload,
+            })
+            await newProfile.save()
+            return newProfile
+        } else {
+            throw new Error('there are something wrong')
+        }
     } else {
-        throw new Error('there are something wrong')
+        if (relate) {
+            const newProfile = Profile.create({
+                ...payload.profile,
+                customer: payload,
+                profile: profile as Profile
+            })
+            await newProfile.save()
+            return newProfile
+        } else {
+            throw new Error('there are something wrong')
+        }
     }
 }
 
