@@ -7,11 +7,18 @@ export class Admin extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column({ nullable: false, unique: true })
     userName: string;
 
-    @Column()
+    @Column({ nullable: false, unique: true })
     email: string;
+
+    @Column({
+        type: 'enum',
+        enum: ['admin'],
+        default: 'admin'
+    })
+    type: 'admin'
 
     @BeforeInsert()
     async hashPassword() {

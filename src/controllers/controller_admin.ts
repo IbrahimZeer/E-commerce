@@ -5,9 +5,11 @@ import { Admin } from '../db/entities/Admin.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
+import bcrypt from 'bcrypt';
+import jwt from "jsonwebtoken"
 
 
-const insertAdmin = async (payload: Admin) => {
+const insertAdminController = async (payload: Admin) => {
     const newAdmin = Admin.create({
         userName: payload.userName,
         email: payload.email,
@@ -15,7 +17,30 @@ const insertAdmin = async (payload: Admin) => {
     }).save()
     return {
         newAdmin
-        // token
+    }
+}
+
+const login = async (email: string, password: string) => {
+    try {
+        const customer = await Admin.findOneBy({ email });
+        if (!customer) { return undefined }
+        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+        if (customer && passwordMatching) {
+            const token = jwt.sign({
+                email: customer.email,
+                userName: customer.userName,
+            }, process.env.SECRET_KEY || "", {
+                expiresIn: "1d"
+            })
+            return {
+                userName: customer.userName,
+                token
+            }
+        } else {
+            throw ("invalid email or password")
+        }
+    } catch (error) {
+        throw ("invalid email or password")
     }
 }
 
@@ -55,10 +80,6 @@ const deleteProduct = async (payload: AdminNS.Admin) => {
 
 }
 
-const login = async () => {
-
-}
-
 
 // const inssertRole = async (payload: AdminNS.Role) => {
 
@@ -90,15 +111,13 @@ const getPermission = () => {
 }
 
 export {
-    insertAdmin,
+    insertAdminController,
     updateAdmin,
     deleteAdmin,
     // insertProduct,
     updateProduct,
     deleteProduct,
     login,
-    // inssertRole,
-    // insertPermission,
     getAdmins,
     getProducts,
     getRoles,
