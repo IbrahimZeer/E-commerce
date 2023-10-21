@@ -21,7 +21,7 @@ export namespace CustomerNS {
 
     }
     export interface Profile {
-        id: string,
+        id: number,
         age: number,
         profilePic: string,
         createdAt: Date,

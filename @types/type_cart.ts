@@ -1,7 +1,7 @@
 export namespace CartNs {
 
     export interface Cart {
-        id: string,
+        id: number,
         quantity: number,
         isPuecashed: boolean,
         createdAt: Date,

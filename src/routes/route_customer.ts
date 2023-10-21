@@ -11,7 +11,7 @@ const route = express.Router();
 route.post('/signup', async (req, res) => {
   try {
     const { email, password, userName, fName, lName } = req.body;
-    if (!email || !password || !userName || fName || lName) {
+    if (!email || !password || !userName || !fName || !lName) {
       return res.status(400).send({ error: "All fields are required." });
     }
     const existingCustomer = await Customer.findOne({ where: { email: req.body.email } });
@@ -46,18 +46,17 @@ route.post('/signup_profile', async (req, res) => {
 })
 
 
-route.post("/login", async (req, res) => {
-  try {
-    const email = req.body.email;
-    const password = req.body.password;
-    if (email && password) {
-      login(email, password)
-      res.status(200).send('login successfully')
-    } else {
-      res.status(404).send("Email and Password are required")
-    }
-  } catch (error) {
-    throw "something went wrong"
+
+/* Login User. */
+route.post("/login", (req, res) => {
+  if (req.body.email && req.body.password) {
+    login(req.body.email, req.body.password).then((data) => {
+      res.send(data?.token)
+    }).catch((error) => {
+      res.status(400).send(error)
+    })
+  } else {
+    res.status(404).send("email and password are required")
   }
 })
 
@@ -66,6 +65,7 @@ route.post("/login", async (req, res) => {
 //     res.status(200).send(data)
 //   })
 // })
+
 
 //create update on customer details
 // route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {

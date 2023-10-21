@@ -39,7 +39,7 @@ route.delete('/delete_order/:id', async (req, res) => {
 
 });
 
-route.get('/all_order', (req, res, next) => {
+route.get('/all_order',authenticate, (req, res, next) => {
     getOrders().then(data => {
         res.status(200).send(data)
     }).catch(error => {

@@ -6,7 +6,7 @@ import { OrderDetails } from "./orders/OrderDetails.js";
 @Entity('cart')
 export class Cart extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
-    id: string;
+    id: number;
 
     @Column()
     quantity: number;
@@ -37,5 +37,6 @@ export class Cart extends BaseEntity {
 
     @ManyToOne(() => Product, product => product.carts)
     product: Partial<Product>
+
 
 }

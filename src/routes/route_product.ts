@@ -47,7 +47,7 @@ route.delete('/delete_product/:id', Adminauthentication, async (req, res) => {
         res.status(500).json({ error: 'Failed to delete the product' });
     }
 });
-route.get('/all_product', (req, res, next) => {
+route.get('/all_product',authenticate, (req, res, next) => {
     getProducts().then(data => {
         res.status(200).send(data)
     }).catch(error => {
