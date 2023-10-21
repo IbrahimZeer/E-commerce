@@ -43,7 +43,9 @@ route.post("/login", async (req, res) => {
 })
 
 route.post('/profile', authenticate, async (req, res) => {
-  profile(req.body)
+  profile(req.body).then(data => {
+    res.status(200).send(data)
+  })
 })
 
 //create update on customer details
