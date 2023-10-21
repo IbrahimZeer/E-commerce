@@ -106,22 +106,30 @@ const deleteProduct = async (payload: CustomerNS.Customer) => {
 
 //------->LOGIN-------------->
 
+
 const login = async (email: string, password: string) => {
     try {
-        const customer = await Customer.findOneBy({ email });
-        if (!customer) { return undefined }
+        const customer = await Customer.findOneBy({
+            email
+        });
+
+        if (!customer) {
+            return undefined
+        }
+
         const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+
         if (customer && passwordMatching) {
             const token = jwt.sign({
                 email: customer.email,
                 userName: customer.userName,
-                fName: customer.fName
             }, process.env.SECRET_KEY || "", {
-                expiresIn: "1d"
+                expiresIn: "14d"
             })
+
             return {
-                userName: customer.userName,
-                token
+                userName:customer.userName,
+                token 
             }
         } else {
             throw ("invalid email or password")

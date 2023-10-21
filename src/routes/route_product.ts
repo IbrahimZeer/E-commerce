@@ -5,6 +5,7 @@ import { updateProduct } from '../controllers/controller_product.js';
 import { ProductNS } from '../../@types/type_product.js';
 import { getProducts } from '../controllers/controller_product.js';
 import { deleteProduct } from '../controllers/controller_product.js';
+import { authenticate } from '../middleware/authentication.js';
 
 const route = express.Router();
 
@@ -46,7 +47,7 @@ route.delete('/delete_product/:id', async (req, res) => {
         res.status(500).json({ error: 'Failed to delete the product' });
     }
 });
-route.get('/all_product', (req, res, next) => {
+route.get('/all_product',authenticate, (req, res, next) => {
     getProducts().then(data => {
         res.status(200).send(data)
     }).catch(error => {
