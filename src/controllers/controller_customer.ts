@@ -7,6 +7,7 @@ import { Permission } from '../db/entities/Permission.js'
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken"
 import { Profile } from '../db/entities/customers/Profile.js';
+import { Like } from 'typeorm';
 
 
 
@@ -30,29 +31,6 @@ const insertUser = (payload: CustomerNS.Customer) => {
                 expiresIn: "1d"
             })
             await transaction.save(newCustomer);
-        } else {
-            throw ("invalid email or password")
-        }
-    });
-}
-
-const insertCustomerController = async (payload: Customer) => {
-    try {
-        const newCustomer = Customer.create({ ...payload })
-        const { email, password } = payload;
-
-        const customer = await Customer.findOneBy({ email });
-        if (!customer) { return undefined }
-        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
-        if (customer && passwordMatching) {
-            const token = jwt.sign({
-                email: customer.email,
-                userName: customer.userName,
-                fName: customer.fName
-            }, process.env.SECRET_KEY || "", {
-                expiresIn: "1d"
-            })
-            await newCustomer.save()
             return {
                 newCustomer,
                 token
@@ -60,7 +38,30 @@ const insertCustomerController = async (payload: Customer) => {
         } else {
             throw ("invalid email or password")
         }
+    });
+}
+
+
+// const createUser = (payload: UserNS.User) => {
+//     return dataSource.manager.transaction(async transaction => {
+//         const role = await Role.findOneBy({ name: payload.role })
+//         const newUser = User.create({
+//             ...payload,
+//             roles: [role] as Role[]
+//         });
+//         await transaction.save(newUser);
+//     });
+// }
+
+const insertCustomerController = async (payload: Customer) => {
+    console.log(payload + 'from controller')
+    try {
+        const newCustomer = Customer.create({ ...payload })
+        await newCustomer.save()
+        console.log(payload)
+        return newCustomer
     } catch (error) {
+        console.log(payload + 'from controller catch')
         throw new Error('there are something wrong')
     }
 };
@@ -211,6 +212,28 @@ const profile = async (payload: CustomerNS.Profile) => {
     }
 }
 
+
+const search_customers = async (userName: string) => {
+    try {
+        return await Customer.find({
+            select: ["userName", "fName", "lName"],
+            where: {
+                userName: Like(`%${userName}%`),
+            },
+
+            order: {
+                UpdatedAt: "DESC"
+            }
+
+        })
+
+    } catch (error) {
+
+        throw error;
+    }
+
+};
+
 const inssertRole = async (payload: CustomerNS.Customer) => {
 
 }
@@ -254,5 +277,6 @@ export {
     getRoles,
     getPermission,
     profile,
-    insertUser
+    insertUser,
+    search_customers
 }

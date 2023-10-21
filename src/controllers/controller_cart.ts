@@ -3,6 +3,8 @@ import { CartNs } from '../../@types/type_cart.js';
 import { Cart } from '../db/entities/Cart.js';
 import { ProductNS } from '../../@types/type_product.js';
 import { Product } from '../db/entities/Products/Product.js';
+import { CustomerNS } from '../../@types/type_customer.js';
+import { Customer } from '../db/entities/customers/Customer.js';
 
 
 
@@ -11,7 +13,6 @@ const insertCart = async (payload: CartNs.Cart) => {
         const newCart = new Cart();
         newCart.quantity = payload.quantity;
         newCart.isPuecashed = payload.isPuecashed;
-
         await newCart.save();
         return newCart;
     } catch (error) {
@@ -21,9 +22,9 @@ const insertCart = async (payload: CartNs.Cart) => {
 
 
 
-// const addToCart = async (req: Request, res: Response) => {
+// const addToCart = async (customerId:Customer,cartId:Cart,payload:Cart ) => {
 //     try {
-//         const userId = req.user.id; // Assuming you have user authentication middleware
+//         const userId = req.body.id; // Assuming you have user authentication middleware
 //         const productId = req.body.productId; // Get the product ID from the request body
 
 //         // Check if the product exists

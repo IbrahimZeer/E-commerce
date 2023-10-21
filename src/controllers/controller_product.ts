@@ -5,6 +5,7 @@ import { Product } from '../db/entities/Products/Product.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { OrderNS } from '../../@types/type_order.js';
+import { Like } from 'typeorm';
 const insertProduct = async (payload: ProductNS.Product) => {
     try {
         const newProduct = new Product();
@@ -79,7 +80,29 @@ const getProducts = () => {
     return Products
 }
 
+const searchProducts = async (productName:string) => {
+    console.log(productName+"string2");
 
+    try {
+        return await Product.find({
+            select: ["productName", "description", "price"],
+            where: {
+                productName: Like(`%${productName}%`),
+            },
+
+            order: {
+                createdAt: "DESC"
+            }
+
+        })
+
+    } catch (error) {
+        console.log(productName+"str3")
+
+        throw error;
+    }
+
+};
 export {
     insertProduct,
     updateProduct,
@@ -87,6 +110,6 @@ export {
     login,
     inssertRole,
     insertPermission,
-    getProducts
-
+    getProducts,
+    searchProducts
 }

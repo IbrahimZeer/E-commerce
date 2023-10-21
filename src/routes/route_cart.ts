@@ -1,6 +1,8 @@
 import express from 'express';
-import {  deleteCart, insertCart } from '../controllers/controller_cart.js';
+import {   deleteCart, insertCart } from '../controllers/controller_cart.js';
 import { Cart } from '../db/entities/Cart.js';
+import { authenticate } from '../middleware/authentication.js';
+import { Customer } from '../db/entities/customers/Customer.js';
 const route = express.Router();
 
 
@@ -15,7 +17,15 @@ route.post('/add_cart', async (req, res) => {
 });
 
 
-// route.post('/user/cart/addtocart', addToCart);
+// route.post('/user/cart/addtocart',authenticate, async (req, res) =>{
+// const customer= await Customer.findOneBy( {   where:{id}  });
+
+
+
+//     const addcart =await addToCart()
+
+
+// });
 
 
 route.delete('/delete_cart/:id', (req, res) => {
