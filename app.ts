@@ -19,8 +19,6 @@ dotenv.config()
 const app = express();
 const PORT = 5000
 
-
-
 app.use(morgan('tiny'));
 app.use(express.json());
 
