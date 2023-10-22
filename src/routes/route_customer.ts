@@ -64,6 +64,8 @@ route.post('/profile', async (req, res) => {
   })
 })
 
+route.post('/profile', async (req, res) => { profile(req.body).then(data => { res.status(200).send(data) }) })
+
 
 /* Login User. */
 route.post("/login", (req, res) => {
