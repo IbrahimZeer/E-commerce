@@ -34,7 +34,6 @@ const insertCart = async (payload: CartNs.Cart) => {
     try {
         const newCart = new Cart();
         newCart.quantity = payload.quantity;
-        newCart.isPuecashed = payload.isPuecashed;
         await newCart.save();
         return newCart;
     } catch (error) {
@@ -52,6 +51,12 @@ const updateCartController = async (id: number, data: CartNs.Cart) => {
             return cart;
         } else {
             return ({ message: "Cart not found" });
+        }
+    } catch (error) {
+
+    }
+}
+
 
 
 // const addToCart = async (customerId:Customer,cartId:Cart,payload:Cart ) => {
@@ -114,7 +119,8 @@ const deleteCart = async (id: number, payload: CartNs.Cart) => {
 
 export {
     insertCartController,
-    getCartController,
+    insertCart,
     updateCartController,
+    deleteCart,
     addProductToCartController
 }

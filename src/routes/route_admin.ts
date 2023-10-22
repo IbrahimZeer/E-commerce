@@ -47,8 +47,8 @@ route.post("/login", async (req, res) => {
 // route.put('/update', (req, res) => {
 //     console.log('update admin route details')
 //     res.status(200).send('admin updated successfully');
-  
-route.put('/update/:id', async(req, res) => {
+
+route.put('/update/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
         const admin = await updateAdmin(id, req.body);

@@ -30,6 +30,7 @@ route.post('/signup', async (req, res) => {
 })
 
 route.post('/signup_profile', async (req, res) => {
+  const { email, password, userName, fName, lName } = req.body;
   try {
     if (!email || !password || !userName || !fName || !lName) {
       return res.status(400).send({ error: "All fields are required." });
@@ -64,10 +65,8 @@ route.post('/signup_profile', async (req, res) => {
   }
 })
 
-route.post('/profile', async (req, res) => {
-  profile(req.body).then(data => {
-    res.status(200).send(data)
-  })
+
+route.post('/profile', async (req, res) => { profile(req.body).then(data => { res.status(200).send(data) }) })
 
 
 /* Login User. */
@@ -128,12 +127,12 @@ route.get('/all_customer', (req, res) => {
 
 route.get('/search_customers/:userName', async (req, res) => {
   try {
-      const userName = req.params.userName;
-      
-      const name = await search_customers(userName)
-      res.status(200).json(name);
+    const userName = req.params.userName;
+
+    const name = await search_customers(userName)
+    res.status(200).json(name);
   } catch (error) {
-      res.status(500).json({ error: 'Failed to search for customers' });
+    res.status(500).json({ error: 'Failed to search for customers' });
   }
 });
 

@@ -1,5 +1,11 @@
 import express from 'express';
-import { insertCartController, addProductToCartController, updateCartController } from '../controllers/controller_cart.js';
+import {
+    insertCartController,
+    insertCart,
+    updateCartController,
+    deleteCart,
+    addProductToCartController
+} from '../controllers/controller_cart.js';
 import { Customer } from '../db/entities/customers/Customer.js';
 import { Cart } from '../db/entities/Cart.js';
 import { Product } from '../db/entities/Products/Product.js';
