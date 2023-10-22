@@ -10,7 +10,7 @@ import { Product } from '../db/entities/Products/Product.js';
 
 const route = express.Router();
 
-route.post('/add_product', Adminauthentication, async (req, res) => {
+route.post('/add_product', async (req, res) => {
     try {
         const payload = req.body; // Assuming the request body contains the necessary product data
         const newProduct = await insertProduct(payload);

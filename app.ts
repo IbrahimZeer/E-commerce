@@ -12,6 +12,7 @@ import routePayment from './src/routes/route_payment.js'
 import routeProduct from './src/routes/route_product.js'
 import routeReview from './src/routes/route_review.js'
 import routeCategory from './src/routes/route_categories.js'
+import routeCart from './src/routes/route_cart.js'
 
 
 dotenv.config()
@@ -31,6 +32,7 @@ app.use('/', routePayment);
 app.use('/Products', routeProduct);
 app.use('/', routeReview);
 app.use('/category', routeCategory);
+app.use('/carts', routeCart);
 
 
 app.use((req, res, next) => {

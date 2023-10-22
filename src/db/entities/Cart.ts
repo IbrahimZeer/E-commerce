@@ -5,8 +5,8 @@ import { OrderDetails } from "./orders/OrderDetails.js";
 
 @Entity('cart')
 export class Cart extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn('increment')
+    id: number;
 
     @Column()
     quantity: number;
@@ -17,6 +17,12 @@ export class Cart extends BaseEntity {
         default: 'inOrder'
     })
     inOrder: 'inOrder' | 'outOrder';
+
+    @Column()
+    price: number;
+
+    @Column()
+    totalPrice: number;
 
     @CreateDateColumn({
 
