@@ -10,34 +10,24 @@ import { Profile } from '../db/entities/customers/Profile.js';
 
 
 
-const insertUser = (payload: CustomerNS.Customer) => {
-    return dataSource.manager.transaction(async transaction => {
-        const profile = await Profile.findOneBy({ id: payload.profile });
-        const newCustomer = Customer.create({
-            ...payload,
-            profile: profile as Profile
-        });
-        const { email, password } = payload;
-        const customer = await Customer.findOneBy({ email });
-        if (!customer) { return undefined }
-        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
-        if (customer && passwordMatching) {
-            const token = jwt.sign({
-                email: customer.email,
-                userName: customer.userName,
-                fName: customer.fName
-            }, process.env.SECRET_KEY || "", {
-                expiresIn: "1d"
-            })
-            await transaction.save(newCustomer);
-            return {
-                newCustomer,
-                token
-            }
-        } else {
-            throw ("invalid email or password")
-        }
-    });
+const insertUser = async (payload: CustomerNS.Customer) => {
+    const customer = await Customer.findOneBy({ id: payload.id });
+    if (!customer) { return undefined }
+    const token = jwt.sign({
+        email: customer.email,
+        id: customer.id
+    }, process.env.SECRET_KEY || "", {
+        expiresIn: "1d"
+    })
+
+    const newCustomer = await Customer.create({
+        ...payload
+    }).save()
+
+    return {
+        newCustomer,
+        token
+    };
 }
 
 const insertCustomerController = async (payload: Customer) => {
@@ -132,8 +122,7 @@ const login = async (email: string, password: string) => {
         if (customer && passwordMatching) {
             const token = jwt.sign({
                 email: customer.email,
-                userName: customer.userName,
-                fName: customer.fName
+                id: customer.id
             }, process.env.SECRET_KEY || "", {
                 expiresIn: "1d"
             })
@@ -150,7 +139,6 @@ const login = async (email: string, password: string) => {
 }
 
 const profile = async (payload: CustomerNS.Profile) => {
-    // const relate = await dataSource.createQueryBuilder().relation(Customer, "profile").of(payload).loadOne()
     // const profile = await Profile.findOneBy({ id: payload.id })
     // if (!profile) {
     //     if (relate) {

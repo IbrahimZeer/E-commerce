@@ -9,44 +9,38 @@ import { ExpressNS } from '../../@types/index.js';
 const route = express.Router();
 
 route.post('/signup', async (req, res) => {
-  const { email, password, userName, fName, lName } = req.body;
+  const { email, password, userName } = req.body;
   try {
-    if (!email || !password || !userName || !fName || !lName) {
+    if (!email || !password || !userName) {
       return res.status(400).send({ error: "All fields are required." });
     }
-    const existingCustomerbyEmail = await Customer.findOne({ where: { email: req.body.email } });
-    const existingCustomerbyUserName = await Customer.findOne({ where: { userName: req.body.userName } });
-    if (existingCustomerbyEmail && existingCustomerbyUserName) {
-      return res.status(400).send({ error: "Customer already exists. , change your Email or userName" });
-    }
-
-    console.log(email, password, userName, fName, lName + 'from try route')
-    await insertCustomerController(req.body);
-    res.status(201).send('Customer successfully')
-
+    console.log(email, password, userName + 'from try route')
+    const newCustomer = await insertUser(req.body);
+    res.status(201).send(newCustomer);
   } catch (error) {
-    console.log(email, password, userName, fName, lName + 'from catch route')
-    res.status(500).send('Internal server error')
-  }
-})
-
-route.post('/signup_profile', async (req, res) => {
-  try {
-    const { email, password, userName, fName, lName } = req.body;
-    if (!email || !password || !userName || fName || lName) {
-      return res.status(400).send({ error: "All fields are required." });
-    }
-    const existingCustomer = await Customer.findOne({ where: { email: req.body.email } });
-    if (existingCustomer) {
-      return res.status(400).send({ error: "Customer already exists." });
-    }
-    await insertUser(req.body);
-    res.status(201).send('Customer successfully')
-  } catch (error) {
+    console.log(email, password, userName + 'from catch route')
     console.log(error)
     res.status(500).send('Internal server error')
   }
 })
+
+// route.post('/signup_profile', async (req, res) => {
+//   try {
+//     const { email, password, userName, fName, lName } = req.body;
+//     if (!email || !password || !userName || fName || lName) {
+//       return res.status(400).send({ error: "All fields are required." });
+//     }
+//     const existingCustomer = await Customer.findOne({ where: { email: req.body.email } });
+//     if (existingCustomer) {
+//       return res.status(400).send({ error: "Customer already exists." });
+//     }
+//     await insertUser(req.body);
+//     res.status(201).send('Customer successfully')
+//   } catch (error) {
+//     console.log(error)
+//     res.status(500).send('Internal server error')
+//   }
+// })
 
 
 route.post("/login", async (req, res) => {
@@ -54,12 +48,13 @@ route.post("/login", async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     if (email && password) {
-      login(email, password)
-      res.status(200).send('login successfully')
+      await login(email, password)
+      return res.status(200).send('login successfully')
     } else {
-      res.status(404).send("Email and Password are required")
+      return res.status(404).send("Email and Password are required")
     }
   } catch (error) {
+    console.log(error)
     throw "something went wrong"
   }
 })

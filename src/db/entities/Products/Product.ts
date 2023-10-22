@@ -49,6 +49,6 @@ export class Product extends BaseEntity {
     @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.product)
     orderDetails: OrderDetails[]
 
-    @OneToMany(() => Cart, (cart) => cart.product)
-    carts: Cart[]
+    @ManyToOne(() => Cart, (cart) => cart.products)
+    cart: Partial<Cart>
 }
