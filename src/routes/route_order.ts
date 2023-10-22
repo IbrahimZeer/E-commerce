@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteOrder, getOrders, insertOrder, updateOrder } from '../controllers/controller_order.js';
+import { deleteOrder, getOrders, insertOrder, search_orders, updateOrder } from '../controllers/controller_order.js';
 import { OrderNS } from '../../@types/type_order.js';
 import { Order } from '../db/entities/orders/Order.js';
 import { authenticate } from '../middleware/authentication.js';
@@ -40,7 +40,7 @@ route.delete('/delete_order/:id', async (req, res) => {
 
 });
 
-route.get('/all_order', (req, res, next) => {
+route.get('/all_order',authenticate, (req, res, next) => {
     getOrders().then(data => {
         res.status(200).send(data)
     }).catch(error => {
@@ -48,6 +48,16 @@ route.get('/all_order', (req, res, next) => {
     })
 
 })
+route.get('/search_orders/:orderAddress', async (req, res) => {
+    try {
+        const orderAddress = req.params.orderAddress;
+        
+        const orders = await search_orders(orderAddress)
+        res.status(200).json(orders);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to search for orders' });
+    }
+});
 
 
 export default route;

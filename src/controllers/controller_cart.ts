@@ -1,4 +1,4 @@
-import dataSource from '../db/dataSource.js';
+import express from 'express';
 import { CartNs } from '../../@types/type_cart.js';
 import { Cart } from '../db/entities/Cart.js';
 import bcrypt from 'bcrypt';
@@ -7,6 +7,7 @@ import { Customer } from '../db/entities/customers/Customer.js';
 import { Product } from '../db/entities/Products/Product.js';
 import { OrderNS } from '../../@types/type_order.js';
 import { ProductNS } from '../../@types/type_product.js';
+import { CustomerNS } from '../../@types/type_customer.js';
 
 const insertCartController = async (payload: Cart, productId: number, user: Customer) => {
     console.log(payload);
@@ -36,9 +37,16 @@ const addProductToCartController = async (payload: Cart, user: Customer) => {
     const cart = await Cart.create({ ...payload })
 }
 
-const getCartController = async (payload: Cart) => {
-    const cart = Cart.find()
-    return cart
+
+const insertCart = async (payload: CartNs.Cart) => {
+    try {
+        const newCart = new Cart();
+        newCart.quantity = payload.quantity;
+        await newCart.save();
+        return newCart;
+    } catch (error) {
+        throw new Error('Failed to insert category');
+    }
 }
 
 const updateCartController = async (data: CartNs.Cart, user: Customer) => {
@@ -59,7 +67,7 @@ const updateCartController = async (data: CartNs.Cart, user: Customer) => {
 
 export {
     insertCartController,
-    getCartController,
+    // getCartController,
     updateCartController,
     addProductToCartController
 }

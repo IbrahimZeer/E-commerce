@@ -9,7 +9,7 @@ import { authenticate } from '../middleware/authentication.js';
 const route = express.Router();
 
 // add products in cart
-route.post('/cart/:productId', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
+route.post('/:productId', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
         const user = req.user
         if (!user) {
@@ -30,7 +30,7 @@ route.post('/cart/:productId', authenticate, async (req: ExpressNS.RequestWithUs
     }
 })
 
-route.post('/addProductToCart/', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
+route.post('/addProductToCart/:email', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
         const user = req.user
         if (!user) {

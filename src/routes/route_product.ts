@@ -8,6 +8,7 @@ import { deleteProduct } from '../controllers/controller_product.js';
 import { Adminauthentication } from '../middleware/admin_authentication.js';
 import { Product } from '../db/entities/Products/Product.js';
 
+
 const route = express.Router();
 
 route.post('/add_product', async (req, res) => {
@@ -48,7 +49,7 @@ route.delete('/delete_product/:id', Adminauthentication, async (req, res) => {
         res.status(500).json({ error: 'Failed to delete the product' });
     }
 });
-route.get('/all_product', (req, res, next) => {
+route.get('/all_product', (req, res) => {
     getProducts().then(data => {
         res.status(200).send(data)
     }).catch(error => {
@@ -56,7 +57,17 @@ route.get('/all_product', (req, res, next) => {
     })
 
 })
-
+route.get('/search_product/:productName', async (req, res) => {
+    try {
+        const productName = req.params.productName;
+        console.log(productName+'string1');
+        
+        const products = await searchProducts(productName)
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to search for products' });
+    }
+});
 
 route.get('/all_product/:name', (req, res, next) => {
     const name = req.params.name;
@@ -78,4 +89,14 @@ route.get('/search_product/:productName', async (req, res) => {
     }
 });
 
+// router.get("/booksByName", (req, res) => {
+//     const bookName = req.query.name;
+//     let found = Data.some((book) => book.title === bookName);
+//     if (found) {
+//       const books = Data.filter((book) => book.title === bookName);
+//       res.send(books);
+//     } else {
+//       res.status(403).send("The Book not found !!");
+//     }
+//   });
 export default route;

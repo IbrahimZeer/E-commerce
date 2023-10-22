@@ -81,22 +81,46 @@ const getProducts = () => {
     return Products
 }
 
-const searchProducts = async (productName: string) => {
+// const searchProducts = async (productName: string) => {
+//     try {
+//         return await Product.find({
+//             select: ["productName", "description", "price"],
+//             where: {
+//                 productName: Like(`%${productName}%`),
+//             },
+//             order: {
+//                 createdAt: "DESC",
+//             }
+//         })
+//     } catch (error) {
+//         throw error;
+//     }
+// }
+
+
+const searchProducts = async (productName:string) => {
+    console.log(productName+"string2");
+
     try {
         return await Product.find({
             select: ["productName", "description", "price"],
             where: {
                 productName: Like(`%${productName}%`),
             },
+
             order: {
-                createdAt: "DESC",
+                createdAt: "DESC"
             }
+
         })
+
     } catch (error) {
+        console.log(productName+"str3")
+
         throw error;
     }
-}
 
+};
 export {
     insertProduct,
     updateProduct,

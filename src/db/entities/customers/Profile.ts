@@ -7,8 +7,8 @@ import { Payment } from "../payments/Payment.js";
 
 @Entity('profile')
 export class Profile extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn('increment')
+    id: number;
 
     @Column()
     age: number;

@@ -5,6 +5,7 @@ import { Order } from '../db/entities/orders/Order.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
+import { Like } from 'typeorm';
 
 const insertOrder = async (payload: OrderNS.Order) => {
     console.log(payload);
@@ -63,6 +64,36 @@ const deleteOrder = async (payload: OrderNS.Order) => {
         throw ('An error occurred while deleting the order');
     }
 };
+
+
+const search_orders = async (orderAddress:string) => {
+    try {
+        return await Order.find({
+            select: ["orderAddress", "productPrice", "discount"],
+            where: {
+                orderAddress: Like(`%${orderAddress}%`),
+            },
+
+            order: {
+                createdAt: "DESC"
+            }
+
+        })
+
+    } catch (error) {
+
+        throw error;
+    }
+
+};
+
+
+
+
+
+
+
+
 const addProduct = async (payload: OrderNS.Order) => {
 
 }
@@ -121,5 +152,6 @@ export {
     insertPermission,
     getOrders,
     getRoles,
-    getPermission
+    getPermission,
+    search_orders
 }
