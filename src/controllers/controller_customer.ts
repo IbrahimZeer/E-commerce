@@ -13,7 +13,7 @@ import { Like } from 'typeorm';
 
 const insertUser = async (payload: CustomerNS.Customer) => {
     const customer = await Customer.findOneBy({ id: payload.id });
-    if (!customer) { return undefined }
+    if (!customer) { return 'customer already exist' }
     const token = jwt.sign({
         email: customer.email,
         id: customer.id

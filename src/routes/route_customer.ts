@@ -15,7 +15,7 @@ route.post('/signup', async (req, res) => {
     }
     console.log(email, password, userName + 'from try route')
     const newCustomer = await insertUser(req.body);
-    res.status(201).send(newCustomer);
+    return res.status(201).send(newCustomer);
   } catch (error) {
     console.log(email, password, userName + 'from catch route')
     console.log(error)

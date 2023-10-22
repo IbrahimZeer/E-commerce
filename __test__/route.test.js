@@ -6,7 +6,7 @@ import dataSource from "../dist/src/db/dataSource.js";
 import routeProduct from "../dist/src/routes/route_product.js";
 import { insertProduct } from "../dist/src/controllers/controller_product.js";
 import { Product } from "../dist/src/db/entities/Products/Product";
-import{deleteOrder} from '../dist/src/controllers/controller_order.js'
+import { deleteOrder } from "../dist/src/controllers/controller_order.js";
 import { order } from "../dist/src/db/entities/orders/Order.js";
 import routeOrder from "../dist/src/routes/route_order.js";
 
@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use("/users", usersRouter);
 app.use("/Products", routeProduct);
-app.use('/orders', routeOrder);
+app.use("/orders", routeOrder);
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -53,18 +53,18 @@ describe("Login process", () => {
 });
 
 describe("signup process", () => {
-  it("should registration with valid credentials", async () => {
+  it("should register with valid credentials", async () => {
     const user = {
       fName: "fares",
       lName: "ibraheem",
       userName: "Nassar",
-      email: "user2@email.com",
+      email: "user2@example.com",
       password: "123456",
     };
 
     const response = await request(app).post("/users/signup").send(user);
     //.status should be 201
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(201);
   });
 });
 describe("add product process", () => {
@@ -92,62 +92,61 @@ describe("get all product process", () => {
     expect(response.status).toBe(201);
   });
 });
-  //--------------------------------------
+//--------------------------------------
 
-  describe('insertProduct', () => {
-    it('should insert a new product', async () => {
-      const payload = {
-        productNo: 123,
-        productName: 'Sample Product',
-        description: 'A test product description',
-        quantity: 10,
-        price: 100,
-        isSold_Active: true,
-      };
-  
-      const newProduct = await insertProduct(payload);
-  
-      expect(newProduct).toBeDefined();
-      expect(newProduct.productNo).toEqual(payload.productNo);
-      expect(newProduct.productName).toEqual(payload.productName);
-  
-    });
-  
-    it('should throw an error when insertion fails', async () => {
-      const payload = {
-        productNoo: 123,
-        productNaame: 'Sample Product',
-        descriptsion: 'A test product description',
-        quantitdy: 10,
-        price: 100,
-        isSold_Active: true,
-      };
+describe("insertProduct", () => {
+  it("should insert a new product", async () => {
+    const payload = {
+      productNo: 123,
+      productName: "Sample Product",
+      description: "A test product description",
+      quantity: 10,
+      price: 100,
+      isSold_Active: true,
+    };
 
-      try {
-        await insertProduct(payload);
-      
-        fail('Expected an error, but insertion succeeded.');
-      } catch (error) {
-        expect(error.message).toEqual('fail is not defined');
-      }
-    });
+    const newProduct = await insertProduct(payload);
+
+    expect(newProduct).toBeDefined();
+    expect(newProduct.productNo).toEqual(payload.productNo);
+    expect(newProduct.productName).toEqual(payload.productName);
   });
 
-  //---------------------------
+  it("should throw an error when insertion fails", async () => {
+    const payload = {
+      productNoo: 123,
+      productNaame: "Sample Product",
+      descriptsion: "A test product description",
+      quantitdy: 10,
+      price: 100,
+      isSold_Active: true,
+    };
 
-  describe("add Order process", () => {
-    it("should add Orders  with valid credentials", async () => {
-      const order = {
-        orderAddress: "dfgfds",
-        productPrice: 1234,
-        deliveryCost: 5432,
-        discount: 20,
-        totalPrice: 12345,
-      };
-  
-      const response = await request(app)
-        .post("/orders/create_order")
-        .send(order);
-      expect(response.status).toBe(201);
-    });
+    try {
+      await insertProduct(payload);
+
+      fail("Expected an error, but insertion succeeded.");
+    } catch (error) {
+      expect(error.message).toEqual("fail is not defined");
+    }
   });
+});
+
+//---------------------------
+
+describe("add Order process", () => {
+  it("should add Orders  with valid credentials", async () => {
+    const order = {
+      orderAddress: "dfgfds",
+      productPrice: 1234,
+      deliveryCost: 5432,
+      discount: 20,
+      totalPrice: 12345,
+    };
+
+    const response = await request(app)
+      .post("/orders/create_order")
+      .send(order);
+    expect(response.status).toBe(201);
+  });
+});
