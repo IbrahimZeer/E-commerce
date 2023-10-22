@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertAdminController } from '../controllers/controller_admin.js';
+import { insertAdminController, updateAdmin } from '../controllers/controller_admin.js';
 import { Admin } from '../db/entities/Admin.js';
 import { login } from '../controllers/controller_admin.js';
 
@@ -43,9 +43,23 @@ route.post("/login", async (req, res) => {
     }
 })
 
-route.put('/update', (req, res) => {
-    console.log('update admin route details')
-    res.status(200).send('admin updated successfully');
+
+// route.put('/update', (req, res) => {
+//     console.log('update admin route details')
+//     res.status(200).send('admin updated successfully');
+  
+route.put('/update/:id', async(req, res) => {
+    try {
+        const id = parseInt(req.params.id, 10);
+        const admin = await updateAdmin(id, req.body);
+        if (admin) {
+            res.status(201).send('admin Updated');
+        } else {
+            res.status(404).send('admin not found!');
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to update the admin' });
+    }
 })
 
 

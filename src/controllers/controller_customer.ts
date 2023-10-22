@@ -7,6 +7,7 @@ import { Permission } from '../db/entities/Permission.js'
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken"
 import { Profile } from '../db/entities/customers/Profile.js';
+import { Like } from 'typeorm';
 
 
 
@@ -39,6 +40,18 @@ const insertUser = (payload: CustomerNS.Customer) => {
         }
     });
 }
+
+
+// const createUser = (payload: UserNS.User) => {
+//     return dataSource.manager.transaction(async transaction => {
+//         const role = await Role.findOneBy({ name: payload.role })
+//         const newUser = User.create({
+//             ...payload,
+//             roles: [role] as Role[]
+//         });
+//         await transaction.save(newUser);
+//     });
+// }
 
 const insertCustomerController = async (payload: Customer) => {
     console.log(payload + 'from controller')
@@ -124,19 +137,27 @@ const deleteProduct = async (payload: CustomerNS.Customer) => {
 
 //------->LOGIN-------------->
 
+
 const login = async (email: string, password: string) => {
     try {
-        const customer = await Customer.findOneBy({ email });
-        if (!customer) { return undefined }
+        const customer = await Customer.findOneBy({
+            email
+        });
+
+        if (!customer) {
+            return undefined
+        }
+
         const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+
         if (customer && passwordMatching) {
             const token = jwt.sign({
                 email: customer.email,
                 userName: customer.userName,
-                fName: customer.fName
             }, process.env.SECRET_KEY || "", {
-                expiresIn: "1d"
+                expiresIn: "14d"
             })
+
             return {
                 customer,
                 token
@@ -191,6 +212,28 @@ const profile = async (payload: CustomerNS.Profile) => {
     }
 }
 
+
+const search_customers = async (userName: string) => {
+    try {
+        return await Customer.find({
+            select: ["userName", "fName", "lName"],
+            where: {
+                userName: Like(`%${userName}%`),
+            },
+
+            order: {
+                UpdatedAt: "DESC"
+            }
+
+        })
+
+    } catch (error) {
+
+        throw error;
+    }
+
+};
+
 const inssertRole = async (payload: CustomerNS.Customer) => {
 
 }
@@ -234,5 +277,6 @@ export {
     getRoles,
     getPermission,
     profile,
-    insertUser
+    insertUser,
+    search_customers
 }

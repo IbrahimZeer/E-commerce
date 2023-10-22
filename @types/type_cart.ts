@@ -5,7 +5,7 @@ export namespace CartNs {
         outOrder = 'outOrder',
     }
     export interface Cart {
-        id: string,
+        id: number,
         quantity: number,
         inOrder: Type,
         createdAt: Date,

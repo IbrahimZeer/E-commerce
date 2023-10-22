@@ -52,19 +52,19 @@ route.get('/all_categorie', (req, res) => {
     })
 })
 
-route.get('/category/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    Category.findOneBy({ id: id })
-    if (id) {
-        getCategoryByIdController(id, req.body).then((categories) => {
-            res.status(200).json(categories);
-        }).catch(error => {
-            res.status(500).json({ error: 'Failed to fetch categories' });
-        })
-    } else {
-        res.status(404).send('something went wrong');
-    }
-})
+// route.get('/category/:id', (req, res) => {
+//     const id = parseInt(req.params.id);
+//     Category.findOneBy({ id: id })
+//     if (id) {
+//         getCategoryByIdController(id, req.body).then((categories) => {
+//             res.status(200).json(categories);
+//         }).catch(error => {
+//             res.status(500).json({ error: 'Failed to fetch categories' });
+//         })
+//     } else {
+//         res.status(404).send('something went wrong');
+//     }
+// })
 
 route.post('/add_products_in_category/:id', (req, res) => {
     const id = parseInt(req.params.id);

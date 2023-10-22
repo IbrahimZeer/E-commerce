@@ -5,6 +5,7 @@ import { OrderDetails } from "./orders/OrderDetails.js";
 
 @Entity('cart')
 export class Cart extends BaseEntity {
+
     @PrimaryGeneratedColumn('increment')
     id: number;
 
@@ -47,5 +48,6 @@ export class Cart extends BaseEntity {
 
     @ManyToOne(() => Product, product => product.carts)
     product: Partial<Product>
+
 
 }
