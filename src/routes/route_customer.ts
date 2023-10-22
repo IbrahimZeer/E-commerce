@@ -13,15 +13,33 @@ route.post('/signup', async (req, res) => {
     if (!email || !password || !userName || !fName || !lName) {
       return res.status(400).send({ error: "All fields are required." });
     }
-    const existingCustomer = await Customer.findOne({ where: { email: req.body.email } });
-    if (existingCustomer) {
-      return res.status(400).send({ error: "Customer already exists." });
+    const existingCustomerbyEmail = await Customer.findOne({ where: { email: req.body.email } });
+    const existingCustomerbyUserName = await Customer.findOne({ where: { userName: req.body.userName } });
+    if (existingCustomerbyEmail && existingCustomerbyUserName) {
+      return res.status(400).send({ error: "Customer already exists. , change your Email or userName" });
     }
 
     console.log(email, password, userName, fName, lName + 'from try route')
     await insertCustomerController(req.body);
     res.status(201).send('Customer successfully')
 
+  } catch (error) {
+    console.log(email, password, userName, fName, lName + 'from catch route')
+    res.status(500).send('Internal server error')
+  }
+})
+
+route.post('/signup_profile', async (req, res) => {
+  try {
+    if (!email || !password || !userName || !fName || !lName) {
+      return res.status(400).send({ error: "All fields are required." });
+    }
+    const existingCustomer = await Customer.findOne({ where: { email: req.body.email } });
+    if (existingCustomer) {
+      return res.status(400).send({ error: "Customer already exists." });
+    }
+    await insertUser(req.body);
+    res.status(201).send('Customer successfully')
   } catch (error) {
     console.log(email, password, userName, fName, lName + 'from catch route')
     res.status(500).send('Internal server error')
@@ -46,6 +64,10 @@ route.post('/signup_profile', async (req, res) => {
   }
 })
 
+route.post('/profile', async (req, res) => {
+  profile(req.body).then(data => {
+    res.status(200).send(data)
+  })
 
 
 /* Login User. */
@@ -69,6 +91,17 @@ route.post("/login", (req, res) => {
 
 
 //create update on customer details
+// route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
+//   try {
+//     const customer = req.user;
+//     if (!customer) {
+//       res.status(401).send('you are unauthorized')
+//     }
+//     await updateCustomer(req.body, customer);
+//   } catch (error) {
+
+//   }
+// })
 route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
   try {
     const customer = req.user;

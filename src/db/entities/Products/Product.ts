@@ -11,7 +11,7 @@ import { Cart } from "../Cart.js";
 export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
-    
+
     @Column()
     productNo: number;
 

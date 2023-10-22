@@ -54,7 +54,6 @@ export class Customer extends BaseEntity {
     })
     type: 'customer' | 'admin';
 
-  
 
     @OneToOne(() => Profile)
     @JoinColumn()

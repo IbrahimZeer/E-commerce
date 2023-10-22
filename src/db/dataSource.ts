@@ -68,6 +68,7 @@ const dataSource = new DataSource({
         ],
         migrations: ['./**/migration/*.ts'],
         synchronize: true,
+        // dropSchema: true,
         logging: false
 });
 

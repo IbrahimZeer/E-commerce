@@ -7,7 +7,7 @@ import { getProducts } from '../controllers/controller_product.js';
 import { deleteProduct } from '../controllers/controller_product.js';
 import { Adminauthentication } from '../middleware/admin_authentication.js';
 import { Product } from '../db/entities/Products/Product.js';
-import { log } from 'console';
+
 
 const route = express.Router();
 
@@ -63,6 +63,26 @@ route.get('/search_product/:productName', async (req, res) => {
         console.log(productName+'string1');
         
         const products = await searchProducts(productName)
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to search for products' });
+    }
+});
+
+route.get('/all_product/:name', (req, res, next) => {
+    const name = req.params.name;
+    getProducts().then(data => {
+        res.status(200).send(data)
+    }).catch(error => {
+        res.status(404).send(error)
+    })
+})
+
+
+route.get('/search_product/:productName', async (req, res) => {
+    try {
+        const productName = req.params.productName;
+        const products = await searchProducts(productName);
         res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ error: 'Failed to search for products' });

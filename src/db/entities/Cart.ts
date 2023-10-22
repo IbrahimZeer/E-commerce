@@ -5,17 +5,28 @@ import { OrderDetails } from "./orders/OrderDetails.js";
 
 @Entity('cart')
 export class Cart extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
+
+    @PrimaryGeneratedColumn('increment')
     id: number;
 
     @Column()
     quantity: number;
 
+    @Column({
+        type: 'enum',
+        enum: ['inOrder', 'outOrder'],
+        default: 'inOrder'
+    })
+    inOrder: 'inOrder' | 'outOrder';
+
     @Column()
-    isPuecashed: boolean;
+    price: number;
+
+    @Column()
+    totalPrice: number;
 
     @CreateDateColumn({
-        
+
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
