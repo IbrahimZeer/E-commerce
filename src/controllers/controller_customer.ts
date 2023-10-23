@@ -8,6 +8,7 @@ import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken"
 import { Profile } from '../db/entities/customers/Profile.js';
 import { Like } from 'typeorm';
+import { Cart } from '../db/entities/Cart.js';
 
 
 
@@ -24,7 +25,11 @@ const insertUser = async (payload: CustomerNS.Customer) => {
     const newCustomer = await Customer.create({
         ...payload
     }).save()
+    const cart = Cart.create({
+       
+    })
 
+    cart.save()
     return {
         newCustomer,
         token

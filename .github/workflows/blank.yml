@@ -27,8 +27,7 @@ jobs:
       run: npm install
 
     - name: Run Jest Tests
-      run: npx jest --detectOpenHandles
-
+      run: npm test
 
 
 
