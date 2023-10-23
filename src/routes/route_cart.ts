@@ -11,6 +11,7 @@ const route = express.Router();
 // add products in cart
 route.post('/:productId', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
+        const cart = await Cart.findOne({ where: { id: req.body.id }, relations: ['customer'] });
         const user = req.user
         if (!user) {
             return res.status(401).json({ message: "you are unauthorized" })
@@ -21,9 +22,15 @@ route.post('/:productId', authenticate, async (req: ExpressNS.RequestWithUser, r
             console.log(req.body + 'from all is required')
             return res.status(400).json({ message: "missing some fields" })
         }
+
         req.body.totalPrice = quantity * price;
-        await insertCartController(req.body, productId, user)
-        res.status(200).json({ message: "Product added to cart" })
+        if (cart) {
+            addProductToCartController(req.body, productId, user)
+            res.status(200).json({ message: "Product added to cart from add to product" })
+        } else {
+            await insertCartController(req.body, productId, user)
+            res.status(200).json({ message: "Product added to cart" })
+        }
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Internal server error" })
@@ -44,7 +51,7 @@ route.post('/addProductToCart/:email', authenticate, async (req: ExpressNS.Reque
         }
         const cart = await Cart.findOne({ where: { id: req.body.id } });
         if (cart) {
-            addProductToCartController(req.body, user)
+            addProductToCartController(req.body, productId, user)
             res.status(200).json({ message: "Product added to cart" })
         } else {
             updateCartController(req.body, user)

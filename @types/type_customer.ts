@@ -16,7 +16,7 @@ export namespace CustomerNS {
         updatedAt: Date,
         profile: any,
         orders: any[],
-        carts: any[],
+        cart: any,
         country: any[]
 
     }

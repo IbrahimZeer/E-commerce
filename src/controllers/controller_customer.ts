@@ -8,15 +8,18 @@ import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken"
 import { Profile } from '../db/entities/customers/Profile.js';
 import { Like } from 'typeorm';
+import { Cart } from '../db/entities/Cart.js';
 
 
 
-const insertUser = async (payload: CustomerNS.Customer) => {
-    const customer = await Customer.findOneBy({ id: payload.id });
-    if (!customer) { return undefined }
+const insertUser = async (payload: Customer) => {
+    const customer = await Customer.find({ where: { email: payload.email } })
+    if (!customer) {
+        throw "customer already exists"
+    }
     const token = jwt.sign({
-        email: customer.email,
-        id: customer.id
+        email: payload.email,
+        id: payload.id
     }, process.env.SECRET_KEY || "", {
         expiresIn: "1d"
     })
@@ -24,6 +27,13 @@ const insertUser = async (payload: CustomerNS.Customer) => {
     const newCustomer = await Customer.create({
         ...payload
     }).save()
+
+    let profile = await Profile.create({}).save()
+
+    let cart = await Cart.create({}).save()
+
+    newCustomer.profile = profile as Profile
+    newCustomer.cart = cart as Cart
 
     return {
         newCustomer,

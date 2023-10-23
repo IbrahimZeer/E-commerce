@@ -14,6 +14,7 @@ const insertCartController = async (payload: Cart, productId: number, user: Cust
     console.log(productId);
     console.log(user);
     try {
+
         const customer = await Customer.findOne({ where: { id: user.id } });
         const product = await Product.findOne({ where: { id: productId } });
         if (!customer || !product) {
@@ -23,7 +24,8 @@ const insertCartController = async (payload: Cart, productId: number, user: Cust
             quantity: payload.quantity,
             price: payload.price,
             totalPrice: payload.totalPrice,
-            customer: customer
+            customer: customer,
+            // product: [product]
         });
         return newCart.save();
 
@@ -33,8 +35,10 @@ const insertCartController = async (payload: Cart, productId: number, user: Cust
     }
 }
 
-const addProductToCartController = async (payload: Cart, user: Customer) => {
-    const cart = await Cart.create({ ...payload })
+const addProductToCartController = async (payload: Cart, productId: number, user: Customer) => {
+    const prod = await Product.find()
+    console.log(prod);
+    return "hello from add product to cart"
 }
 
 

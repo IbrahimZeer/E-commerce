@@ -7,19 +7,25 @@ import { profile } from '../controllers/controller_customer.js';
 import { ExpressNS } from '../../@types/index.js';
 
 const route = express.Router();
-route.post('/signup', async (req, res) => {
+
+
+route.post('/', async (req, res) => {
   const { email, password, userName } = req.body;
   try {
     if (!email || !password || !userName) {
       return res.status(400).send({ error: "All fields are required." });
     }
     console.log(email, password, userName + 'from try route')
-    const newCustomer = await insertUser(req.body);
-    res.status(201).send(newCustomer);
+    const newCustomer = await insertUser(req.body)
+    res.status(201).send(newCustomer)
   } catch (error) {
-    console.log(email, password, userName + 'from catch route')
     console.log(error)
+    if (error === 'customer already exists') {
+      return res.status(400).send({ error: "customer already exists" });
+    }
+    console.log(email, password, userName + 'from catch catch')
     res.status(500).send('Internal server error')
+    // console.log(error)
   }
 })
 
