@@ -1,5 +1,6 @@
 import "../dist/config.js";
 import express from "express";
+import request from "supertest";
 import usersRouter from "../dist/src/routes/route_customer.js";
 import dataSource from "../dist/src/db/dataSource.js";
 import routeProduct from "../dist/src/routes/route_product.js";
