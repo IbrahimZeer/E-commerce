@@ -23,7 +23,6 @@ const insertCartController = async (payload: Cart, productId: number, user: Cust
             quantity: payload.quantity,
             price: payload.price,
             totalPrice: payload.totalPrice,
-            customer: customer
         });
         return newCart.save();
 
