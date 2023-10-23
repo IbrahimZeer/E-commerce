@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OneToMany } from "typeorm";
 import { Size } from "./Size.js";
 import { Color } from "./Color.js";
@@ -54,6 +54,6 @@ export class Product extends BaseEntity {
     @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.product)
     orderDetails: OrderDetails[]
 
-    @ManyToOne(() => Cart, (cart) => cart.products)
-    cart: Partial<Cart>
+    // @ManyToMany(() => Cart, (cart) => cart.products)
+    // cart: Partial<Cart>
 }

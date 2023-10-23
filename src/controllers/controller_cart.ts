@@ -35,14 +35,11 @@ import { CustomerNS } from '../../@types/type_customer.js';
 //     }
 // }
 
-const addProductToCartController = async (payload: Cart, productId: number, user: Customer) => {
+const addProductToCartController = async (cart: Cart, product: Product) => {
     try {
-        const add2cart = new Product();
-        add2cart.quantity = payload.quantity;
-        add2cart.price = payload.price;
-        add2cart.inOrder = payload.inOrder;
-        await add2cart.save();
-        return add2cart;
+        cart.products.push(product);
+        await cart.save();
+        return cart;
     } catch (error) {
         console.log(error);
         throw ({ message: "Internal server error" })
@@ -52,10 +49,19 @@ const addProductToCartController = async (payload: Cart, productId: number, user
 
 const insertCart = async (payload: CartNs.Cart) => {
     try {
-        const newCart = new Cart();
-        newCart.quantity = payload.quantity;
-        await newCart.save();
-        return newCart;
+        // let cart = await Cart.findOne({ where: { id: payload.id } })
+        // cart?.quantity = payload.quantity;
+
+        const find = await Cart.find().then(() => {
+            Cart.update({ id: payload.id }, {
+                quantity: payload.quantity,
+                price
+                    : payload.price,
+                totalPrice: payload.quantity * payload.price
+            })
+        })
+        // await find.save();
+        return find;
     } catch (error) {
         throw new Error('Failed to insert category');
     }

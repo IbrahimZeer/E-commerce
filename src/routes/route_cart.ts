@@ -29,17 +29,20 @@ route.post('/:productId', authenticate, async (req: ExpressNS.RequestWithUser, r
     }
 })
 
-route.post('/addProductToCart/:id', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
+route.post('/addProductToCart', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
-        const user = req.user
-        if (!user) {
-            return res.status(401).json({ message: "you are unauthorized" })
+        const user = req.user;
+        const cart = user?.cart;
+        const productId = Number(req.body.id);
+
+        const product = await Product.findOne({ where: { id: productId } });
+        if (!product) {
+            return res.status(404).send({ message: "Product not found" })
         }
-        const cart = await Cart.findOne({ where: { id: req.body.id } });
-        const productId = Number(req.params.id);
         if (cart) {
             if (productId) {
-                addProductToCartController(req.body, productId, user)
+                console.log(cart, req.body);
+                await addProductToCartController(cart, product);
                 res.status(200).json({ message: "Product added to cart" })
             } else {
                 res.status(400).json({ message: "product not found" })

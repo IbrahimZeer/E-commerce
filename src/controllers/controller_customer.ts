@@ -23,14 +23,16 @@ const insertUser = async (payload: Customer) => {
     }, process.env.SECRET_KEY || "", {
         expiresIn: "1d"
     })
-
-    const newCustomer = await Customer.create({
-        ...payload
-    }).save()
-
+    let cart = await Cart.create({}).save()
     let profile = await Profile.create({}).save()
 
-    let cart = await Cart.create({}).save()
+    const newCustomer = await Customer.create({
+        ...payload,
+        cart: cart,
+        profile: profile
+    }).save()
+
+
 
     newCustomer.profile = profile as Profile
     newCustomer.cart = cart as Cart
