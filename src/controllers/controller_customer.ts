@@ -40,7 +40,7 @@ const insertUser = async (payload: CustomerNS.Customer) => {
 // const createUser = (payload: UserNS.User) => {
 //     return dataSource.manager.transaction(async transaction => {
 //         const role = await Role.findOneBy({ name: payload.role })
-///         const newUser = User.create({
+///    /     const newUser = User.create({
 //             ...payload,
 //             roles: [role] as Role[]
 //         });
