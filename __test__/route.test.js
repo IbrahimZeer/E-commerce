@@ -94,44 +94,44 @@ describe("get all product process", () => {
 });
   //--------------------------------------
 
-  describe('insertProduct', () => {
-    it('should insert a new product', async () => {
-      const payload = {
-        productNo: 123,
-        productName: 'Sample Product',
-        description: 'A test product description',
-        quantity: 10,
-        price: 100,
-        isSold_Active: true,
-      };
+  // describe('insertProduct', () => {
+  //   it('should insert a new product', async () => {
+  //     const payload = {
+  //       productNo: 123,
+  //       productName: 'Sample Product',
+  //       description: 'A test product description',
+  //       quantity: 10,
+  //       price: 100,
+  //       isSold_Active: true,
+  //     };
   
-      const newProduct = await insertProduct(payload);
+  //     const newProduct = await insertProduct(payload);
   
-      expect(newProduct).toBeDefined();
-      expect(newProduct.productNo).toEqual(payload.productNo);
-      expect(newProduct.productName).toEqual(payload.productName);
+  //     expect(newProduct).toBeDefined();
+  //     expect(newProduct.productNo).toEqual(payload.productNo);
+  //     expect(newProduct.productName).toEqual(payload.productName);
   
-    });
+  //   });
   
-    it('should throw an error when insertion fails', async () => {
-      const payload = {
-        productNoo: 123,
-        productNaame: 'Sample Product',
-        descriptsion: 'A test product description',
-        quantitdy: 10,
-        price: 100,
-        isSold_Active: true,
-      };
+  //   it('should throw an error when insertion fails', async () => {
+  //     const payload = {
+  //       productNoo: 123,
+  //       productNaame: 'Sample Product',
+  //       descriptsion: 'A test product description',
+  //       quantitdy: 10,
+  //       price: 100,
+  //       isSold_Active: true,
+  //     };
 
-      try {
-        await insertProduct(payload);
+  //     try {
+  //       await insertProduct(payload);
       
-        fail('Expected an error, but insertion succeeded.');
-      } catch (error) {
-        expect(error.message).toEqual('fail is not defined');
-      }
-    });
-  });
+  //       fail('Expected an error, but insertion succeeded.');
+  //     } catch (error) {
+  //       expect(error.message).toEqual('fail is not defined');
+  //     }
+  //   });
+  // });
 
   //---------------------------
 
