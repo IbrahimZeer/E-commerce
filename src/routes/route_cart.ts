@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertCartController, addProductToCartController, updateCartController } from '../controllers/controller_cart.js';
+import { addProductToCartController, updateCartController } from '../controllers/controller_cart.js';
 import { Customer } from '../db/entities/customers/Customer.js';
 import { Cart } from '../db/entities/Cart.js';
 import { Product } from '../db/entities/Products/Product.js';
@@ -11,7 +11,6 @@ const route = express.Router();
 // add products in cart
 route.post('/:productId', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
-        const cart = await Cart.findOne({ where: { id: req.body.id }, relations: ['customer'] });
         const user = req.user
         if (!user) {
             return res.status(401).json({ message: "you are unauthorized" })
@@ -22,39 +21,31 @@ route.post('/:productId', authenticate, async (req: ExpressNS.RequestWithUser, r
             console.log(req.body + 'from all is required')
             return res.status(400).json({ message: "missing some fields" })
         }
-
         req.body.totalPrice = quantity * price;
-        if (cart) {
-            addProductToCartController(req.body, productId, user)
-            res.status(200).json({ message: "Product added to cart from add to product" })
-        } else {
-            await insertCartController(req.body, productId, user)
-            res.status(200).json({ message: "Product added to cart" })
-        }
+        res.status(200).json({ message: "Product added to cart from add to product" })
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Internal server error" })
     }
 })
 
-route.post('/addProductToCart/:email', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
+route.post('/addProductToCart/:id', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
         const user = req.user
         if (!user) {
             return res.status(401).json({ message: "you are unauthorized" })
         }
-        const customerEmail = req.params.email;
-        const productId = req.body.productId;
-        const here = await Customer.findOne({ where: { email: customerEmail } })
-        if (!here) {
-            res.status(404).json({ message: "Customer not found" })
-        }
         const cart = await Cart.findOne({ where: { id: req.body.id } });
+        const productId = Number(req.params.id);
         if (cart) {
-            addProductToCartController(req.body, productId, user)
-            res.status(200).json({ message: "Product added to cart" })
+            if (productId) {
+                addProductToCartController(req.body, productId, user)
+                res.status(200).json({ message: "Product added to cart" })
+            } else {
+                res.status(400).json({ message: "product not found" })
+            }
         } else {
-            updateCartController(req.body, user)
+            res.status(404).json({ message: "something went wrong" })
         }
     } catch (error) {
         throw new Error('Internal server error');

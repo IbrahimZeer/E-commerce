@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertCustomerController, insertUser, search_customers, updateCustomer } from '../controllers/controller_customer.js';
+import { insertUser, search_customers, updateCustomer } from '../controllers/controller_customer.js';
 import { login } from '../controllers/controller_customer.js';
 import { Customer } from '../db/entities/customers/Customer.js';
 import { authenticate } from '../middleware/authentication.js';
@@ -53,8 +53,8 @@ route.post("/login", async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     if (email && password) {
-      await login(email, password)
-      return res.status(200).send('login successfully')
+      const custlogin = await login(email, password)
+      return res.status(200).send(custlogin)
     } else {
       return res.status(404).send("Email and Password are required")
     }
@@ -74,11 +74,8 @@ route.post('/profile', async (req, res) => {
 /* Login User. */
 route.post("/login", (req, res) => {
   if (req.body.email && req.body.password) {
-    login(req.body.email, req.body.password).then((data) => {
-      res.send(data?.token)
-    }).catch((error) => {
-      res.status(400).send(error)
-    })
+    const customerLogin = login(req.body.email, req.body.password)
+    res.status(200).send(customerLogin)
   } else {
     res.status(404).send("email and password are required")
   }

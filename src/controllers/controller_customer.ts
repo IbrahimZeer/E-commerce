@@ -53,18 +53,18 @@ const insertUser = async (payload: Customer) => {
 //     });
 // }
 
-const insertCustomerController = async (payload: Customer) => {
-    console.log(payload + 'from controller')
-    try {
-        const newCustomer = Customer.create({ ...payload })
-        await newCustomer.save()
-        console.log(payload)
-        return newCustomer
-    } catch (error) {
-        console.log(payload + 'from controller catch')
-        throw new Error('there are something wrong')
-    }
-};
+// const insertCustomerController = async (payload: Customer) => {
+//     console.log(payload + 'from controller')
+//     try {
+//         const newCustomer = Customer.create({ ...payload })
+//         await newCustomer.save()
+//         console.log(payload)
+//         return newCustomer
+//     } catch (error) {
+//         console.log(payload + 'from controller catch')
+//         throw new Error('there are something wrong')
+//     }
+// };
 // if (payload.type === 'employee') {
 //     const employee = EmployeeProfile.create({
 //         applications: [],
@@ -157,6 +157,12 @@ const login = async (email: string, password: string) => {
             }, process.env.SECRET_KEY || "", {
                 expiresIn: "14d"
             })
+
+            const cart = await Cart.findOneBy({ id: customer.cart?.id })
+            const profile = await Profile.findOneBy({ id: customer.profile?.id })
+            customer.cart = cart as Cart
+            customer.profile = profile as Profile
+
 
             return {
                 customer,
@@ -262,7 +268,7 @@ const getPermission = () => {
 }
 
 export {
-    insertCustomerController,
+    // insertCustomerController,
     updateCustomer,
     deleteCustomer,
     insertProduct,

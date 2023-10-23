@@ -7,6 +7,7 @@ import { ManyToOne } from "typeorm";
 import { Brand } from "./Brand.js";
 import { OrderDetails } from "../orders/OrderDetails.js";
 import { Cart } from "../Cart.js";
+
 @Entity('products')
 export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -27,8 +28,12 @@ export class Product extends BaseEntity {
     @Column()
     price: number;
 
-    @Column()
-    isSold_Active: boolean; // Corrected property name
+    @Column({
+        type: 'enum',
+        enum: ['inOrder', 'outOrder'],
+        default: 'inOrder'
+    })
+    inOrder: 'inOrder' | 'outOrder';
 
     @CreateDateColumn({
         type: 'timestamp',

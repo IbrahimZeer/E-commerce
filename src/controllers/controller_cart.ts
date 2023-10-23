@@ -9,36 +9,44 @@ import { OrderNS } from '../../@types/type_order.js';
 import { ProductNS } from '../../@types/type_product.js';
 import { CustomerNS } from '../../@types/type_customer.js';
 
-const insertCartController = async (payload: Cart, productId: number, user: Customer) => {
-    console.log(payload);
-    console.log(productId);
-    console.log(user);
+// const insertCartController = async (payload: Cart, productId: number, user: Customer) => {
+//     console.log(payload);
+//     console.log(productId);
+//     console.log(user);
+//     try {
+
+//         const customer = await Customer.findOne({ where: { id: user.id } });
+//         const product = await Product.findOne({ where: { id: productId } });
+//         if (!customer || !product) {
+//             return ({ message: "Customer or Product not found" })
+//         }
+//         const newCart = await Cart.create({
+//             quantity: payload.quantity,
+//             price: payload.price,
+//             totalPrice: payload.totalPrice,
+//             customer: customer,
+//             // product: [product]
+//         });
+//         return newCart.save();
+
+//     } catch (error) {
+//         console.log(error);
+//         throw ({ message: "Internal server error" })
+//     }
+// }
+
+const addProductToCartController = async (payload: Cart, productId: number, user: Customer) => {
     try {
-
-        const customer = await Customer.findOne({ where: { id: user.id } });
-        const product = await Product.findOne({ where: { id: productId } });
-        if (!customer || !product) {
-            return ({ message: "Customer or Product not found" })
-        }
-        const newCart = await Cart.create({
-            quantity: payload.quantity,
-            price: payload.price,
-            totalPrice: payload.totalPrice,
-            customer: customer,
-            // product: [product]
-        });
-        return newCart.save();
-
+        const add2cart = new Product();
+        add2cart.quantity = payload.quantity;
+        add2cart.price = payload.price;
+        add2cart.inOrder = payload.inOrder;
+        await add2cart.save();
+        return add2cart;
     } catch (error) {
         console.log(error);
         throw ({ message: "Internal server error" })
     }
-}
-
-const addProductToCartController = async (payload: Cart, productId: number, user: Customer) => {
-    const prod = await Product.find()
-    console.log(prod);
-    return "hello from add product to cart"
 }
 
 
@@ -70,7 +78,6 @@ const updateCartController = async (data: CartNs.Cart, user: Customer) => {
 };
 
 export {
-    insertCartController,
     // getCartController,
     updateCartController,
     addProductToCartController
