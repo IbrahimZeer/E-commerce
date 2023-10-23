@@ -25,7 +25,11 @@ jobs:
 
 
     - name: Install dependencies
-      run: npm install
+      run: |
+        npm install,
+        npm i -D typescript jest ts-jest @types/jest @babel/preset-env,
+        npm install supertest
+      
 
     - name: Run Jest Tests
       run: npm run test
