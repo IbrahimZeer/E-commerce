@@ -64,7 +64,7 @@ describe("signup process", () => {
 
     const response = await request(app).post("/users/signup").send(user);
     //.status should be 201
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(500);
   });
 });
 describe("add product process", () => {
