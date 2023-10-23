@@ -50,7 +50,8 @@ const insertCart = async (payload: CartNs.Cart) => {
 
 const updateCartController = async (data: CartNs.Cart, user: Customer) => {
     // try {
-    //     // const cart = await Cart.findOne({ where: { id: user.id } });
+
+    //   /  // const cart = await Cart.findOne({ where: { id: user.id } });
     //     if (cart) {
     //         cart.products = data.product;
     //         cart.quantity = data.quantity;
