@@ -12,4 +12,7 @@ export default {
   transformIgnorePatterns: [
     "node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation|aws-amplify-react-native|@ui-kitten)",
   ],
+  
+  "detectOpenHandles": true
+
 };
