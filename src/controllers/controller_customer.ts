@@ -9,6 +9,9 @@ import jwt from "jsonwebtoken"
 import { Profile } from '../db/entities/customers/Profile.js';
 import { Like } from 'typeorm';
 import { Cart } from '../db/entities/Cart.js';
+import { Phone } from '../db/entities/customers/Phone.js';
+import { Country } from '../db/entities/customers/Country.js';
+import { Payment } from '../db/entities/payments/Payment.js';
 
 
 
@@ -23,16 +26,25 @@ const insertUser = async (payload: Customer) => {
     }, process.env.SECRET_KEY || "", {
         expiresIn: "1d"
     })
-    let cart = await Cart.create({}).save()
-    let profile = await Profile.create({}).save()
+    const cart = await Cart.create({}).save()
+    const phone = await Phone.create({}).save()
+    const country = await Country.create({}).save()
+    const payment = await Payment.create({}).save()
+    const profile = await Profile.create({
+        country: country,
+        phones: [phone],
+        payments: [payment]
+    }).save()
+
+    profile.country = country as Country
+    profile.phones = [phone] as Phone[]
+    profile.payments = [payment] as Payment[]
 
     const newCustomer = await Customer.create({
         ...payload,
         cart: cart,
         profile: profile
     }).save()
-
-
 
     newCustomer.profile = profile as Profile
     newCustomer.cart = cart as Cart
