@@ -6,23 +6,21 @@ import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
 import { Like } from 'typeorm';
+import { Customer } from '../db/entities/customers/Customer.js';
 
-const insertOrder = async (payload: OrderNS.Order) => {
-    console.log(payload);
+const insertOrder = async (payload: Order, productPrice: number, customer: Customer) => {
     try {
-        const newOrder = new Order();
-        newOrder.orderAddress = payload.orderAddress;
-        newOrder.productPrice = payload.productPrice;
-        newOrder.deliveryCost = payload.deliveryCost;
-        newOrder.discount = payload.discount;
-        newOrder.totalPrice = payload.totalPrice;
-        newOrder.orderDate = payload.orderDate;
-
-        await newOrder.save();
-
+        // let cust = custoemr as Customer
+        const newOrder = await Order.create({
+            orderAddress: payload.orderAddress,
+            productPrice: productPrice,
+            deliveryCost: payload.deliveryCost,
+            discount: payload.discount,
+            totalPrice: (productPrice + payload.deliveryCost) - payload.discount,
+            customer: customer,
+        }).save();
         return newOrder;
     } catch (error) {
-
         throw new Error('Failed to insert order ');
     }
 };
@@ -37,7 +35,7 @@ const updateOrder = async (id: number, data: OrderNS.Order) => {
             order.productPrice = data.productPrice;
             order.deliveryCost = data.deliveryCost;
             order.discount = data.discount;
-            order.totalPrice = data.totalPrice;
+            order.totalPrice = (data.productPrice + data.deliveryCost) - data.discount;
             order.orderDate = data.orderDate;
             await order.save();
             return order;
@@ -66,7 +64,7 @@ const deleteOrder = async (payload: OrderNS.Order) => {
 };
 
 
-const search_orders = async (orderAddress:string) => {
+const search_orders = async (orderAddress: string) => {
     try {
         return await Order.find({
             select: ["orderAddress", "productPrice", "discount"],
@@ -112,7 +110,7 @@ const login = async () => {
 
 
 const inssertRole = async (payload: OrderNS.Order) => {
-    
+
 }
 
 

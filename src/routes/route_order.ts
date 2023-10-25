@@ -4,22 +4,40 @@ import { OrderNS } from '../../@types/type_order.js';
 import { Order } from '../db/entities/orders/Order.js';
 import { authenticate } from '../middleware/authentication.js';
 import { Customer } from '../db/entities/customers/Customer.js';
+import { ExpressNS } from '../../@types/index.js';
 
 const route = express.Router();
 
-route.post('/create_order', async (req, res) => {
+route.post('/checkout', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
-        const payload: OrderNS.Order = req.body;
-        const newOrder = await insertOrder(payload);
-        res.status(201).json(newOrder);
-    } catch {
-        res.status(500).json({ error: 'Failed to create the order' });
+        const cart = req.user?.cart;
+        const customer: any = req.user;
+        if (!cart) {
+            return res.status(404).send({ message: "Cart not found" })
+        }
+        // for (let i = 0; i < cart.products.length; i++) {
+        //     const product = cart.products[i];
+        //     if (product.quantity > product.quantity) {
+        //         return res.status(400).send({ message: "Product quantity is not available" })
+        //     }
+        // }
 
+        if (cart.quantity < req.body.quantity) {
+            return res.status(400).send({ message: "Product quantity is not available" })
+        }
+        let productPrice = cart.totalPrice;
+        if (cart.inOrder === 'inOrder') {
+            const newOrder = await insertOrder(req.body, productPrice, customer)
+            res.status(201).send(newOrder);
+        } else {
+            return res.status(400).send({ message: "Your product in cart is not in order" })
+        }
+    } catch {
 
     }
 })
 
-route.put('/update_order/:id', async (req, res) => {
+route.put('/update_order/:id', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
         const id = parseInt(req.params.id, 10);
         const order = await updateOrder(id, req.body);
