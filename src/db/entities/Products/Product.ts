@@ -7,6 +7,7 @@ import { ManyToOne } from "typeorm";
 import { Brand } from "./Brand.js";
 import { OrderDetails } from "../orders/OrderDetails.js";
 import { Cart } from "../Cart.js";
+
 @Entity('products')
 export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('increment')

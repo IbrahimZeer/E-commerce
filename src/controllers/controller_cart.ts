@@ -67,24 +67,32 @@ const insertCart = async (payload: CartNs.Cart) => {
     }
 }
 
-const updateCartController = async (data: CartNs.Cart, user: Customer) => {
-    // try {
-    //     // const cart = await Cart.findOne({ where: { id: user.id } });
-    //     if (cart) {
-    //         cart.products = data.product;
-    //         cart.quantity = data.quantity;
-    //         await cart.save();
-    //         return cart;
-    //     } else {
-    //         return ({ message: "Cart not found" });
-    //     }
-    // } catch (error) {
-    //     throw new Error('Failed to update the cart');
-    // }
+const updateCartController = async (cart: Cart, payload: Cart) => {
+    try {
+        const updateQuantity = payload.quantity
+        const updatePrice = payload.price
+        const updateTotalPrice = updateQuantity * updatePrice
+        cart.quantity = updateQuantity;
+        cart.price = updatePrice;
+        cart.totalPrice = updateTotalPrice;
+        await cart.save();
+        return cart;
+    } catch (error) {
+        console.log(error);
+        throw ({ message: "Internal server error" })
+
+    }
 };
 
+const deleteProductFromCartController = async (cart: Cart, productId: number) => {
+    cart.products = cart.products.filter((product) => product.id !== productId)
+    await cart.save();
+    return cart;
+}
+
+
 export {
-    // getCartController,
+    deleteProductFromCartController,
     updateCartController,
     addProductToCartController
 }

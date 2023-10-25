@@ -19,6 +19,7 @@ export class Cart extends BaseEntity {
     })
     inOrder: 'inOrder' | 'outOrder';
 
+
     @Column()
     price: number;
 
@@ -44,6 +45,7 @@ export class Cart extends BaseEntity {
 
     // @ManyToOne(() => Customer, customer => customer.carts)
     // customer: Partial<Customer>
+
     // @OneToOne(() => Customer)
     // @JoinColumn()
     // customer: Partial<Customer>
