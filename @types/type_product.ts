@@ -4,6 +4,7 @@ export namespace ProductNS {
         productNo: number;
         productName: string;
         description: string;
+        productPictures:string;
         quantity: number;
         price: number;
         isSold_Active: boolean;

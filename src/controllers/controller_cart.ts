@@ -9,31 +9,7 @@ import { OrderNS } from '../../@types/type_order.js';
 import { ProductNS } from '../../@types/type_product.js';
 import { CustomerNS } from '../../@types/type_customer.js';
 
-// const insertCartController = async (payload: Cart, productId: number, user: Customer) => {
-//     console.log(payload);
-//     console.log(productId);
-//     console.log(user);
-//     try {
 
-//         const customer = await Customer.findOne({ where: { id: user.id } });
-//         const product = await Product.findOne({ where: { id: productId } });
-//         if (!customer || !product) {
-//             return ({ message: "Customer or Product not found" })
-//         }
-//         const newCart = await Cart.create({
-//             quantity: payload.quantity,
-//             price: payload.price,
-//             totalPrice: payload.totalPrice,
-//             customer: customer,
-//             // product: [product]
-//         });
-//         return newCart.save();
-
-//     } catch (error) {
-//         console.log(error);
-//         throw ({ message: "Internal server error" })
-//     }
-// }
 
 const addProductToCartController = async (cart: Cart, product: Product) => {
     try {

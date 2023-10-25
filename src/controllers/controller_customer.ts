@@ -48,74 +48,11 @@ const insertUser = async (payload: Customer) => {
 
     newCustomer.profile = profile as Profile
     newCustomer.cart = cart as Cart
-
     return {
         newCustomer,
         token
     };
 }
-
-
-// const createUser = (payload: UserNS.User) => {
-//     return dataSource.manager.transaction(async transaction => {
-//         const role = await Role.findOneBy({ name: payload.role })
-//         const newUser = User.create({
-//             ...payload,
-//             roles: [role] as Role[]
-//         });
-//         await transaction.save(newUser);
-//     });
-// }
-
-// const insertCustomerController = async (payload: Customer) => {
-//     console.log(payload + 'from controller')
-//     try {
-//         const newCustomer = Customer.create({ ...payload })
-//         await newCustomer.save()
-//         console.log(payload)
-//         return newCustomer
-//     } catch (error) {
-//         console.log(payload + 'from controller catch')
-//         throw new Error('there are something wrong')
-//     }
-// };
-// if (payload.type === 'employee') {
-//     const employee = EmployeeProfile.create({
-//         applications: [],
-//         cvUrl: payload.cvUrl || ''
-//     });
-//     employee.user = newUser;
-//     await transaction.save(employee);
-// } else if (payload.type === 'employer') {
-//     const company = new CompanyProfile();
-//     company.user = newUser;
-//     await transaction.save(company);
-// }
-
-// // const user = await Customer.findOneBy({ id: payload.id })
-// const newCustomer = Customer.create({
-//     fName: payload.fName,
-//     lName: payload.lName,
-//     email: payload.email,
-//     password: payload.password
-// })
-// newCustomer.save()
-// return {
-//     newCustomer
-//     // token
-// }
-// if (!user) {
-// } else {
-//     // throw new Error(`already have customer`)
-// }
-// const token = jwt.sign({
-//     id: payload.id,
-//     email: payload.email
-//     // isAdmin: payload.isAdmin
-// }, process.env.SECRET_KEY || "", {
-//     expiresIn: "14d"
-// })
-
 
 
 const updateCustomer = async (payload: Customer, customerIn: Customer) => {
@@ -222,7 +159,6 @@ const getCustomers = () => {
 
 
 export {
-    // insertCustomerController,
     updateCustomer,
     deleteCustomer,
     login,

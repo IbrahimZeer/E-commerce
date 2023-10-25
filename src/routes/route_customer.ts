@@ -7,7 +7,6 @@ import { ExpressNS } from '../../@types/index.js';
 
 const route = express.Router();
 
-
 route.post('/', async (req, res) => {
   const { email, password, userName } = req.body;
   try {
@@ -45,6 +44,17 @@ route.post("/login", async (req, res) => {
 })
 
 //create update on customer details
+// route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
+//   try {
+//     const customer = req.user;
+//     if (!customer) {
+//       res.status(401).send('you are unauthorized')
+//     }
+//     await updateCustomer(req.body, customer);
+//   } catch (error) {
+
+//   }
+// })
 route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
   try {
     const customer = req.user;
