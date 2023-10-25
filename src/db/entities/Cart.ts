@@ -19,7 +19,6 @@ export class Cart extends BaseEntity {
     })
     inOrder: 'inOrder' | 'outOrder';
 
-
     @Column()
     price: number;
 

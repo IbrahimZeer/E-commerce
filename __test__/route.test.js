@@ -19,7 +19,6 @@ app.use(express.json());
 app.use("/users", usersRouter);
 app.use("/Products", routeProduct);
 app.use('/orders', routeOrder);
-
 app.use(express.urlencoded({ extended: false }));
 
 console.log(process.env.DB_HOST);

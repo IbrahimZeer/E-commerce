@@ -6,7 +6,6 @@ import { Product } from '../db/entities/Products/Product.js';
 import { ExpressNS } from '../../@types/index.js';
 import { authenticate } from '../middleware/authentication.js';
 
-
 const route = express.Router();
 
 route.post('/addProductToCart', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
@@ -69,7 +68,6 @@ route.delete('/removeProductFromCart/:productId', authenticate, async (req: Expr
         if (!productId) {
             return res.status(400).json({ message: "Product id is required" })
         }
-
         if (cart) {
             const deleteProduct = await deleteProductFromCartController(cart, productId);
             res.status(200).json({ message: "Product removed from cart", deleteProduct })
@@ -78,10 +76,5 @@ route.delete('/removeProductFromCart/:productId', authenticate, async (req: Expr
         throw new Error('Internal server error');
     }
 })
-
-// all cart items
-
-
-
 
 export default route;
