@@ -44,7 +44,7 @@ const login = async (email: string, password: string) => {
     }
 }
 
-const updateAdmin = async (id:number,payload: AdminNS.Admin) => {
+const updateAdmin = async (id: number, payload: AdminNS.Admin) => {
     const admin = await Admin.findOne({ where: { id: payload.id } })
     if (admin) {
         admin.userName = payload.userName

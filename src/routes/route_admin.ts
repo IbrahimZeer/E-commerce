@@ -2,6 +2,7 @@ import express from 'express';
 import { insertAdminController, updateAdmin } from '../controllers/controller_admin.js';
 import { Admin } from '../db/entities/Admin.js';
 import { login } from '../controllers/controller_admin.js';
+import { Adminauthentication } from '../middleware/admin_authentication.js';
 
 const route = express.Router();
 
@@ -47,7 +48,7 @@ route.post("/login", async (req, res) => {
 // route.put('/update', (req, res) => {
 //     console.log('update admin route details')
 //     res.status(200).send('admin updated successfully');
-route.put('/update/:id', async (req, res) => {
+route.put('/update/:id', Adminauthentication, async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
         const admin = await updateAdmin(id, req.body);
@@ -62,7 +63,7 @@ route.put('/update/:id', async (req, res) => {
 })
 
 
-route.delete('/admin', (req, res) => {
+route.delete('/admin', Adminauthentication, (req, res) => {
     console.log('delete admin route details')
     res.status(200).send('admin deleted successfully');
 });

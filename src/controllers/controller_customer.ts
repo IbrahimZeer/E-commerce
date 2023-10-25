@@ -118,35 +118,39 @@ const insertUser = async (payload: Customer) => {
 
 
 
-const updateCustomer = async (payload: CustomerNS.Customer, customerIn: Customer) => {
+const updateCustomer = async (payload: Customer, customerIn: Customer) => {
     const customer = await Customer.findOneBy({ id: customerIn.id })
     if (!customer) {
         throw new Error('user not found')
     }
     if (payload.fName) { customer.fName = payload.fName }
     if (payload.lName) { customer.lName = payload.lName }
-    if (payload.email) { customer.email = payload.email }
-    const profile = await Profile.findOneBy({ id: customer.profile?.id })
-
+    const findEmail = await Customer.findOneBy({ email: payload.email })
+    if (findEmail) {
+        return new Error('email already exists')
+    } else {
+        if (payload.email) { customer.email = payload.email }
+    }
+    if (payload.password) { customer.password = payload.password }
+    const findUserName = await Customer.findOneBy({ userName: payload.userName })
+    if (findUserName) {
+        return new Error('username already exists')
+    } else {
+        if (payload.userName) { customer.userName = payload.userName }
+    }
+    if (payload.country) { customer.country = payload.country }
+    if (payload.profile) { customer.profile = payload.profile }
     customer.save()
 
 
 }
 
-const deleteCustomer = async (payload: CustomerNS.Customer) => {
-
-}
-
-const insertProduct = async (payload: CustomerNS.Customer) => {
-
-}
-
-const updateProduct = async (payload: CustomerNS.Customer) => {
-
-}
-
-const deleteProduct = async (payload: CustomerNS.Customer) => {
-
+const deleteCustomer = async (customer: Customer) => {
+    const customerToDelete = await Customer.findOneBy({ id: customer.id })
+    if (customerToDelete) {
+        await customerToDelete.remove()
+        return customerToDelete
+    }
 }
 
 //------->LOGIN-------------->
@@ -190,48 +194,6 @@ const login = async (email: string, password: string) => {
     }
 }
 
-const profile = async (payload: CustomerNS.Profile) => {
-    // const profile = await Profile.findOneBy({ id: payload.id })
-    // if (!profile) {
-    //     if (relate) {
-    //         const newProfile = Profile.create({
-    //             ...payload.profile,
-    //             customer: payload,
-    //         })
-    //         await newProfile.save()
-    //         return newProfile
-    //     } else {
-    //         throw new Error('there are something wrong')
-    //     }
-    // } else {
-    //     if (relate) {
-    //         const newProfile = Profile.create({
-    //             ...payload.profile,
-    //             customer: payload,
-    //             profile: profile as Profile
-    //         })
-    //         await newProfile.save()
-    //         return newProfile
-    //     } else {
-    //         throw new Error('there are something wrong')
-    //     }
-    // }
-    const relate = await dataSource.createQueryBuilder().relation(Customer, "profile").of(payload).loadOne()
-    try {
-        const profile = Profile.create({
-            ...payload
-        });
-        relate.profile = profile;
-        await relate.save();
-        await profile.save();
-        return profile;
-    } catch (error) {
-        console.log(error);
-        throw ("Something went wrong");
-    }
-}
-
-
 const search_customers = async (userName: string) => {
     try {
         return await Customer.find({
@@ -253,49 +215,17 @@ const search_customers = async (userName: string) => {
 
 };
 
-const inssertRole = async (payload: CustomerNS.Customer) => {
-
-}
-
-
-const insertPermission = async (payload: CustomerNS.Customer) => {
-
-}
-
 const getCustomers = () => {
     const Customers = Customer.find()
     return Customers
 }
 
-const getProducts = () => {
-
-}
-
-const getRoles = () => {
-    const roles = Role.find()
-    return roles
-}
-
-const getPermission = () => {
-    const permissions = Permission.find()
-    return permissions
-}
 
 export {
     // insertCustomerController,
     updateCustomer,
     deleteCustomer,
-    insertProduct,
-    updateProduct,
-    deleteProduct,
     login,
-    inssertRole,
-    insertPermission,
-    getCustomers,
-    getProducts,
-    getRoles,
-    getPermission,
-    profile,
     insertUser,
     search_customers
 }
