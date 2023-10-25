@@ -51,29 +51,28 @@ route.put('/update_order/:id', authenticate, async (req: ExpressNS.RequestWithUs
     }
 });
 
-route.delete('/delete_order/:id', async (req, res) => {
+route.delete('/delete_order/:id', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     deleteOrder(req.body)
     res.status(200).send('Order deleted successfully');
 
 
 });
 
-route.get('/all_order', authenticate, (req, res, next) => {
-    getOrders().then(data => {
+route.get('/all_order', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
+    await getOrders().then(data => {
         res.status(200).send(data)
     }).catch(error => {
         res.status(404).send(error)
     })
 
 })
-route.get('/search_orders/:orderAddress', async (req, res) => {
+route.get('/search_orders/:orderAddress', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
         const orderAddress = req.params.orderAddress;
-
         const orders = await search_orders(orderAddress)
-        res.status(200).json(orders);
+        await res.status(200).json(orders);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to search for orders' });
+        await res.status(500).json({ error: 'Failed to search for orders' });
     }
 });
 

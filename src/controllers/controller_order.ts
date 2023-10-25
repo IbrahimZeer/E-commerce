@@ -47,19 +47,19 @@ const updateOrder = async (id: number, data: OrderNS.Order) => {
     }
 };
 
-const deleteOrder = async (payload: OrderNS.Order) => {
+const deleteOrder = async (payload: Order) => {
 
     try {
-        const id = parseInt(payload.id, 10);
-        const order = await Order.findOneBy({ id })
+        // const id = parseInt(payload.id, 10);
+        const order = await Order.findOne({ where: { id: payload.id } });
         if (order) {
-            order.remove()
+            await order.remove();
         }
         else {
-            throw ("Orderid not found")
+            throw new Error("Order id not found");
         }
     } catch (error) {
-        throw ('An error occurred while deleting the order');
+        throw new Error('An error occurred while deleting the order');
     }
 };
 
@@ -71,85 +71,26 @@ const search_orders = async (orderAddress: string) => {
             where: {
                 orderAddress: Like(`%${orderAddress}%`),
             },
-
             order: {
                 createdAt: "DESC"
             }
-
         })
-
     } catch (error) {
-
         throw error;
     }
 
 };
-
-
-
-
-
-
-
-
-const addProduct = async (payload: OrderNS.Order) => {
-
-}
-
-const updateProduct = async (payload: OrderNS.Order) => {
-
-}
-
-const removeProduct = async (payload: OrderNS.Order) => {
-
-}
-
-const login = async () => {
-
-}
-
-
-const inssertRole = async (payload: OrderNS.Order) => {
-
-}
-
-
-const insertPermission = async (payload: OrderNS.Order) => {
-
-}
 
 const getOrders = () => {
     const Orders = Order.find()
     return Orders
 }
 
-const getProducts = () => {
-    const products = Product.find()
-    return products
-}
-
-const getRoles = () => {
-    const roles = Role.find()
-    return roles
-}
-
-const getPermission = () => {
-    const permissions = Permission.find()
-    return permissions
-}
 
 export {
     insertOrder,
     updateOrder,
     deleteOrder,
-    addProduct,
-    updateProduct,
-    removeProduct,
-    login,
-    inssertRole,
-    insertPermission,
     getOrders,
-    getRoles,
-    getPermission,
     search_orders
 }
