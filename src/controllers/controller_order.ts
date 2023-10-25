@@ -36,7 +36,6 @@ const updateOrder = async (id: number, data: OrderNS.Order) => {
             order.deliveryCost = data.deliveryCost;
             order.discount = data.discount;
             order.totalPrice = (data.productPrice + data.deliveryCost) - data.discount;
-            order.orderDate = data.orderDate;
             await order.save();
             return order;
         } else {
