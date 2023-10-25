@@ -48,7 +48,6 @@ const insertUser = async (payload: Customer) => {
 
     newCustomer.profile = profile as Profile
     newCustomer.cart = cart as Cart
-
     return {
         newCustomer,
         token
@@ -59,7 +58,7 @@ const insertUser = async (payload: Customer) => {
 // const createUser = (payload: UserNS.User) => {
 //     return dataSource.manager.transaction(async transaction => {
 //         const role = await Role.findOneBy({ name: payload.role })
-//         const newUser = User.create({
+///    /     const newUser = User.create({
 //             ...payload,
 //             roles: [role] as Role[]
 //         });

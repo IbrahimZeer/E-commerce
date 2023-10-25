@@ -29,6 +29,7 @@ route.post('/:productId', authenticate, async (req: ExpressNS.RequestWithUser, r
     }
 })
 
+
 route.post('/addProductToCart', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
         const user = req.user;

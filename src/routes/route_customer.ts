@@ -7,8 +7,6 @@ import { profile } from '../controllers/controller_customer.js';
 import { ExpressNS } from '../../@types/index.js';
 
 const route = express.Router();
-
-
 route.post('/', async (req, res) => {
   const { email, password, userName } = req.body;
   try {

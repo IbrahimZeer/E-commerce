@@ -13,6 +13,7 @@ const route = express.Router();
 
 route.post('/add_product', async (req, res) => {
     try {
+        
         const payload = req.body; // Assuming the request body contains the necessary product data
         const newProduct = await insertProduct(payload);
         res.status(201).json(newProduct);

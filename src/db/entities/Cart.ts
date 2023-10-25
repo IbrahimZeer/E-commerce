@@ -44,7 +44,6 @@ export class Cart extends BaseEntity {
 
     // @ManyToOne(() => Customer, customer => customer.carts)
     // customer: Partial<Customer>
-
     // @OneToOne(() => Customer)
     // @JoinColumn()
     // customer: Partial<Customer>
