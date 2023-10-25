@@ -13,11 +13,92 @@ import routeProduct from './src/routes/route_product.js'
 import routeReview from './src/routes/route_review.js'
 import routeCategory from './src/routes/route_categories.js'
 import routeCart from './src/routes/route_cart.js'
-
+import AWS from 'aws-sdk';
+import path from 'path';
+import multer from 'multer';
+import multerS3 from 'multer-s3'
+import { S3Client, ListBucketsCommand } from "@aws-sdk/client-s3";
+import fs from 'fs'
 
 dotenv.config()
 const app = express();
 const PORT = 5000
+
+AWS.config.update({
+  accessKeyId: process.env.YOUR_AWS_ACCESS_KEY,
+  secretAccessKey:process.env.YOUR_AWS_SECRET_KEY,
+  region: process.env.YOUR_AWS_REGION,
+});
+
+// const s3:undefined| = new S3Client({
+//   region: process.env.YOUR_AWS_REGION,
+//   credentials:{
+//   secretAccessKey:process.env.YOUR_AWS_SECRET_KEY,
+//   accessKeyId: process.env.YOUR_AWS_ACCESS_KEY,
+//   },
+// });
+
+// const storage = multer.diskStorage({
+//   destination: (req, file, callback) => {
+//       callback(null, 'images/');
+//   },
+//   filename: (req, file, callback) => {
+//       callback(null, Date.now() + '-' + file.originalname)
+//   }
+// });
+// const upload = multer({
+//   storage: multerS3({
+//     s3 : s3,
+//     bucket: 'armedfaresibraa',
+//     acl:"public-read",
+//     contentType: multerS3.AUTO_CONTENT_TYPE,
+//     key:function (req, file, cb) {
+//       cb(null, file.originalname);
+//     }
+  
+//   })
+// })
+// app.post('/upload', upload.single('photos'), (req:express.Request, res:express.Response)=> {
+//   console.log(req.file);
+  
+//   res.send('Successfully uploaded ' )
+// })
+// const storage = multer.diskStorage({
+//   destination: (req, file, callback) => {
+//       callback(null, 'images/');
+//   },
+//   filename: (req, file, callback) => {
+//       callback(null, Date.now() + '-' + file.originalname)
+//   }
+// });
+// const upload = multer({ storage });
+
+// app.post('/analyze', upload.single('file'), (req, res) => {
+//   if (!req.file) {
+//       res.status(500).send("Failed Upload File!");
+//       return;
+//   }
+
+//     // Load the image file from disk
+//     const fileBuffer = fs.readFileSync(req.file.path);
+
+//     // Configure parameters for Rekognition
+//     const params = {
+//         Image: {
+//             Bytes: fileBuffer,
+//         },
+//     };
+//     rekognition.detectLabels(params, (err, data) => {
+//       if (err) {
+//           console.error('Error analyzing image:', err);
+//           res.status(500).json({ error: 'Failed to analyze image' });
+//       } else {
+//           const labels = data.Labels?.map((label) => label.Name);
+//           res.json({ labels });
+//       }
+//   });
+// });
+
 
 app.use(morgan('tiny'));
 app.use(express.json());

@@ -7,6 +7,7 @@ import { ManyToOne } from "typeorm";
 import { Brand } from "./Brand.js";
 import { OrderDetails } from "../orders/OrderDetails.js";
 import { Cart } from "../Cart.js";
+import { type } from "os";
 @Entity('products')
 export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -20,6 +21,8 @@ export class Product extends BaseEntity {
 
     @Column()
     description: string; // Corrected property name
+    @Column()
+    productPictures: string;
 
     @Column()
     quantity: number;
