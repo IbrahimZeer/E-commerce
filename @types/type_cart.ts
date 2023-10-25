@@ -14,6 +14,6 @@ export namespace CartNs {
         UpdatedAt: Date,
         details: any[],
         customer: any,
-        product: any
+        product: any[]
     }
 }

@@ -63,9 +63,9 @@ export class Customer extends BaseEntity {
     orders: Order[]
     // ================CART================
 
-    @OneToOne(() => Cart)
+    @OneToOne(() => Cart, { eager: true })
     @JoinColumn()
-    cart: Partial<Cart>;
+    cart: Cart;
     // ================CART================
     @OneToMany(() => Country, country => country.customer)
     country: Country[]

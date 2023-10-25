@@ -40,7 +40,7 @@ route.delete('/delete_order/:id', async (req, res) => {
 
 });
 
-route.get('/all_order',authenticate, (req, res, next) => {
+route.get('/all_order', authenticate, (req, res, next) => {
     getOrders().then(data => {
         res.status(200).send(data)
     }).catch(error => {
@@ -51,7 +51,7 @@ route.get('/all_order',authenticate, (req, res, next) => {
 route.get('/search_orders/:orderAddress', async (req, res) => {
     try {
         const orderAddress = req.params.orderAddress;
-        
+
         const orders = await search_orders(orderAddress)
         res.status(200).json(orders);
     } catch (error) {

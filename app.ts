@@ -99,7 +99,6 @@ AWS.config.update({
 //   });
 // });
 
-
 app.use(morgan('tiny'));
 app.use(express.json());
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertCustomerController, insertUser, search_customers, updateCustomer } from '../controllers/controller_customer.js';
+import { insertUser, search_customers, updateCustomer } from '../controllers/controller_customer.js';
 import { login } from '../controllers/controller_customer.js';
 import { Customer } from '../db/entities/customers/Customer.js';
 import { authenticate } from '../middleware/authentication.js';
@@ -7,19 +7,23 @@ import { profile } from '../controllers/controller_customer.js';
 import { ExpressNS } from '../../@types/index.js';
 
 const route = express.Router();
-route.post('/signup', async (req, res) => {
+route.post('/', async (req, res) => {
   const { email, password, userName } = req.body;
   try {
     if (!email || !password || !userName) {
       return res.status(400).send({ error: "All fields are required." });
     }
     console.log(email, password, userName + 'from try route')
-    const newCustomer = await insertUser(req.body);
-    res.status(201).send(newCustomer);
+    const newCustomer = await insertUser(req.body)
+    res.status(201).send(newCustomer)
   } catch (error) {
-    console.log(email, password, userName + 'from catch route')
     console.log(error)
+    if (error === 'customer already exists') {
+      return res.status(400).send({ error: "customer already exists" });
+    }
+    console.log(email, password, userName + 'from catch catch')
     res.status(500).send('Internal server error')
+    // console.log(error)
   }
 })
 
@@ -47,8 +51,8 @@ route.post("/login", async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
     if (email && password) {
-      await login(email, password)
-      return res.status(200).send('login successfully')
+      const custlogin = await login(email, password)
+      return res.status(200).send(custlogin)
     } else {
       return res.status(404).send("Email and Password are required")
     }
@@ -64,17 +68,12 @@ route.post('/profile', async (req, res) => {
   })
 })
 
-route.post('/profile', async (req, res) => { profile(req.body).then(data => { res.status(200).send(data) }) })
-
 
 /* Login User. */
 route.post("/login", (req, res) => {
   if (req.body.email && req.body.password) {
-    login(req.body.email, req.body.password).then((data) => {
-      res.send(data?.token)
-    }).catch((error) => {
-      res.status(400).send(error)
-    })
+    const customerLogin = login(req.body.email, req.body.password)
+    res.status(200).send(customerLogin)
   } else {
     res.status(404).send("email and password are required")
   }

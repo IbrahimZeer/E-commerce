@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OneToMany } from "typeorm";
 import { Size } from "./Size.js";
 import { Color } from "./Color.js";
@@ -7,7 +7,6 @@ import { ManyToOne } from "typeorm";
 import { Brand } from "./Brand.js";
 import { OrderDetails } from "../orders/OrderDetails.js";
 import { Cart } from "../Cart.js";
-import { type } from "os";
 @Entity('products')
 export class Product extends BaseEntity {
     @PrimaryGeneratedColumn('increment')
@@ -30,8 +29,12 @@ export class Product extends BaseEntity {
     @Column()
     price: number;
 
-    @Column()
-    isSold_Active: boolean; // Corrected property name
+    @Column({
+        type: 'enum',
+        enum: ['inOrder', 'outOrder'],
+        default: 'inOrder'
+    })
+    inOrder: 'inOrder' | 'outOrder';
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -52,6 +55,6 @@ export class Product extends BaseEntity {
     @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.product)
     orderDetails: OrderDetails[]
 
-    @ManyToOne(() => Cart, (cart) => cart.products)
-    cart: Partial<Cart>
+    // @ManyToMany(() => Cart, (cart) => cart.products)
+    // cart: Partial<Cart>
 }
