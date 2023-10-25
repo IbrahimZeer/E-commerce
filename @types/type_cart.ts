@@ -7,11 +7,13 @@ export namespace CartNs {
     export interface Cart {
         id: number,
         quantity: number,
+        price: number,
+        totalPrice: number,
         inOrder: Type,
         createdAt: Date,
         UpdatedAt: Date,
         details: any[],
         customer: any,
-        product: any
+        product: any[]
     }
 }

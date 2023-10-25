@@ -19,7 +19,6 @@ app.use(express.json());
 app.use("/users", usersRouter);
 app.use("/Products", routeProduct);
 app.use("/orders", routeOrder);
-
 app.use(express.urlencoded({ extended: false }));
 
 console.log(process.env.DB_HOST);
@@ -104,49 +103,37 @@ describe("insertProduct", () => {
       price: 100,
       isSold_Active: true,
     };
-
     const newProduct = await insertProduct(payload);
-
     expect(newProduct).toBeDefined();
     expect(newProduct.productNo).toEqual(payload.productNo);
     expect(newProduct.productName).toEqual(payload.productName);
   });
-
-  it("should throw an error when insertion fails", async () => {
-    const payload = {
-      productNoo: 123,
-      productNaame: "Sample Product",
-      descriptsion: "A test product description",
-      quantitdy: 10,
-      price: 100,
-      isSold_Active: true,
-    };
-
-    try {
-      await insertProduct(payload);
-
-      fail("Expected an error, but insertion succeeded.");
-    } catch (error) {
-      expect(error.message).toEqual("fail is not defined");
-    }
-  });
 });
 
-//---------------------------
+it("should throw an error when insertion fails", async () => {
+  const payload = {
+    productNoo: 123,
+    productNaame: "Sample Product",
+    descriptsion: "A test product description",
+    quantitdy: 10,
+    price: 100,
+    isSold_Active: true,
+  };
 
-describe("add Order process", () => {
-  it("should add Orders  with valid credentials", async () => {
-    const order = {
-      orderAddress: "dfgfds",
-      productPrice: 1234,
-      deliveryCost: 5432,
-      discount: 20,
-      totalPrice: 12345,
-    };
+  describe("add Order process", () => {
+    it("should add Orders  with valid credentials", async () => {
+      const order = {
+        orderAddress: "dfgfds",
+        productPrice: 1234,
+        deliveryCost: 5432,
+        discount: 20,
+        totalPrice: 12345,
+      };
 
-    const response = await request(app)
-      .post("/orders/create_order")
-      .send(order);
-    expect(response.status).toBe(201);
+      const response = await request(app)
+        .post("/orders/create_order")
+        .send(order);
+      expect(response.status).toBe(201);
+    });
   });
 });

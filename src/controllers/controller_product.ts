@@ -7,7 +7,7 @@ import { Permission } from '../db/entities/Permission.js'
 import { OrderNS } from '../../@types/type_order.js';
 import { Like } from 'typeorm';
 
-const insertProduct = async (payload: ProductNS.Product) => {
+const insertProduct = async (payload: Product) => {
     try {
         const newProduct = new Product();
         newProduct.productNo = payload.productNo;
@@ -15,7 +15,7 @@ const insertProduct = async (payload: ProductNS.Product) => {
         newProduct.description = payload.description;
         newProduct.quantity = payload.quantity;
         newProduct.price = payload.price;
-        newProduct.isSold_Active = payload.isSold_Active;
+        newProduct.inOrder = payload.inOrder;
 
         await newProduct.save();
         return newProduct;
@@ -23,7 +23,7 @@ const insertProduct = async (payload: ProductNS.Product) => {
         throw new Error('Failed to insert the product');
     }
 }
-const updateProduct = async (id: number, payload: ProductNS.Product) => {
+const updateProduct = async (id: number, payload: Product) => {
     try {
         const product = await Product.findOne({ where: { id } });
 
@@ -37,7 +37,7 @@ const updateProduct = async (id: number, payload: ProductNS.Product) => {
         product.description = payload.description;
         product.quantity = payload.quantity;
         product.price = payload.price;
-        product.isSold_Active = payload.isSold_Active;
+        product.inOrder = payload.inOrder;
 
         await product.save();
 
@@ -81,25 +81,9 @@ const getProducts = () => {
     return Products
 }
 
-// const searchProducts = async (productName: string) => {
-//     try {
-//         return await Product.find({
-//             select: ["productName", "description", "price"],
-//             where: {
-//                 productName: Like(`%${productName}%`),
-//             },
-//             order: {
-//                 createdAt: "DESC",
-//             }
-//         })
-//     } catch (error) {
-//         throw error;
-//     }
-// }
 
-
-const searchProducts = async (productName:string) => {
-    console.log(productName+"string2");
+const searchProducts = async (productName: string) => {
+    console.log(productName + "string2");
 
     try {
         return await Product.find({
@@ -115,7 +99,7 @@ const searchProducts = async (productName:string) => {
         })
 
     } catch (error) {
-        console.log(productName+"str3")
+        console.log(productName + "str3")
 
         throw error;
     }

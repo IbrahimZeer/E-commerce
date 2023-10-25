@@ -13,6 +13,7 @@ const route = express.Router();
 
 route.post('/add_product', async (req, res) => {
     try {
+
         const payload = req.body; // Assuming the request body contains the necessary product data
         const newProduct = await insertProduct(payload);
         res.status(201).json(newProduct);
@@ -20,8 +21,6 @@ route.post('/add_product', async (req, res) => {
         res.status(500).json({ error: 'Failed to create the product' });
     }
 });
-
-
 
 route.put('/update_product/:id', Adminauthentication, async (req, res) => {
     try {
@@ -60,8 +59,8 @@ route.get('/all_product', (req, res) => {
 route.get('/search_product/:productName', async (req, res) => {
     try {
         const productName = req.params.productName;
-        console.log(productName+'string1');
-        
+        console.log(productName + 'string1');
+
         const products = await searchProducts(productName)
         res.status(200).json(products);
     } catch (error) {
@@ -89,14 +88,4 @@ route.get('/search_product/:productName', async (req, res) => {
     }
 });
 
-// router.get("/booksByName", (req, res) => {
-//     const bookName = req.query.name;
-//     let found = Data.some((book) => book.title === bookName);
-//     if (found) {
-//       const books = Data.filter((book) => book.title === bookName);
-//       res.send(books);
-//     } else {
-//       res.status(403).send("The Book not found !!");
-//     }
-//   });
 export default route;

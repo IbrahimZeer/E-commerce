@@ -13,11 +13,16 @@ import routeProduct from './src/routes/route_product.js'
 import routeReview from './src/routes/route_review.js'
 import routeCategory from './src/routes/route_categories.js'
 import routeCart from './src/routes/route_cart.js'
-
+import path from 'path';
+import multer from 'multer';
+import multerS3 from 'multer-s3'
+import { S3Client, ListBucketsCommand } from "@aws-sdk/client-s3";
+import fs from 'fs'
 
 dotenv.config()
 const app = express();
 const PORT = 5000
+
 
 app.use(morgan('tiny'));
 app.use(express.json());

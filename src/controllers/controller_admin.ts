@@ -44,7 +44,7 @@ const login = async (email: string, password: string) => {
     }
 }
 
-const updateAdmin = async (id:number,payload: AdminNS.Admin) => {
+const updateAdmin = async (id: number, payload: AdminNS.Admin) => {
     const admin = await Admin.findOne({ where: { id: payload.id } })
     if (admin) {
         admin.userName = payload.userName
@@ -67,28 +67,6 @@ const deleteAdmin = async (payload: AdminNS.Admin) => {
         throw ("Adminid not found")
     }
 }
-
-const isnertProduct = async (payload: AdminNS.Admin) => {
-
-}
-
-const updateProduct = async (payload: AdminNS.Admin) => {
-
-}
-
-const deleteProduct = async (payload: AdminNS.Admin) => {
-
-}
-
-
-// const inssertRole = async (payload: AdminNS.Role) => {
-
-// }
-
-
-// const insertPermission = async (payload: AdminNS.Permission) => {
-
-// }
 
 const getAdmins = () => {
     const admins = Admin.find()
@@ -114,9 +92,6 @@ export {
     insertAdminController,
     updateAdmin,
     deleteAdmin,
-    // insertProduct,
-    updateProduct,
-    deleteProduct,
     login,
     getAdmins,
     getProducts,
