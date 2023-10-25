@@ -21,6 +21,8 @@ export class Product extends BaseEntity {
 
     @Column()
     description: string; // Corrected property name
+    @Column()
+    productPictures: string;
 
     @Column()
     quantity: number;

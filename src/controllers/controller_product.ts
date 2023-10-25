@@ -98,8 +98,8 @@ const getProducts = () => {
 // }
 
 
-const searchProducts = async (productName: string) => {
-    console.log(productName + "string2");
+const searchProducts = async (productName:string) => {
+    console.log(productName+"string2");
 
     try {
         return await Product.find({

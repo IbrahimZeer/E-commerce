@@ -14,9 +14,9 @@
     "license": "ISC",
     "dependencies": {
         "@aws-sdk/client-s3": "^3.435.0",
-        "@babel/preset-env": "^7.23.2",
         "@types/multer-s3": "^3.0.0",
-        "aws-sdk": "^2.1480.0",
+        "@babel/preset-env": "^7.23.2",
+        "aws-sdk": "^2.1479.0",
         "bcrypt": "^5.1.1",
         "cors": "^2.8.5",
         "debug": "~2.6.9",
@@ -30,9 +30,9 @@
         "multer-s3": "^3.0.1",
         "mysql": "^2.18.1",
         "nodemon": "^3.0.1",
-        "path": "^0.12.7",
         "supertest": "^6.3.3",
         "test": "^3.3.0",
+        "path": "^0.12.7",
         "typeorm": "^0.3.17",
         "typescript": "^5.2.2",
         "uuid": "^9.0.1",
@@ -46,6 +46,7 @@
         "@types/jsonwebtoken": "^9.0.2",
         "@types/morgan": "^1.9.6",
         "@types/multer": "^1.4.9",
+        "@types/multer-s3": "^3.0.0",
         "@types/node": "^20.5.6",
         "@types/uuid": "^9.0.5",
         "@types/validator": "^13.11.1",
@@ -53,6 +54,7 @@
         "express": "^4.18.2",
         "jest": "^29.7.0",
         "nodemon": "^3.0.1",
+        "supertest": "^6.3.3",
         "ts-jest": "^29.1.1",
         "typescript": "^5.2.2"
     }

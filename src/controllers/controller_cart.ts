@@ -80,6 +80,7 @@ const updateCartController = async (cart: Cart, payload: Cart) => {
     } catch (error) {
         console.log(error);
         throw ({ message: "Internal server error" })
+
     }
 };
 
@@ -88,6 +89,7 @@ const deleteProductFromCartController = async (cart: Cart, productId: number) =>
     await cart.save();
     return cart;
 }
+
 
 export {
     deleteProductFromCartController,

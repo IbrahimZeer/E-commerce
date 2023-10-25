@@ -15,12 +15,6 @@ route.post('/checkout', authenticate, async (req: ExpressNS.RequestWithUser, res
         if (!cart) {
             return res.status(404).send({ message: "Cart not found" })
         }
-        // for (let i = 0; i < cart.products.length; i++) {
-        //     const product = cart.products[i];
-        //     if (product.quantity > product.quantity) {
-        //         return res.status(400).send({ message: "Product quantity is not available" })
-        //     }
-        // }
 
         if (cart.quantity < req.body.quantity) {
             return res.status(400).send({ message: "Product quantity is not available" })
