@@ -16,7 +16,7 @@ const insertProduct = async (payload: Product) => {
         newProduct.quantity = payload.quantity;
         newProduct.price = payload.price;
         newProduct.inOrder = payload.inOrder;
-
+        newProduct.productPictures = payload.productPictures;
         await newProduct.save();
         return newProduct;
     } catch (error) {
@@ -30,7 +30,6 @@ const updateProduct = async (id: number, payload: Product) => {
         if (!product) {
             throw new Error('Product not found');
         }
-
         // Update the product properties
         product.productNo = payload.productNo;
         product.productName = payload.productName;
@@ -38,7 +37,7 @@ const updateProduct = async (id: number, payload: Product) => {
         product.quantity = payload.quantity;
         product.price = payload.price;
         product.inOrder = payload.inOrder;
-
+        product.productPictures = payload.productPictures;
         await product.save();
 
         return product;
@@ -61,21 +60,6 @@ const deleteProduct = async (id: number) => {
     }
 };
 
-
-const login = async () => {
-
-}
-
-
-const inssertRole = async (payload: ProductNS.Product) => {
-
-}
-
-
-const insertPermission = async (payload: ProductNS.Product) => {
-
-}
-
 const getProducts = () => {
     const Products = Product.find()
     return Products
@@ -83,24 +67,17 @@ const getProducts = () => {
 
 
 const searchProducts = async (productName: string) => {
-    console.log(productName + "string2");
-
     try {
         return await Product.find({
             select: ["productName", "description", "price"],
             where: {
                 productName: Like(`%${productName}%`),
             },
-
             order: {
                 createdAt: "DESC"
             }
-
         })
-
     } catch (error) {
-        console.log(productName + "str3")
-
         throw error;
     }
 
@@ -109,9 +86,6 @@ export {
     insertProduct,
     updateProduct,
     deleteProduct,
-    login,
-    inssertRole,
-    insertPermission,
     getProducts,
     searchProducts
 }

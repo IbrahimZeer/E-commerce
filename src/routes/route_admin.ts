@@ -34,8 +34,8 @@ route.post("/login", async (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         if (email && password) {
-            login(email, password)
-            res.status(200).send('login successfully')
+            const log = await login(email, password)
+            res.status(200).send(log)
         } else {
             res.status(404).send("Email and Password are required")
         }

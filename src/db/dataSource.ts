@@ -31,6 +31,13 @@ dotenv.config()
 
 console.log(process.env.DB_NAME)
 const dataSource = new DataSource({
+        extra: {
+                connectionLimit: 1000,
+                connectTimeout: 30000, // 30 seconds
+                acquireTimeout: 60000,
+                timeout: 60000,
+        },
+        connectTimeout: 30000,
         type: "mysql",
         host: process.env.DB_HOST,
         port: Number(process.env.DB_PORT),
@@ -68,8 +75,9 @@ const dataSource = new DataSource({
         ],
         migrations: ['./**/migration/*.ts'],
         synchronize: true,
+
         // dropSchema: true,
-        logging: false
+        logging: true
 });
 
 export default dataSource;

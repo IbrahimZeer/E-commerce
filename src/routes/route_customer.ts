@@ -57,11 +57,13 @@ route.post("/login", async (req, res) => {
 // })
 route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
   try {
-    const customer = req.user;
-    if (!customer) {
+    const customerEmail = req.user?.email;
+    console.log(`customer Id = , and customer is ${customerEmail}`)
+    if (!customerEmail) {
       res.status(401).send('you are unauthorized')
     } else {
-      await updateCustomer(req.body, customer);
+      await updateCustomer(req.body, customerEmail);
+      res.status(200).send('customer updated successfully');
     }
   } catch (error) {
 

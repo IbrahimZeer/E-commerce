@@ -21,7 +21,6 @@ const Adminauthentication = async (req: Express.Request, res: Express.Response, 
     } else {
         res.status(401).send("you are unauthorized")
     }
-
 }
 
 export { Adminauthentication }

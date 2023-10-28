@@ -14,16 +14,13 @@ route.post('/addProductToCart', authenticate, async (req: ExpressNS.RequestWithU
         const cart = user?.cart;
         const productId = Number(req.body.id);
         const quantity = req.body.quantity;
-
         const product = await Product.findOne({ where: { id: productId } });
         if (!product) {
             return res.status(404).send({ message: "Product not found" })
         }
-
         if (!quantity) {
             return res.status(400).send({ message: "Quantity is required" })
         }
-
         if (cart) {
             if (productId) {
                 console.log(cart, req.body);

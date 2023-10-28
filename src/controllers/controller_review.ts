@@ -3,41 +3,58 @@ import express from 'express';
 import dataSource from '../db/dataSource.js';
 import { ReviewNS } from '../../@types/type_review.js';
 import { Review } from '../db/entities/Review.js'
-import { getRepository } from 'typeorm';
+import { Customer } from '../db/entities/customers/Customer.js';
+import { Product } from '../db/entities/Products/Product.js';
 
 
-const insertReview = async (payload: ReviewNS.Review) => {
-  // const reviewRepository = getRepository(Review);
-  // const customer = 
+const insertFullNameReview = async (payload: Review, fullName: string, prodId: number) => {
 
-  // if () {
+  const product = await Product.find({ where: { id: prodId } });
+  if (product) {
+    const rev = await Review.create({
+      fullName: fullName,
+      rate: payload.rate,
+      comments: payload.comments,
+      products: product
+    }).save();
+    rev.products = product as Product[]
+    return rev;
+  } else {
+    return "product not found"
+  }
+};
 
-  // } else {
-  //   if (fullName) {
-  //     res.status(200).send('any')
-  //   }
+const insertCustomerReview = async (payload: Review, user: Customer, prodId: number) => {
+  const product = await Product.find({ where: { id: prodId } });
+  if (product) {
+    const rev = await Review.create({
+      rate: payload.rate,
+      comments: payload.comments,
+      products: product
+    }).save();
+    rev.products = product as Product[]
+    return rev;
+  } else {
+    return "product not found"
+  }
 }
-
-
-// // Create a new review entity using payload properties
-// const newReview = reviewRepository.create({
-//   userId: payload.userId,
-//   fullName: payload.fullName,
-//   productId: payload.productId,
-//   comments: payload.comment,
-//   //...payload
-// });
-
-// // Save the new review entity to the database
-// await reviewRepository.save(newReview);
-// };
 
 const updateReview = async (payload: ReviewNS.Review) => {
 
 }
 
-const deleteReview = async (payload: ReviewNS.Review) => {
+const deleteReview = async (revId: number) => {
+  const review = await Review.findOne({ where: { id: revId } })
+  if (review) {
+    review.remove()
+  }
+}
 
+const deleteFullNameReview = async (revId: number) => {
+  const review = await Review.findOne({ where: { id: revId } })
+  if (review) {
+    review.remove()
+  }
 }
 
 const getReviews = () => {
@@ -46,7 +63,9 @@ const getReviews = () => {
 }
 
 export {
-  insertReview,
+  insertFullNameReview,
+  deleteFullNameReview,
+  insertCustomerReview,
   updateReview,
   deleteReview,
   getReviews

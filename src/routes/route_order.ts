@@ -48,8 +48,6 @@ route.put('/update_order/:id', authenticate, async (req: ExpressNS.RequestWithUs
 route.delete('/delete_order/:id', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     deleteOrder(req.body)
     res.status(200).send('Order deleted successfully');
-
-
 });
 
 route.get('/all_order', authenticate, async (req: ExpressNS.RequestWithUser, res) => {

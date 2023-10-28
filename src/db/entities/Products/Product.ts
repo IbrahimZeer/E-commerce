@@ -7,6 +7,8 @@ import { ManyToOne } from "typeorm";
 import { Brand } from "./Brand.js";
 import { OrderDetails } from "../orders/OrderDetails.js";
 import { Cart } from "../Cart.js";
+import { Review } from "../Review.js";
+import { join } from "path";
 
 @Entity('products')
 export class Product extends BaseEntity {
@@ -55,6 +57,11 @@ export class Product extends BaseEntity {
 
     @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.product)
     orderDetails: OrderDetails[]
+
+
+    @OneToMany(() => Review, (review) => review.products)
+    @JoinColumn()
+    review: Review
 
     // @ManyToMany(() => Cart, (cart) => cart.products)
     // cart: Partial<Cart>

@@ -55,11 +55,12 @@ const insertUser = async (payload: Customer) => {
 }
 
 
-const updateCustomer = async (payload: Customer, customerIn: Customer) => {
-    const customer = await Customer.findOneBy({ id: customerIn.id })
+const updateCustomer = async (payload: Customer, custmerEmail: string) => {
+    const customer = await Customer.findOneBy({ email: custmerEmail })
     if (!customer) {
         throw new Error('user not found')
     }
+
     if (payload.fName) { customer.fName = payload.fName }
     if (payload.lName) { customer.lName = payload.lName }
     const findEmail = await Customer.findOneBy({ email: payload.email })

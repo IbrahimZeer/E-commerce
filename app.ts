@@ -13,29 +13,29 @@ import routeProduct from './src/routes/route_product.js'
 import routeReview from './src/routes/route_review.js'
 import routeCategory from './src/routes/route_categories.js'
 import routeCart from './src/routes/route_cart.js'
-import path from 'path';
-import multer from 'multer';
-import multerS3 from 'multer-s3'
-import { S3Client, ListBucketsCommand } from "@aws-sdk/client-s3";
-import fs from 'fs'
+import fileUpload from 'express-fileupload'
+
 
 dotenv.config()
 const app = express();
 const PORT = 5000
 
 
+app.set('view engine', 'ejs');
+
+app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
-
+app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }))
 // routes of application
 app.use('/admin', adminRouter);
 app.use('/users', customerRouter);
 app.use('/orders', routeOrder);
-app.use('/', routePayment);
 app.use('/Products', routeProduct);
-app.use('/', routeReview);
 app.use('/category', routeCategory);
 app.use('/carts', routeCart);
+app.use('/review', routeReview);
+app.use('/', routePayment);
 
 
 app.use((req, res, next) => {
