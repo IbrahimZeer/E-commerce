@@ -1,8 +1,8 @@
 import AWS from 'aws-sdk'
 
 const configS3 = async () => {
-    const accessKeyId = process.env.ACCESS_KEY;
-    const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+    const accessKeyId = process.env.YOUR_AWS_ACCESS_KEY;
+    const secretAccessKey = process.env.YOUR_AWS_SECRET_KEY;
 
     if (!accessKeyId || !secretAccessKey) {
         throw 'AWS access key ID or secret access key is undefined.'
@@ -13,7 +13,7 @@ const configS3 = async () => {
             accessKeyId,
             secretAccessKey,
         },
-        region: process.env.REGION,
+        region: process.env.YOUR_AWS_REGION,
     });
 
     const S3 = new AWS.S3();

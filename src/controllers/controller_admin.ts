@@ -20,21 +20,52 @@ const insertAdminController = async (payload: Admin) => {
     }
 }
 
+// const login = async (email: string, password: string) => {
+//     try {
+//         const customer = await Admin.findOneBy({ email });
+//         if (!customer) { return undefined }
+//         const passwordMatching = await bcrypt.compare(password, customer?.password || '')
+//         if (customer && passwordMatching) {
+//             const token = jwt.sign({
+//                 email: customer.email,
+//                 userName: customer.userName,
+//             }, process.env.SECRET_KEY || "", {
+//                 expiresIn: "1d"
+//             })
+//             return {
+//                 userName: customer.userName,
+//                 token
+//             }
+//         } else {
+//             throw ("invalid email or password")
+//         }
+//     } catch (error) {
+//         throw ("invalid email or password")
+//     }
+// }
 const login = async (email: string, password: string) => {
     try {
-        const customer = await Admin.findOneBy({ email });
-        if (!customer) { return undefined }
-        const passwordMatching = await bcrypt.compare(password, customer?.password || '')
-        if (customer && passwordMatching) {
+        const user = await Admin.findOneBy({
+            email
+        });
+
+        if (!user) {
+            return undefined
+        }
+
+        const passwordMatching = await bcrypt.compare(password, user?.password || '')
+
+        if (user && passwordMatching) {
             const token = jwt.sign({
-                email: customer.email,
-                userName: customer.userName,
+                email: user.email,
+                userName: user.userName,
             }, process.env.SECRET_KEY || "", {
-                expiresIn: "1d"
+                expiresIn: "14d"
             })
+
             return {
-                userName: customer.userName,
-                token
+                userName:user.userName,
+                token 
             }
         } else {
             throw ("invalid email or password")

@@ -77,7 +77,7 @@ const dataSource = new DataSource({
         synchronize: true,
 
         // dropSchema: true,
-        logging: true
+        logging: false
 });
 
 export default dataSource;
