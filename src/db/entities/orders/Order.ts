@@ -2,13 +2,12 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, Ma
 import { Customer } from "../customers/Customer.js";
 import { OrderDetails } from "./OrderDetails.js";
 import { Payment } from "../payments/Payment.js";
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('order')
 export class Order extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+    @PrimaryGeneratedColumn('increment')
+    id: number
 
     @Column()
     orderAddress: string
@@ -42,10 +41,7 @@ export class Order extends BaseEntity {
 
     @ManyToOne(() => Customer, customer => customer.orders)
     customer: Partial<Customer>
-
-    @OneToMany(() => OrderDetails, orderDetails => orderDetails.order)
-    details: OrderDetails[]
-
+  
     @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.order)
     orderDetails: OrderDetails[]
 

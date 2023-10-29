@@ -5,78 +5,93 @@ import { Order } from '../db/entities/orders/Order.js'
 import { Role } from '../db/entities/Role.js'
 import { Permission } from '../db/entities/Permission.js'
 import { Product } from '../db/entities/Products/Product.js'
+import { Like } from 'typeorm';
+import { Customer } from '../db/entities/customers/Customer.js';
+
+const insertOrder = async (payload: Order, productPrice: number, customer: Customer) => {
+    try {
+        // let cust = custoemr as Customer
+        const newOrder = await Order.create({
+            orderAddress: payload.orderAddress,
+            productPrice: productPrice,
+            deliveryCost: payload.deliveryCost,
+            discount: payload.discount,
+            totalPrice: (productPrice + payload.deliveryCost) - payload.discount,
+            customer: customer,
+        }).save();
+        return newOrder;
+    } catch (error) {
+        throw new Error('Failed to insert order ');
+    }
+};
 
 
-const insertOrder = async (payload: OrderNS.Order) => {
 
-}
+const updateOrder = async (id: number, data: Order) => {
+    try {
+        const order = await Order.findOne({ where: { id } });
+        if (!order) {
+            throw new Error('Order not found');
+        }
+        order.orderAddress = data.orderAddress;
+        order.productPrice = data.productPrice;
+        order.deliveryCost = data.deliveryCost;
+        order.discount = data.discount;
+        if (order.discount || order.deliveryCost || order.productPrice) {
+            order.totalPrice = (data.productPrice + data.deliveryCost) - data.discount;
+        }
+        await order.save();
+        return order;
+    } catch (error) {
+        console.log(error, 'error from controller')
+        throw new Error('Failed to update the order');
+    }
+};
 
-const updateOrder = async (payload: OrderNS.Order) => {
+const deleteOrder = async (payload: Order) => {
 
-}
-
-const deleteOrder = async (payload: OrderNS.Order) => {
-
-}
-
-const insertProduct = async (payload: OrderNS.Order) => {
-
-}
-
-const updateProduct = async (payload: OrderNS.Order) => {
-
-}
-
-const deleteProduct = async (payload: OrderNS.Order) => {
-
-}
-
-const login = async () => {
-
-}
+    try {
+        // const id = parseInt(payload.id, 10);
+        const order = await Order.findOne({ where: { id: payload.id } });
+        if (order) {
+            await order.remove();
+        }
+        else {
+            throw new Error("Order id not found");
+        }
+    } catch (error) {
+        throw new Error('An error occurred while deleting the order');
+    }
+};
 
 
-const inssertRole = async (payload: OrderNS.Order) => {
+const search_orders = async (orderAddress: string) => {
+    try {
+        return await Order.find({
+            select: ["orderAddress", "productPrice", "discount"],
+            where: {
+                orderAddress: Like(`%${orderAddress}%`),
+            },
+            order: {
+                createdAt: "DESC"
+            }
+        })
+    } catch (error) {
+        throw error;
+    }
 
-}
-
-
-const insertPermission = async (payload: OrderNS.Order) => {
-
-}
+};
 
 const getOrders = () => {
     const Orders = Order.find()
     return Orders
 }
 
-const getProducts = () => {
-    const products = Product.find()
-    return products
-}
-
-const getRoles = () => {
-    const roles = Role.find()
-    return roles
-}
-
-const getPermission = () => {
-    const permissions = Permission.find()
-    return permissions
-}
 
 export {
     insertOrder,
     updateOrder,
     deleteOrder,
-    insertProduct,
-    updateProduct,
-    deleteProduct,
-    login,
-    inssertRole,
-    insertPermission,
     getOrders,
-    getProducts,
-    getRoles,
-    getPermission
+    search_orders
 }

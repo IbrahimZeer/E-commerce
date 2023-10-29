@@ -1,5 +1,9 @@
 export namespace CustomerNS {
 
+    export enum Type {
+        customer = 'customer',
+        admin = 'admin',
+    }
     export interface Customer {
         id: string,
         fName: string,
@@ -7,27 +11,33 @@ export namespace CustomerNS {
         userName: string,
         email: string
         password: string,
+        type: Type,
         registrationDate: Date,
         updatedAt: Date,
-        role: 'checkout' | 'review' | 'show product'
+        profile: any,
+        orders: any[],
+        cart: any,
+        country: any[]
+
     }
     export interface Profile {
-        id: string,
+        id: number,
         age: number,
-        cityId: string,
-        countryId: string,
-        phoneId: string,
+        profilePic: string,
         createdAt: Date,
-        updatedAt: Date
+        updatedAt: Date,
+        phones: any[],
+        country: any,
+        payments: any[]
     }
     export interface City {
         id: string,
         cityName: string,
-        countryId: string,
         street: string,
         postalCode: string
         createdAt: Date,
-        updatedAt: Date
+        updatedAt: Date,
+        country: any
     }
 
 
@@ -35,7 +45,8 @@ export namespace CustomerNS {
         id: string,
         phoneNo: string,
         createdAt: Date,
-        updatedAt: Date
+        updatedAt: Date,
+        profile: any
     }
 
     export interface Country {
@@ -43,17 +54,10 @@ export namespace CustomerNS {
         countryName: string,
         countryCode: string,
         createdAt: Date,
-        updatedAt: Date
-    }
-
-    export interface Role {
-        id: number,
-        name: 'customer',
-        permission: number
-    }
-    export interface Permission {
-        id: number,
-        name: 'chekout' | '' | '',
+        updatedAt: Date,
+        profile: any,
+        cities: any[],
+        customer: any
     }
 
 }

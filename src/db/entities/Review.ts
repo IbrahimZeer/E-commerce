@@ -1,12 +1,16 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "./Products/Product.js";
 
 @Entity('review')
 export class Review extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string
+    @PrimaryGeneratedColumn('increment')
+    id: number;
 
     @Column()
     fullName: string;
+
+    @Column()
+    rate: number;
 
     @Column()
     comments: string;
@@ -21,6 +25,8 @@ export class Review extends BaseEntity {
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    UpdatedAt: string;
+    UpdatedAt: Date;
 
+    @ManyToOne(() => Product, product => product.review)
+    products: Product[];
 }

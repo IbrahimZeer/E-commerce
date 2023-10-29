@@ -2,7 +2,7 @@ import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, Ma
 import { Order } from "./Order.js";
 import { Product } from "../Products/Product.js";
 
-@Entity('orderDetails')
+@Entity('order_details')
 export class OrderDetails extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;

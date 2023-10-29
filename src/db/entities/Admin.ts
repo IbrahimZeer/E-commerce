@@ -1,5 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { AdminNS } from '../../../@types/type_admin.js';
+import { BaseEntity, BeforeInsert, Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import bcrypt from 'bcrypt';
 
 
 @Entity('admin')
@@ -7,15 +7,25 @@ export class Admin extends BaseEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column({ nullable: false, unique: true })
     userName: string;
 
-    @Column()
-    displayName: string;
-
-    @Column()
+    @Column({ nullable: false, unique: true })
     email: string;
 
+    @Column({
+        type: 'enum',
+        enum: ['admin'],
+        default: 'admin'
+    })
+    type: 'admin'
+
+    @BeforeInsert()
+    async hashPassword() {
+        if (this.password) {
+            this.password = await bcrypt.hash(this.password, 10)
+        }
+    }
     @Column()
     password: string;
 
@@ -23,7 +33,7 @@ export class Admin extends BaseEntity {
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
-    revDate: Date;
+    createdAt: Date;
 
     @CreateDateColumn({
         type: 'timestamp',

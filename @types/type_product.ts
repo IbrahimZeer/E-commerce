@@ -1,15 +1,15 @@
 export namespace ProductNS {
-
     export interface Product {
-        id: string,
-        fName: string,
-        lName: string,
-        userName: string,
-        email: string
-        password: string,
-        createdAt: Date,
-        updatedAt: Date,
-        role: 'customer'
+        id: number;
+        productNo: number;
+        productName: string;
+        description: string;
+        productPictures:string;
+        quantity: number;
+        price: number;
+        isSold_Active: boolean;
+        createdAt: Date;
+        updatedAt: Date;
     }
     export interface Category {
         id: string,

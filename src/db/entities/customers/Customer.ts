@@ -19,10 +19,10 @@ export class Customer extends BaseEntity {
     @Column({ length: 255, nullable: false })
     lName: string;
 
-    @Column()
+    @Column({ nullable: true, unique: true })
     userName: string;
 
-    @Column({ length: 255, nullable: false })
+    @Column({ length: 255, nullable: false, unique: true })
     email: string;
 
     @BeforeInsert()
@@ -34,17 +34,26 @@ export class Customer extends BaseEntity {
     @Column({ nullable: false })
     password: string;
 
+
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
     registrationDate: Date;
 
     @CreateDateColumn({
         type: 'timestamp',
-        default: () => "CURRENT_TIMESTAMP()"
+        default: () => "CURRENT_TIMESTAMP(6)"
     })
-    UpdatedAt: string;
+    UpdatedAt: Date;
+
+    @Column({
+        type: 'enum',
+        enum: ['admin', 'customer'],
+        default: 'customer'
+    })
+    type: 'customer' | 'admin';
+
 
     @OneToOne(() => Profile)
     @JoinColumn()
@@ -52,7 +61,16 @@ export class Customer extends BaseEntity {
 
     @OneToMany(() => Order, order => order.customer)
     orders: Order[]
+    // ================CART================
 
-    @OneToMany(() => Cart, cart => cart.customer)
-    carts: Cart[]
+    @OneToOne(() => Cart, { eager: true })
+    @JoinColumn()
+    cart: Cart;
+
+    // ================CART================
+    @OneToMany(() => Country, country => country.customer)
+    country: Country[]
+
+    @ManyToOne(() => Role, role => role.customers)
+    roles: Partial<Role>
 }

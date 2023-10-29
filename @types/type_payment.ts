@@ -1,38 +1,43 @@
 export namespace PaymentNS {
 
+    export interface payment {
+        id: string,
+        paymentDate: Date,
+        amount: string,
+        profile: any,
+        transactions: any[],
+        order: any,
+        paymentData: any
+    }
     export interface transaction {
         id: string,
-        orderId: string,
-        transRefNo: string,
-        paymentCode: string,
         amount: string
         transDate: Date,
-        ccNo: number,
-        createdAt: Date,
-        updatedAt: Date
+        payment: any,
+        paymentMethods: any[],
+        transactionStatus: any
     }
     export interface transactionStatus {
         id: string,
         statusName: string,
         statusCode: boolean,
-        createdAt: Date,
-        updatedAt: Date
+        transactions: any[]
     }
     export interface paymentMethod {
         id: string,
-        paymentTypeName: string,
-        paymentTypeCode: string,
-        createdAt: Date,
-        updatedAt: Date
+        methodName: string,
+        description: string,
+        transaction: any
     }
 
 
     export interface paymentData {
         id: string,
-        transactionId: string,
-        data: any,
-        createdAt: Date,
-        updatedAt: Date
+        cardholderName: string,
+        cardNo: number,
+        exp: Date,
+        cvv: number,
+        billingAddress: string
     }
 
 }

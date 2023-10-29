@@ -3,8 +3,8 @@ import { Product } from "./Product.js";
 
 @Entity('category')
 export class Category extends BaseEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+    @PrimaryGeneratedColumn('increment')
+    id: number;
 
     @Column({ length: 255, nullable: false })
     catName: string;
