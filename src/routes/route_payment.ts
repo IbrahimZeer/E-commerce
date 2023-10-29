@@ -15,7 +15,7 @@ route.put('/update_payment', (req, res) => {
 
 
 route.delete('/delete_payment', (req, res) => {
-    console.log('delete payment route details')
+    console.log('delet payment route details')
     res.status(200).send('payment deleted successfully');
 });
 
