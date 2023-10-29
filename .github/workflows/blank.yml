@@ -36,7 +36,7 @@ jobs:
           user: github
           ssh-private-key: ${{ secrets.DEPLOYMENT_KEY }}
       - name: deploy
-        run: docker compose -f docker-compose.yml up -d
+        run: docker compose -f docker-compose-prod.yml up -d
         env:
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
