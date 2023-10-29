@@ -41,7 +41,7 @@ export class Order extends BaseEntity {
 
     @ManyToOne(() => Customer, customer => customer.orders)
     customer: Partial<Customer>
-
+  
     @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.order)
     orderDetails: OrderDetails[]
 

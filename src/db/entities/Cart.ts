@@ -1,3 +1,4 @@
+
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { Customer } from "./customers/Customer.js";
 import { Product } from "./Products/Product.js";
@@ -26,7 +27,6 @@ export class Cart extends BaseEntity {
     totalPrice: number;
 
     @CreateDateColumn({
-
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
     })
@@ -52,5 +52,4 @@ export class Cart extends BaseEntity {
     @ManyToMany(() => Product, { eager: true })
     @JoinTable()
     products: Product[]
-
 }
