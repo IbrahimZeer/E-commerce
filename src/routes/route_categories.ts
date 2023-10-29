@@ -86,6 +86,8 @@ route.post('/add_products_in_category/:id', (req, res) => {
     }
 })
 
+
+
 route.get('/all_product_in_category/:id', (req, res) => {
     const id = parseInt(req.params.id);
     getCategoryProductsController(id, req.body)
