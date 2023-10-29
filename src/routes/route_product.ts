@@ -13,7 +13,7 @@ import { configS3 } from '../services/configS3fFile.js';
 
 const route = express.Router();
 
-route.post('/add_product',Adminauthentication, async (req, res) => {
+route.post('/add_product', Adminauthentication, async (req, res) => {
     try {
         const payload = req.body; // Assuming the request body contains the necessary product data
         const uploadedFile = req.files?.productPictures as UploadedFile;
@@ -71,7 +71,6 @@ route.delete('/delete_product/:id', Adminauthentication, async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
         const update = await deleteProduct(id);
-
         if (!update) {
             res.status(404).send('Product not found');
         } else {

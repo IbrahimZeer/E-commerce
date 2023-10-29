@@ -34,13 +34,15 @@ route.post('/checkout', authenticate, async (req: ExpressNS.RequestWithUser, res
 route.put('/update_order/:id', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
         const id = parseInt(req.params.id, 10);
-        const order = await updateOrder(id, req.body);
+        const order = await Order.findOne({ where: { id } });
         if (order) {
+            await updateOrder(id, req.body);
             res.status(201).send('Order Updated');
         } else {
             res.status(404).send('Order not found!');
         }
     } catch (error) {
+        console.log(error, 'error from route')
         res.status(500).json({ error: 'Failed to update the order' });
     }
 });

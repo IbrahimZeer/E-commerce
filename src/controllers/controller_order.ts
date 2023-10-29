@@ -27,21 +27,23 @@ const insertOrder = async (payload: Order, productPrice: number, customer: Custo
 
 
 
-const updateOrder = async (id: number, data: OrderNS.Order) => {
+const updateOrder = async (id: number, data: Order) => {
     try {
         const order = await Order.findOne({ where: { id } });
-        if (order) {
-            order.orderAddress = data.orderAddress;
-            order.productPrice = data.productPrice;
-            order.deliveryCost = data.deliveryCost;
-            order.discount = data.discount;
-            order.totalPrice = (data.productPrice + data.deliveryCost) - data.discount;
-            await order.save();
-            return order;
-        } else {
-            return null;
+        if (!order) {
+            throw new Error('Order not found');
         }
+        order.orderAddress = data.orderAddress;
+        order.productPrice = data.productPrice;
+        order.deliveryCost = data.deliveryCost;
+        order.discount = data.discount;
+        if (order.discount || order.deliveryCost || order.productPrice) {
+            order.totalPrice = (data.productPrice + data.deliveryCost) - data.discount;
+        }
+        await order.save();
+        return order;
     } catch (error) {
+        console.log(error, 'error from controller')
         throw new Error('Failed to update the order');
     }
 };

@@ -5,7 +5,7 @@ import { login } from '../controllers/controller_admin.js';
 import { Adminauthentication } from '../middleware/admin_authentication.js';
 
 const route = express.Router();
-
+//vvvvvv
 route.post('/signup', async (req, res) => {
     try {
         const { userName, email, password, type } = req.body;
@@ -46,16 +46,16 @@ route.post('/signup', async (req, res) => {
 // })
 route.post("/login", (req, res) => {
     if (req.body.email && req.body.password) {
-      login(req.body.email, req.body.password).then((data) => {
-        res.send(data?.token)
-      }).catch((error) => {
-        res.status(400).send(error)
-      })
+        login(req.body.email, req.body.password).then((data) => {
+            res.send(data?.token)
+        }).catch((error) => {
+            res.status(400).send(error)
+        })
     } else {
-      res.status(404).send("email and password are required")
+        res.status(404).send("email and password are required")
     }
-  })
-  
+})
+
 
 // route.put('/update', (req, res) => {
 //     console.log('update admin route details')

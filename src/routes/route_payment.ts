@@ -4,7 +4,7 @@ const route = express.Router();
 
 route.post('/create_payment', (req, res) => {
     console.log('create payment route')
-    res.status(200).send('payment created successfully');
+    res.status(201).send('payment created successfully');
 })
 
 
@@ -15,7 +15,7 @@ route.put('/update_payment', (req, res) => {
 
 
 route.delete('/delete_payment', (req, res) => {
-    console.log('delete payment route details')
+    console.log('delet payment route details')
     res.status(200).send('payment deleted successfully');
 });
 
