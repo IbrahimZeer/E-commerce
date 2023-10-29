@@ -4,7 +4,7 @@ const route = express.Router();
 
 route.post('/create_payment', (req, res) => {
     console.log('create payment route')
-    res.status(200).send('payment created successfully');
+    res.status(201).send('payment created successfully');
 })
 
 
