@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  app:
+    image: ghcr.io/ibrahimzeer/ecommerce:$GIT_VERSION
+    restart: always
+    environment:
+      - PORT=80
+      - AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+      - AWS_SECRET_KEY=$AWS_SECRET_KEY
+      - AWS_REGION=$AWS_REGION
+      - S3_NAME=$S3_NAME
+      - GIT_VERSION=$GIT_VERSION
+      - SECRET_KEY=$SECRET_KEY
+      - DB_HOST=$DB_HOST
+      - DB_PORT=$DB_PORT
+      - DB_USER_NAME=$DB_USER_NAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - DB_NAME=$DB_NAME
+    ports:
+      - "80:80"

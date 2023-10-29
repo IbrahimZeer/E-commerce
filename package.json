@@ -5,9 +5,9 @@
     "type": "module",
     "main": "./dist/app.js",
     "scripts": {
-        "build-tsc": "tsc -w",
+        "build": "tsc -w",
         "run-watch": "nodemon ./dist/app.js",
-        "dev": "concurrently \"npm:build-tsc\"  \"npm:run-watch\""
+        "dev": "concurrently \"npm:build\"  \"npm:run-watch\""
     },
     "author": "",
     "license": "ISC",

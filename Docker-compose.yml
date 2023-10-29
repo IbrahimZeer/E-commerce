@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: db
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=express-docker
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  app:
+    profiles:
+      - in_docker
+    container_name: express-docker
+    build: .
+    environment:
+      - AWS_ACCESS_KEY=$AWS_ACCESS_KEY
+      - AWS_SECRET_KEY=$AWS_SECRET_KEY
+      - AWS_REGION=$AWS_REGION
+      - S3_NAME=$S3_NAME
+      - GIT_VERSION=$GIT_VERSION
+      - SECRET_KEY=$SECRET_KEY
+      - DB_HOST=$DB_HOST
+      - DB_PORT=$DB_PORT
+      - DB_USER_NAME=$DB_USER_NAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - DB_NAME=$DB_NAME
+    ports:
+      - "3000:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  db-data:
