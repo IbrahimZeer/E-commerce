@@ -1,5 +1,4 @@
 export namespace CartNs {
-
     export enum Type {
         inOrder = 'inOrder',
         outOrder = 'outOrder',
