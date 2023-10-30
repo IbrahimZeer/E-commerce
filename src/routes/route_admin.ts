@@ -1,11 +1,12 @@
 import express from 'express';
 import { insertAdminController, updateAdmin } from '../controllers/controller_admin.js';
 import { Admin } from '../db/entities/Admin.js';
-import { login } from '../controllers/controller_admin.js';
+import { login, deleteAdmin } from '../controllers/controller_admin.js';
 import { Adminauthentication } from '../middleware/admin_authentication.js';
 
 const route = express.Router();
-//vvvvvv
+
+
 route.post('/signup', async (req, res) => {
     try {
         const { userName, email, password, type } = req.body;
@@ -56,10 +57,6 @@ route.post("/login", (req, res) => {
     }
 })
 
-
-// route.put('/update', (req, res) => {
-//     console.log('update admin route details')
-//     res.status(200).send('admin updated successfully');
 route.put('/update/:id', Adminauthentication, async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
@@ -75,9 +72,19 @@ route.put('/update/:id', Adminauthentication, async (req, res) => {
 })
 
 
-route.delete('/admin', Adminauthentication, (req, res) => {
-    console.log('delete admin route details')
-    res.status(200).send('admin deleted successfully');
+route.delete('/delete', Adminauthentication, async (req, res) => {
+    try {
+        const email = req.body.email;
+        const admin = await Admin.findOne({ where: { email: email } })
+        if (!admin) {
+            res.status(404).send('Admin not found');
+        } else {
+            await deleteAdmin(email);
+            res.status(200).send('Admin deleted successfully');
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete the product' });
+    }
 });
 
 

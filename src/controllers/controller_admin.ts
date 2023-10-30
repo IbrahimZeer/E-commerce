@@ -64,8 +64,8 @@ const login = async (email: string, password: string) => {
             })
 
             return {
-                userName:user.userName,
-                token 
+                userName: user.userName,
+                token
             }
         } else {
             throw ("invalid email or password")
@@ -89,14 +89,9 @@ const updateAdmin = async (id: number, payload: AdminNS.Admin) => {
     }
 }
 
-const deleteAdmin = async (payload: AdminNS.Admin) => {
-    const admin = await Admin.findOne({ where: { id: payload.id } })
-    if (admin) {
-        admin.remove()
-    }
-    else {
-        throw ("Adminid not found")
-    }
+const deleteAdmin = async (email: string) => {
+    const admin = await Admin.findOne({ where: { email: email } })
+    await admin?.remove()
 }
 
 const getAdmins = () => {
