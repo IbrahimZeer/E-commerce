@@ -43,22 +43,10 @@ route.post("/login", async (req, res) => {
   }
 })
 
-//create update on customer details
-// route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
-//   try {
-//     const customer = req.user;
-//     if (!customer) {
-//       res.status(401).send('you are unauthorized')
-//     }
-//     await updateCustomer(req.body, customer);
-//   } catch (error) {
-
-//   }
-// })
 route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
   try {
     const customerEmail = req.user?.email;
-    console.log(`customer Id = , and customer is ${customerEmail}`)
+    console.log(`and customer is ${customerEmail}`)
     if (!customerEmail) {
       res.status(401).send('you are unauthorized')
     } else {
@@ -96,8 +84,5 @@ route.get('/search_customers/:userName', async (req, res) => {
     res.status(500).json({ error: 'Failed to search for customers' });
   }
 });
-
-
-// get user by id
 
 export default route;

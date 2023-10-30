@@ -32,6 +32,9 @@ export class Product extends BaseEntity {
     @Column()
     price: number;
 
+    @Column()
+    type: string;
+
     @Column({
         type: 'enum',
         enum: ['inOrder', 'outOrder'],

@@ -12,6 +12,7 @@ import { Cart } from '../db/entities/Cart.js';
 import { Phone } from '../db/entities/customers/Phone.js';
 import { Country } from '../db/entities/customers/Country.js';
 import { Payment } from '../db/entities/payments/Payment.js';
+import e from 'express';
 
 
 
@@ -60,15 +61,8 @@ const updateCustomer = async (payload: Customer, custmerEmail: string) => {
     if (!customer) {
         throw new Error('user not found')
     }
-
     if (payload.fName) { customer.fName = payload.fName }
     if (payload.lName) { customer.lName = payload.lName }
-    const findEmail = await Customer.findOneBy({ email: payload.email })
-    if (findEmail) {
-        return new Error('email already exists')
-    } else {
-        if (payload.email) { customer.email = payload.email }
-    }
     if (payload.password) { customer.password = payload.password }
     const findUserName = await Customer.findOneBy({ userName: payload.userName })
     if (findUserName) {
@@ -76,11 +70,8 @@ const updateCustomer = async (payload: Customer, custmerEmail: string) => {
     } else {
         if (payload.userName) { customer.userName = payload.userName }
     }
-    if (payload.country) { customer.country = payload.country }
-    if (payload.profile) { customer.profile = payload.profile }
-    customer.save()
-
-
+    await customer.save()
+    return customer;
 }
 
 const deleteCustomer = async (customer: Customer) => {

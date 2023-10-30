@@ -11,18 +11,26 @@ route.post('/signup', async (req, res) => {
     try {
         const { userName, email, password, type } = req.body;
         if (type !== 'admin') {
-
             res.status(400).send({ error: "You are not admin." });
         }
         if (!userName || !email || !password) {
             res.status(400).send({ error: "All fields are required." });
         }
+
         const existingAdmin = await Admin.findOne({ where: { email: req.body.email } });
+        const existinguserName = await Admin.findOne({ where: { userName: req.body.userName } });
         if (existingAdmin) {
+            console.log('from route')
             res.status(400).send({ error: "Admin already exists." });
+        } else {
+            if (!existinguserName) {
+                await insertAdminController(req.body);
+                res.status(201).send('Admin successfully')
+            } else {
+                res.status(400).send({ error: "User Name already exists." });
+            }
         }
-        await insertAdminController(req.body);
-        res.status(201).send('Admin successfully')
+
 
     } catch (error) {
         console.log(error)
