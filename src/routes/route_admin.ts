@@ -1,5 +1,5 @@
 import express from 'express';
-import { insertAdminController, updateAdmin } from '../controllers/controller_admin.js';
+import { getAdmins, insertAdminController, updateAdmin } from '../controllers/controller_admin.js';
 import { Admin } from '../db/entities/Admin.js';
 import { login, deleteAdmin } from '../controllers/controller_admin.js';
 import { Adminauthentication } from '../middleware/admin_authentication.js';
@@ -30,21 +30,6 @@ route.post('/signup', async (req, res) => {
     }
 })
 
-
-// route.post("/login", async (req, res) => {
-//     try {
-//         const email = req.body.email;
-//         const password = req.body.password;
-//         if (email && password) {
-//             const log = await login(email, password)
-//             res.status(200).send(log)
-//         } else {
-//             res.status(404).send("Email and Password are required")
-//         }
-//     } catch (error) {
-//         throw "something went wrong"
-//     }
-// })
 route.post("/login", (req, res) => {
     if (req.body.email && req.body.password) {
         login(req.body.email, req.body.password).then((data) => {
@@ -71,7 +56,6 @@ route.put('/update/:id', Adminauthentication, async (req, res) => {
     }
 })
 
-
 route.delete('/delete', Adminauthentication, async (req, res) => {
     try {
         const email = req.body.email;
@@ -87,10 +71,14 @@ route.delete('/delete', Adminauthentication, async (req, res) => {
     }
 });
 
-
 route.get('/admins', (req, res) => {
-    console.log('list of admins')
-    res.status(200).send('list of admins returned successfully');
+    getAdmins()
+        .then(admin => {
+            res.status(200).send(admin)
+        })
+        .catch(error => {
+            res.status(500).send(error)
+        })
 })
 
 

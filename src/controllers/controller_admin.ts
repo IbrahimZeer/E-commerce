@@ -99,28 +99,10 @@ const getAdmins = () => {
     return admins
 }
 
-const getProducts = () => {
-    const products = Product.find()
-    return products
-}
-
-const getRoles = () => {
-    const roles = Role.find()
-    return roles
-}
-
-const getPermission = () => {
-    const permissions = Permission.find()
-    return permissions
-}
-
 export {
     insertAdminController,
     updateAdmin,
     deleteAdmin,
     login,
-    getAdmins,
-    getProducts,
-    getRoles,
-    getPermission
+    getAdmins
 }
