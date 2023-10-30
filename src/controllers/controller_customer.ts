@@ -17,10 +17,6 @@ import e from 'express';
 
 
 const insertUser = async (payload: Customer) => {
-    const customer = await Customer.find({ where: { email: payload.email } })
-    if (!customer) {
-        throw "customer already exists"
-    }
     const token = jwt.sign({
         email: payload.email,
         id: payload.id
@@ -64,12 +60,6 @@ const updateCustomer = async (payload: Customer, custmerEmail: string) => {
     if (payload.fName) { customer.fName = payload.fName }
     if (payload.lName) { customer.lName = payload.lName }
     if (payload.password) { customer.password = payload.password }
-    const findUserName = await Customer.findOneBy({ userName: payload.userName })
-    if (findUserName) {
-        return new Error('username already exists')
-    } else {
-        if (payload.userName) { customer.userName = payload.userName }
-    }
     await customer.save()
     return customer;
 }

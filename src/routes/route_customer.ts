@@ -13,17 +13,20 @@ route.post('/', async (req, res) => {
     if (!email || !password || !userName) {
       return res.status(400).send({ error: "All fields are required." });
     }
-    console.log(email, password, userName + 'from try route')
-    const newCustomer = await insertUser(req.body)
-    res.status(201).send(newCustomer)
-  } catch (error) {
-    console.log(error)
-    if (error === 'customer already exists') {
-      return res.status(400).send({ error: "customer already exists" });
+    const customer = await Customer.findOne({ where: { email: req.body.email } })
+    if (customer) {
+      return res.status(400).send({ error: "Email already exists." });
+    } else {
+      const existingCustomer = await Customer.findOne({ where: { userName: req.body.userName } });
+      if (!existingCustomer) {
+        const newCustomer = await insertUser(req.body)
+        res.status(201).send(newCustomer)
+      } else {
+        res.status(400).send({ error: "User Name already exists." });
+      }
     }
-    console.log(email, password, userName + 'from catch catch')
+  } catch (error) {
     res.status(500).send('Internal server error')
-    // console.log(error)
   }
 })
 
@@ -45,16 +48,20 @@ route.post("/login", async (req, res) => {
 
 route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
   try {
-    const customerEmail = req.user?.email;
-    console.log(`and customer is ${customerEmail}`)
-    if (!customerEmail) {
+    const email = req.user?.email;
+    if (!email) {
       res.status(401).send('you are unauthorized')
     } else {
-      await updateCustomer(req.body, customerEmail);
-      res.status(200).send('customer updated successfully');
+      await updateCustomer(req.body, email)
+        .then(() => {
+          res.status(200).send('customer updated successfully');
+        })
+        .catch(() => {
+          res.status(400).send('something in data are lost')
+        })
     }
   } catch (error) {
-
+    res.status(500).send('Internal server error')
   }
 })
 

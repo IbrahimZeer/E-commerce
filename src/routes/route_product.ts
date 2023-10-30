@@ -36,6 +36,7 @@ route.post('/add_product', Adminauthentication, async (req, res) => {
         res.status(201).json(newProduct);
     } catch (error) {
         console.log(error)
+        console.log('=================================================================================================>', error, '=================================================================================================>')
         res.status(500).json({ error: 'Failed to create the product' });
     }
 });
@@ -77,7 +78,7 @@ route.delete('/delete_product/:id', Adminauthentication, async (req, res) => {
             res.status(200).send('Product deleted successfully');
         }
     } catch (error) {
-
+        console.log(error)
         res.status(500).json({ error: 'Failed to delete the product' });
     }
 });

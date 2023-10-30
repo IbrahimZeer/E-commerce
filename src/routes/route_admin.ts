@@ -50,10 +50,10 @@ route.post("/login", (req, res) => {
     }
 })
 
-route.put('/update/:id', Adminauthentication, async (req, res) => {
+route.put('/update', Adminauthentication, async (req, res) => {
     try {
-        const id = parseInt(req.params.id, 10);
-        const admin = await updateAdmin(id, req.body);
+        const email = req.body.email;
+        const admin = await updateAdmin(email, req.body);
         if (admin) {
             res.status(201).send('admin Updated');
         } else {

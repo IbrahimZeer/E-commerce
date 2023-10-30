@@ -20,6 +20,7 @@ const insertProduct = async (payload: Product) => {
         await newProduct.save();
         return newProduct;
     } catch (error) {
+        console.log('=================================================================================================>', error, '=================================================================================================>')
         throw new Error('Failed to insert the product');
     }
 }
