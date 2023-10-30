@@ -102,24 +102,4 @@ route.get('/search_product/:productName', async (req, res) => {
         res.status(500).json({ error: 'Failed to search for products' });
     }
 });
-
-// route.get('/all_product', (req, res) => {
-//     getProducts().then(data => {
-//         res.status(200).send(data)
-//     }).catch(error => {
-//         res.status(404).send(error)
-//     })
-
-// })
-// route.get('/search_product/:productName', async (req, res) => {
-//     try {
-//         const productName = req.params.productName;
-//         console.log(productName + 'string1');
-
-//         const products = await searchProducts(productName)
-//         res.status(200).json(products);
-//     } catch (error) {
-//         res.status(500).json({ error: 'Failed to search for products' });
-//     }
-// });
 export default route;

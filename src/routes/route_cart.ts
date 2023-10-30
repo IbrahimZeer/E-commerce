@@ -18,14 +18,14 @@ route.post('/addProductToCart', authenticate, async (req: ExpressNS.RequestWithU
         if (!product) {
             return res.status(404).send({ message: "Product not found" })
         }
-        if (!quantity) {
-            return res.status(400).send({ message: "Quantity is required" })
+        if (!quantity || quantity > product.quantity) {
+            return res.status(400).send({ message: "Quantity is required or your order quantity more than in stock" })
         }
         if (cart) {
             if (productId) {
                 console.log(cart, req.body);
-                await addProductToCartController(cart, product);
-                res.status(200).json({ message: "Product added to cart" })
+                const data = await addProductToCartController(cart, product, quantity);
+                res.status(200).send(data)
             } else {
                 res.status(400).json({ message: "product not found" })
             }

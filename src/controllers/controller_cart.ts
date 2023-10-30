@@ -11,35 +11,16 @@ import { CustomerNS } from '../../@types/type_customer.js';
 
 
 
-const addProductToCartController = async (cart: Cart, product: Product) => {
+const addProductToCartController = async (cart: Cart, product: Product, quantity: number) => {
     try {
         cart.products.push(product);
+        cart.quantity = quantity;
+        cart.price = product.price;
         await cart.save();
         return cart;
     } catch (error) {
         console.log(error);
         throw ({ message: "Internal server error" })
-    }
-}
-
-
-const insertCart = async (payload: CartNs.Cart) => {
-    try {
-        // let cart = await Cart.findOne({ where: { id: payload.id } })
-        // cart?.quantity = payload.quantity;
-
-        const find = await Cart.find().then(() => {
-            Cart.update({ id: payload.id }, {
-                quantity: payload.quantity,
-                price
-                    : payload.price,
-                totalPrice: payload.quantity * payload.price
-            })
-        })
-        // await find.save();
-        return find;
-    } catch (error) {
-        throw new Error('Failed to insert category');
     }
 }
 
