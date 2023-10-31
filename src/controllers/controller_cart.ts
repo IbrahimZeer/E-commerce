@@ -16,6 +16,7 @@ const addProductToCartController = async (cart: Cart, product: Product, quantity
         cart.products.push(product);
         cart.quantity = quantity;
         cart.price = product.price;
+        cart.totalPrice=(cart.quantity+cart.price)
         await cart.save();
         return cart;
     } catch (error) {
