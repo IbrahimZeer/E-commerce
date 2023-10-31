@@ -26,7 +26,7 @@ import { TransactionStatus } from "./entities/payments/TransactionStatus.js";
 import { Cart } from "./entities/Cart.js";
 import { Payment } from "./entities/payments/Payment.js";
 import { Address } from "./entities/customers/Address.js";
-
+import mysql from "mysql"
 dotenv.config()
 
 console.log(process.env.DB_NAME)
@@ -79,5 +79,73 @@ const dataSource = new DataSource({
         // dropSchema: true,
         logging: false
 });
+
+// const dataSourceRDS = new DataSource({
+
+//         type: "mysql",
+//         host:"armed-db.crsb2fljtjso.us-east-1.rds.amazonaws.com",
+//         port:3306,
+//         username:"admin",
+//         password:"1234567890",
+//         database:"ArmedDb",
+//         entities: [
+//                 Cart,
+//                 Review,
+//                 Admin,
+//                 Attachment,
+//                 Brand,
+//                 Category,
+//                 Color,
+//                 Product,
+//                 Size,
+//                 City,
+//                 Country,
+//                 Customer,
+//                 Phone,
+//                 Profile,
+//                 Order,
+//                 OrderDetails,
+//                 OrderStatus,
+//                 Status,
+//                 PaymentData,
+//                 PaymentMethod,
+//                 Transaction,
+//                 TransactionStatus,
+//                 Cart,
+//                 Payment,
+//                 Role,
+//                 Address,
+//                 Permission
+//         ],
+//         migrations: ['./**/migration/*.ts'],
+//         synchronize: true,
+
+//         // dropSchema: true,
+//         logging: false
+// });
+
+
+
+
+
+
+// const db = mysql.createConnection({
+// host:"armed-db.crsb2fljtjso.us-east-1.rds.amazonaws.com",
+// port:3306,
+// user:"admin",
+// password:"1234567890",
+// database:"ArmedDb",
+
+
+// });
+// db.connect((err)=>{
+// if(err){
+// console.log(err.message);
+// return;
+// }
+// console.log("Database connected");
+
+
+// });
 
 export default dataSource;
