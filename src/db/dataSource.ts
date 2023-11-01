@@ -26,30 +26,71 @@ import { TransactionStatus } from "./entities/payments/TransactionStatus.js";
 import { Cart } from "./entities/Cart.js";
 import { Payment } from "./entities/payments/Payment.js";
 import { Address } from "./entities/customers/Address.js";
-<<<<<<< HEAD
 import { CategoryProduct } from "./entities/Products/category_product.js";
 
-=======
-import mysql from "mysql"
->>>>>>> cf347da94cf3a92dd0db4309063917288217f421
 dotenv.config()
 
 console.log(process.env.DB_NAME)
-// const dataSource = new DataSource({
-//         extra: {
-//                 connectionLimit: 1000,
-//                 connectTimeout: 30000, // 30 seconds
-//                 acquireTimeout: 60000,
-//                 timeout: 60000,
-//         },
-//         connectTimeout: 30000,
+const dataSource = new DataSource({
+        extra: {
+                connectionLimit: 1000,
+                connectTimeout: 30000, // 30 seconds
+                acquireTimeout: 60000,
+                timeout: 60000,
+        },
+        connectTimeout: 30000,
+        type: "mysql",
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
+        username: process.env.DB_USER_NAME,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        entities: [
+                Cart,
+                Review,
+                Admin,
+                Attachment,
+                Brand,
+                Category,
+                Color,
+                Product,
+                Size,
+                City,
+                Country,
+                Customer,
+                Phone,
+                Profile,
+                Order,
+                OrderDetails,
+                OrderStatus,
+                Status,
+                PaymentData,
+                PaymentMethod,
+                Transaction,
+                TransactionStatus,
+                Cart,
+                Payment,
+                Role,
+                Address,
+                Permission
+        ],
+        migrations: ['./**/migration/*.ts'],
+        synchronize: true,
+
+        // dropSchema: true,
+        logging: false
+});
+
+// const dataSourceRDS = new DataSource({
+
 //         type: "mysql",
-//         host: process.env.DB_HOST,
-//         port: Number(process.env.DB_PORT),
-//         username: process.env.DB_USER_NAME,
-//         password: process.env.DB_PASSWORD,
-//         database: process.env.DB_NAME,
+//         host: process.env.RDS_DB_HOST,
+//         port: Number(process.env.RDS_PORT),
+//         username: process.env.RDS_USER_NAME,
+//         password: process.env.RDS_PASSWORD,
+//         database: process.env.DATABASE,
 //         entities: [
+//                 CategoryProduct,
 //                 Cart,
 //                 Review,
 //                 Admin,
@@ -85,103 +126,28 @@ console.log(process.env.DB_NAME)
 //         logging: false
 // });
 
-const dataSourceRDS = new DataSource({
-
-        type: "mysql",
-        host:process.env.RDS_DB_HOST,
-        port:Number(process.env.RDS_PORT),
-        username:process.env.RDS_USER_NAME,
-        password:process.env.RDS_PASSWORD,
-        database:process.env.DATABASE,
-        entities: [
-<<<<<<< HEAD
-                CategoryProduct,
-                Cart,
-                Review,
-                Admin,
-                Attachment,
-                Brand,
-                Category,
-                Color,
-                Product,
-                Size,
-                City,
-                Country,
-                Customer,
-                Phone,
-                Profile,
-                Order,
-                OrderDetails,
-                OrderStatus,
-                Status,
-                PaymentData,
-                PaymentMethod,
-                Transaction,
-                TransactionStatus,
-                Cart,
-                Payment,
-                Role,
-                Address,
-                Permission
-=======
-                // Cart,
-                // Review,
-                // Admin,
-                // Attachment,
-                // Brand,
-                // Category,
-                // Color,
-                // Product,
-                // Size,
-                // City,
-                // Country,
-                // Customer,
-                // Phone,
-                // Profile,
-                // Order,
-                // OrderDetails,
-                // OrderStatus,
-                // Status,
-                // PaymentData,
-                // PaymentMethod,
-                // Transaction,
-                // TransactionStatus,
-                // Cart,
-                // Payment,
-                // Role,
-                // Address,
-                // Permission
->>>>>>> cf347da94cf3a92dd0db4309063917288217f421
-        ],
-        migrations: ['./**/migration/*.ts'],
-        synchronize: true,
-
-        // dropSchema: true,
-        logging: false
-});
 
 
 
 
 
-
-// const db = mysql.createConnection({
-// host:"armed-db.crsb2fljtjso.us-east-1.rds.amazonaws.com",
-// port:3306,
-// user:"admin",
-// password:"1234567890",
-// database:"ArmedDb",
-
-
-// });
-// db.connect((err)=>{
-// if(err){
-// console.log(err.message);
-// return;
-// }
-// console.log("Database connected");
+// // const db = mysql.createConnection({
+// // host:"armed-db.crsb2fljtjso.us-east-1.rds.amazonaws.com",
+// // port:3306,
+// // user:"admin",
+// // password:"1234567890",
+// // database:"ArmedDb",
 
 
-// });
+// // });
+// // db.connect((err)=>{
+// // if(err){
+// // console.log(err.message);
+// // return;
+// // }
+// // console.log("Database connected");
 
-export default dataSourceRDS;
+
+// // });
+
+export default dataSource;

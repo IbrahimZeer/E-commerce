@@ -35,7 +35,7 @@ app.use('/Products', routeProduct);
 app.use('/category', routeCategory);
 app.use('/carts', routeCart);
 app.use('/review', routeReview);
-app.use('/', routePayment);
+app.use('/payments', routePayment);
 
 
 app.use((req, res, next) => {
