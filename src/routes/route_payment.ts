@@ -2,11 +2,14 @@ import express from 'express';
 import coinbase from 'coinbase-commerce-node';
 import { authenticate } from '../middleware/authentication.js';
 import { ExpressNS } from '../../@types/index.js';
+import { verify } from 'crypto';
 const route = express.Router();
+
 
 
 const Client = coinbase.Client;
 const resources = coinbase.resources;
+const webhook = coinbase.Webhook;
 const coinbaseAPIKey = process.env.COINBASE_API_KEY || '';
 Client.init(coinbaseAPIKey);
 route.post('/checkout', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
@@ -31,6 +34,19 @@ route.post('/checkout', authenticate, async (req: ExpressNS.RequestWithUser, res
 
     res.status(200).json(charge);
 })
+
+// route.post('/webhook', async (req, res) => {
+//     const event = webhook.verifyEventBody(
+//         req.body,
+//         req.headers['x-cc-webhook-signature'],
+//         process.env.COINBASE_WEBHOOK_SECRET
+//     );
+//     if (event.type === 'charge:confirmed') {
+//         const amount = event.data.local_price.amount;
+//     }
+//     console.log(event)
+//     res.send('ok');
+// })
 
 
 route.put('/update_payment', (req, res) => {
