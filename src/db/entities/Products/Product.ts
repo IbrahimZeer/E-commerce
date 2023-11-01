@@ -9,6 +9,7 @@ import { OrderDetails } from "../orders/OrderDetails.js";
 import { Cart } from "../Cart.js";
 import { Review } from "../Review.js";
 import { join } from "path";
+import { CategoryProduct } from "./category_product.js";
 
 @Entity('products')
 export class Product extends BaseEntity {
@@ -55,17 +56,13 @@ export class Product extends BaseEntity {
     UpdatedAt: Date; // Corrected property name
 
 
-    @ManyToOne(() => Category, category => category.products)
-    category: Partial<Category>
+    // @ManyToOne(() => Category, category => category.products)
+    // category: Partial<Category>
 
     @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.product)
     orderDetails: OrderDetails[]
 
+    // @OneToMany(() => CategoryProduct, categoryProduct => categoryProduct.product)
+    // categoryProducts: CategoryProduct[];
 
-    @OneToMany(() => Review, (review) => review.products)
-    @JoinColumn()
-    review: Review
-
-    // @ManyToMany(() => Cart, (cart) => cart.products)
-    // cart: Partial<Cart>
 }

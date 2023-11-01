@@ -7,40 +7,49 @@ import { Customer } from '../db/entities/customers/Customer.js';
 import { Product } from '../db/entities/Products/Product.js';
 
 
-const insertFullNameReview = async (payload: Review, fullName: string, prodId: number) => {
-
-  const product = await Product.find({ where: { id: prodId } });
-  if (product) {
-    const rev = await Review.create({
-      fullName: fullName,
-      rate: payload.rate,
-      comments: payload.comments,
-      products: product
-    }).save();
-    rev.products = product as Product[]
-    return rev;
-  } else {
+const insertFullNameReview = async (payload: Review, fullName: string) => {
+  const product = await Product.findOne({ where: { id: payload.id } });
+  if (!product) {
     return "product not found"
   }
+  const rev = await Review.create({
+    fullName: fullName,
+    rate: payload.rate,
+    comments: payload.comments,
+    product: payload.id
+  }).save();
+  return rev;
 };
 
-const insertCustomerReview = async (payload: Review, user: Customer, prodId: number) => {
-  const product = await Product.find({ where: { id: prodId } });
+const insertCustomerReview = async (payload: Review, user: Customer) => {
+  const product = await Product.findOne({ where: { id: payload.id } });
+  const findUser = await Customer.findOne({ where: { id: user.id } });
+  if (!findUser) {
+    return "user not found"
+  }
   if (product) {
     const rev = await Review.create({
+      customer: findUser,
       rate: payload.rate,
       comments: payload.comments,
-      products: product
+      product: payload.id,
     }).save();
-    rev.products = product as Product[]
     return rev;
   } else {
     return "product not found"
   }
 }
 
-const updateReview = async (payload: ReviewNS.Review) => {
-
+const updateReview = async (payload: Review) => {
+  const review = await Review.findOne({ where: { id: payload.id } });
+  if (review) {
+    review.rate = payload.rate;
+    review.comments = payload.comments;
+    await review.save();
+    return review;
+  } else {
+    return "review not found"
+  }
 }
 
 const deleteReview = async (revId: number) => {
@@ -57,9 +66,9 @@ const deleteFullNameReview = async (revId: number) => {
   }
 }
 
-const getReviews = () => {
-  const Reviews = Review.find()
-  return Reviews
+const getProducts = async (id: number) => {
+  const review = await Review.find({ where: { product: id } })
+  return review;
 }
 
 export {
@@ -68,5 +77,5 @@ export {
   insertCustomerReview,
   updateReview,
   deleteReview,
-  getReviews
+  getProducts
 }

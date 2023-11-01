@@ -26,6 +26,7 @@ import { TransactionStatus } from "./entities/payments/TransactionStatus.js";
 import { Cart } from "./entities/Cart.js";
 import { Payment } from "./entities/payments/Payment.js";
 import { Address } from "./entities/customers/Address.js";
+import { CategoryProduct } from "./entities/Products/category_product.js";
 
 dotenv.config()
 
@@ -45,6 +46,7 @@ const dataSource = new DataSource({
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
         entities: [
+                CategoryProduct,
                 Cart,
                 Review,
                 Admin,

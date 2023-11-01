@@ -1,5 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./Products/Product.js";
+import { Customer } from "./customers/Customer.js";
 
 @Entity('review')
 export class Review extends BaseEntity {
@@ -15,6 +16,9 @@ export class Review extends BaseEntity {
     @Column()
     comments: string;
 
+    @Column()
+    product: number;
+
     @CreateDateColumn({
         type: 'timestamp',
         default: () => "CURRENT_TIMESTAMP()"
@@ -27,6 +31,10 @@ export class Review extends BaseEntity {
     })
     UpdatedAt: Date;
 
-    @ManyToOne(() => Product, product => product.review)
-    products: Product[];
+    @ManyToOne(() => Customer, customer => customer.reviews)
+    @JoinColumn()
+    customer: Partial<Customer>;
+
+    // @ManyToOne(() => Product)
+    // prod: Partial<Product>;
 }

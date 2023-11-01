@@ -71,6 +71,10 @@ export class Customer extends BaseEntity {
     @OneToMany(() => Country, country => country.customer)
     country: Country[]
 
-    @ManyToOne(() => Role, role => role.customers)
-    roles: Partial<Role>
+
+    @OneToMany(() => Review, review => review.customer)
+    @JoinColumn()
+    reviews: Review[];
+
+
 }

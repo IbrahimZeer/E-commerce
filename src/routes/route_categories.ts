@@ -1,9 +1,37 @@
 import express from 'express';
-import { deleteCategoryController, getCategoriesController, updateCategoryController, insertCategoryController, getCategoryByIdController, getCategoryProductsController } from '../controllers/controller_category.js';
+import { deleteCategoryController, addProductToCategoryController, getCategoriesController, updateCategoryController, insertCategoryController, getCategoryByIdController, getCategoryProductsController } from '../controllers/controller_category.js';
 import { Category } from '../db/entities/Products/Category.js';
 import { OneToOne, Relation, } from 'typeorm';
+import { Product } from '../db/entities/Products/Product.js';
+import { Adminauthentication } from '../middleware/admin_authentication.js';
 const route = express.Router();
 
+
+
+
+
+route.put('/add_product_in_category', Adminauthentication, async (req, res) => {
+    // try {
+    //     const category = req.body.id;
+    //     console.log("category ID = ", category);
+    //     const products = req.body.products;
+    //     const categoryFound = await Category.findOne({ where: { id: category } });
+    //     console.log(categoryFound);
+    //     const productFound = await Product.findOne({ where: { id: products } });
+    //     if (!categoryFound) {
+    //         return res.status(404).send({ message: "Category not found" })
+    //     }
+    //     if (!productFound) {
+    //         return res.status(404).send({ message: "Product not found" })
+    //     }
+    //     const added = await addProductToCategoryController(category, req.body)
+    //     res.status(200).json(added);
+
+    // } catch (error) {
+    //     console.log("============================================================", error, "============================================================");
+    //     throw new Error('Internal server error');
+    // }
+})
 
 
 route.post('/add_categorie', async (req, res) => {
@@ -66,25 +94,25 @@ route.get('/all_categorie', (req, res) => {
 //     }
 // })
 
-route.post('/add_products_in_category/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    Category.findOneBy({ id: id })
-    if (id) {
-        Category.findOneBy({ id: id }).then((categories) => {
-            if (categories) {
-                categories.products.push(req.body);
-                categories.save();
-                res.status(200).json(categories);
-            } else {
-                res.status(404).send('Category not found');
-            }
-        }).catch(error => {
-            res.status(500).json({ error: 'Failed to fetch categories' });
-        })
-    } else {
-        res.status(404).send('Something went wrong');
-    }
-})
+// route.post('/add_products_in_category/:id', (req, res) => {
+//     const id = parseInt(req.params.id);
+//     Category.findOneBy({ id: id })
+//     if (id) {
+//         Category.findOneBy({ id: id }).then((categories) => {
+//             if (categories) {
+//                 categories.products.push(req.body);
+//                 categories.save();
+//                 res.status(200).json(categories);
+//             } else {
+//                 res.status(404).send('Category not found');
+//             }
+//         }).catch(error => {
+//             res.status(500).json({ error: 'Failed to fetch categories' });
+//         })
+//     } else {
+//         res.status(404).send('Something went wrong');
+//     }
+// })
 
 
 

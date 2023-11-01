@@ -2,8 +2,7 @@ import express from 'express';
 import { CategoryNs } from '../../@types/type_category.js';
 import { Category } from '../db/entities/Products/Category.js';
 import dataSource from '../db/dataSource.js';
-
-
+import { Product } from '../db/entities/Products/Product.js';
 
 const getCategoryProductsController = async (id: number, payload: CategoryNs.Category) => {
     try {
@@ -20,18 +19,29 @@ const getCategoryProductsController = async (id: number, payload: CategoryNs.Cat
 
 }
 
-const insertCategoryController = async (payload: CategoryNs.Category) => {
-    try {
-        const newCategory = new Category();
-        newCategory.catName = payload.catName;
-        newCategory.catDes = payload.catDes;
 
-        await newCategory.save();
-        return newCategory;
+const insertCategoryController = async (payload: Category) => {
+    try {
+        const category = await Category.create({
+            ...payload
+        }).save()
+        return category;
     } catch (error) {
         throw new Error('Failed to insert category');
     }
 }
+
+
+const addProductToCategoryController = async (category: Category, product: Product) => {
+    try {
+        category.product = product.id
+        category.save();
+        return category;
+    } catch (error) {
+        throw new Error('Failed to insert category');
+    }
+}
+
 
 const updateCategoryController = async (id: number, payload: CategoryNs.Category) => {
     try {
@@ -92,5 +102,6 @@ export {
     deleteCategoryController,
     getCategoriesController,
     getCategoryByIdController,
-    getCategoryProductsController
+    getCategoryProductsController,
+    addProductToCategoryController
 }

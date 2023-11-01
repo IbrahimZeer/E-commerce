@@ -1,5 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, JoinTable, ManyToMany, OneToMany } from "typeorm";
 import { Product } from "./Product.js";
+import { CategoryProduct } from "./category_product.js";
+import { join } from "path";
 
 @Entity('category')
 export class Category extends BaseEntity {
@@ -11,6 +13,9 @@ export class Category extends BaseEntity {
 
     @Column({ length: 255, nullable: false })
     catDes: string;
+
+    @Column()
+    product: number;
 
     @CreateDateColumn({
         type: 'timestamp',
@@ -24,6 +29,10 @@ export class Category extends BaseEntity {
     })
     UpdatedAt: string;
 
-    @OneToMany(() => Product, product => product.category)
+    @ManyToMany(() => Product, { eager: true })
+    @JoinTable()
     products: Product[]
+
+    // @OneToMany(() => CategoryProduct, categoryProduct => categoryProduct.category)
+    // categoryProducts: CategoryProduct[];
 }
