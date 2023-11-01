@@ -1,6 +1,4 @@
 import dotenv from "dotenv"
-import { Role } from "./entities/Role.js";
-import { Permission } from "./entities/Permission.js";
 import { DataSource } from "typeorm";
 import { Review } from "./entities/Review.js";
 import { Admin } from "./entities/Admin.js";
@@ -62,9 +60,7 @@ const dataSource = new DataSource({
                 TransactionStatus,
                 Cart,
                 Payment,
-                Role,
                 Address,
-                Permission
         ],
         migrations: ['./**/migration/*.ts'],
         synchronize: true,

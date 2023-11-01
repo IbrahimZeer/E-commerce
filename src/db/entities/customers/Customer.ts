@@ -4,7 +4,6 @@ import { Profile } from "./Profile.js";
 import { Country } from "./Country.js";
 import { Review } from "../Review.js";
 import { Order } from "../orders/Order.js";
-import { Role } from "../Role.js";
 import { Cart } from "../Cart.js";
 import { Payment } from "../payments/Payment.js";
 

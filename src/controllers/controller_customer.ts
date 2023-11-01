@@ -2,8 +2,6 @@ import express from 'express';
 import dataSource from '../db/dataSource.js';
 import { CustomerNS } from '../../@types/type_customer.js';
 import { Customer } from '../db/entities/customers/Customer.js'
-import { Role } from '../db/entities/Role.js'
-import { Permission } from '../db/entities/Permission.js'
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken"
 import { Profile } from '../db/entities/customers/Profile.js';

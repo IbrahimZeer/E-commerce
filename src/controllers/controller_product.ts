@@ -2,8 +2,6 @@ import express from 'express';
 import dataSource from '../db/dataSource.js';
 import { ProductNS } from "../../@types/type_product.js";
 import { Product } from '../db/entities/Products/Product.js'
-import { Role } from '../db/entities/Role.js'
-import { Permission } from '../db/entities/Permission.js'
 import { OrderNS } from '../../@types/type_order.js';
 import { Like } from 'typeorm';
 
