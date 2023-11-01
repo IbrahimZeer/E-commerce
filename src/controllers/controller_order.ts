@@ -12,6 +12,7 @@ const insertOrder = async (payload: Order, productPrice: number, customer: Custo
     try {
         // let cust = custoemr as Customer
         const newOrder = await Order.create({
+          
             orderAddress: payload.orderAddress,
             productPrice: productPrice,
             deliveryCost: payload.deliveryCost,

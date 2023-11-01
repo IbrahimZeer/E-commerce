@@ -14,7 +14,7 @@ import routeReview from './src/routes/route_review.js'
 import routeCategory from './src/routes/route_categories.js'
 import routeCart from './src/routes/route_cart.js'
 import fileUpload from 'express-fileupload'
-
+import dataSourceRDS from './src/db/dataSource.js';
 
 dotenv.config()
 const app = express();
@@ -54,12 +54,16 @@ app.use((err: any, req: any, res: any, next: any) => {
   res.render('error');
 });
 
-dataSource.initialize().then(() => {
+// dataSource.initialize().then(() => {
+//   console.log("Connected to DB!");
+// }).catch(err => {
+//   console.error('Failed to connect to DB: ' + err);
+// });
+dataSourceRDS.initialize().then(() => {
   console.log("Connected to DB!");
 }).catch(err => {
-  console.error('Failed to connect to DB: ' + err);
+  console.error('Failed to connect to DB RDS: ' + err);
 });
-
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`);
 });
