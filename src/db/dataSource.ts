@@ -30,64 +30,20 @@ import mysql from "mysql"
 dotenv.config()
 
 console.log(process.env.DB_NAME)
-const dataSource = new DataSource({
-        extra: {
-                connectionLimit: 1000,
-                connectTimeout: 30000, // 30 seconds
-                acquireTimeout: 60000,
-                timeout: 60000,
-        },
-        connectTimeout: 30000,
-        type: "mysql",
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
-        username: process.env.DB_USER_NAME,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME,
-        entities: [
-                Cart,
-                Review,
-                Admin,
-                Attachment,
-                Brand,
-                Category,
-                Color,
-                Product,
-                Size,
-                City,
-                Country,
-                Customer,
-                Phone,
-                Profile,
-                Order,
-                OrderDetails,
-                OrderStatus,
-                Status,
-                PaymentData,
-                PaymentMethod,
-                Transaction,
-                TransactionStatus,
-                Cart,
-                Payment,
-                Role,
-                Address,
-                Permission
-        ],
-        migrations: ['./**/migration/*.ts'],
-        synchronize: true,
-
-        // dropSchema: true,
-        logging: false
-});
-
-// const dataSourceRDS = new DataSource({
-
+// const dataSource = new DataSource({
+//         extra: {
+//                 connectionLimit: 1000,
+//                 connectTimeout: 30000, // 30 seconds
+//                 acquireTimeout: 60000,
+//                 timeout: 60000,
+//         },
+//         connectTimeout: 30000,
 //         type: "mysql",
-//         host:"armed-db.crsb2fljtjso.us-east-1.rds.amazonaws.com",
-//         port:3306,
-//         username:"admin",
-//         password:"1234567890",
-//         database:"ArmedDb",
+//         host: process.env.DB_HOST,
+//         port: Number(process.env.DB_PORT),
+//         username: process.env.DB_USER_NAME,
+//         password: process.env.DB_PASSWORD,
+//         database: process.env.DB_NAME,
 //         entities: [
 //                 Cart,
 //                 Review,
@@ -124,6 +80,50 @@ const dataSource = new DataSource({
 //         logging: false
 // });
 
+const dataSourceRDS = new DataSource({
+
+        type: "mysql",
+        host:process.env.RDS_DB_HOST,
+        port:Number(process.env.RDS_PORT),
+        username:process.env.RDS_USER_NAME,
+        password:process.env.RDS_PASSWORD,
+        database:process.env.DATABASE,
+        entities: [
+                // Cart,
+                // Review,
+                // Admin,
+                // Attachment,
+                // Brand,
+                // Category,
+                // Color,
+                // Product,
+                // Size,
+                // City,
+                // Country,
+                // Customer,
+                // Phone,
+                // Profile,
+                // Order,
+                // OrderDetails,
+                // OrderStatus,
+                // Status,
+                // PaymentData,
+                // PaymentMethod,
+                // Transaction,
+                // TransactionStatus,
+                // Cart,
+                // Payment,
+                // Role,
+                // Address,
+                // Permission
+        ],
+        migrations: ['./**/migration/*.ts'],
+        synchronize: true,
+
+        // dropSchema: true,
+        logging: false
+});
+
 
 
 
@@ -148,4 +148,4 @@ const dataSource = new DataSource({
 
 // });
 
-export default dataSource;
+export default dataSourceRDS;

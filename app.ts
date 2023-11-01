@@ -54,16 +54,16 @@ app.use((err: any, req: any, res: any, next: any) => {
   res.render('error');
 });
 
-dataSource.initialize().then(() => {
-  console.log("Connected to DB!");
-}).catch(err => {
-  console.error('Failed to connect to DB: ' + err);
-});
-// dataSourceRDS.initialize().then(() => {
+// dataSource.initialize().then(() => {
 //   console.log("Connected to DB!");
 // }).catch(err => {
-//   console.error('Failed to connect to DB RDS: ' + err);
+//   console.error('Failed to connect to DB: ' + err);
 // });
+dataSourceRDS.initialize().then(() => {
+  console.log("Connected to DB!");
+}).catch(err => {
+  console.error('Failed to connect to DB RDS: ' + err);
+});
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`);
 });
