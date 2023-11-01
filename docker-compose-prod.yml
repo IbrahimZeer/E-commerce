@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   app:
@@ -18,5 +18,7 @@ services:
       - DB_PASSWORD=$DB_PASSWORD
       - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
       - DB_NAME=$DB_NAME
+      - COINBASE_API_KEY=$COINBASE_API_KEY
+      - COINBASE_WEBHOOK_SECRET=COINBASE_WEBHOOK_SECRET
     ports:
       - "80:80"
