@@ -13,9 +13,10 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 # Now copy the project files
-ADD . . 
+ADD . .
+
 # Build the app
-RUN npm run dev
+RUN npm run build
 
 HEALTHCHECK --interval=10s --timeout=30s \ 
     CMD curl -f http://localhost/ || exit 1
