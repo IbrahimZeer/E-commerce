@@ -49,36 +49,32 @@ Docker for containerization, ensuring consistent deployment environments.
 
 GitHub Actions for automated CI/CD pipeline.
 ## Getting Started
-#### 1-Clone the Repository:
+#### 1. Clone the Repository:
 
 ``
 git clone https://github.com/your-username/e-commerce-backend.git
 cd e-commerce-backend``
-#### 2-Install Dependencies:
+#### 2. Install Dependencies:
 
 ``npm install``
 
-#### 3-Environment Variables:
+#### 3. Environment Variables:
 
 Create a ``.env`` file based on the provided ``.env.example ``and fill in the necessary details.
-#### 4-Database Setup:
+#### 4. Database Setup:
 
-Set up a MySQL database and update the connection details in the ``.env`` file.
-#### 5-Run Migrations:
 
-bash
-``npm run migration:run``
-#### 6-Start the Server:
+#### 5. Start the Server:
 
 bash
 ``npm run dev``
-#### 7-Run Tests:
+#### 6. Run Tests:
 
 bash
 ``npm run test``
 ### API Documentation
 For detailed information on available endpoints and their usage, please refer to the API Documentation.
-
+[Documentation](https://documenter.getpostman.com/view/28414674/2s9YXb8joe)
 ### Contributing
 If you'd like to contribute to this project, please follow our Contribution Guidelines.
 
