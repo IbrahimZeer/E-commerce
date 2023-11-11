@@ -74,7 +74,7 @@ bash
 ``npm run test``
 ### API Documentation
 For detailed information on available endpoints and their usage, please refer to the API Documentation.
-[Documentation](https://documenter.getpostman.com/view/28414674/2s9YXb8joe)
+-[Documentation](https://documenter.getpostman.com/view/28414674/2s9YXb8joe)
 ### Contributing
 If you'd like to contribute to this project, please follow our Contribution Guidelines.
 
