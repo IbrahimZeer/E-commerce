@@ -16,16 +16,16 @@ route.post('/addProductToCart', authenticate, async (req: ExpressNS.RequestWithU
         const quantity = req.body.quantity;
         const product = await Product.findOne({ where: { id: productId } });
         if (!product) {
-            return res.status(404).send({ message: "Product not found" })
+            return res.status(404).json({ message: "Product not found" })
         }
         if (!quantity || quantity > product.quantity) {
-            return res.status(400).send({ message: "Quantity is required or your order quantity more than in stock" })
+            return res.status(400).json({ message: "Quantity is required or your order quantity more than in stock" })
         }
         if (cart) {
             if (productId) {
                 console.log(cart, req.body);
                 const data = await addProductToCartController(cart, product, quantity);
-                res.status(200).send(data)
+                res.status(200).json(data)
             } else {
                 res.status(400).json({ message: "product not found" })
             }
@@ -37,7 +37,6 @@ route.post('/addProductToCart', authenticate, async (req: ExpressNS.RequestWithU
     }
 })
 
-// update cart items , quantities total ...
 route.put('/updateProductInCart', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
 
     try {
@@ -45,7 +44,7 @@ route.put('/updateProductInCart', authenticate, async (req: ExpressNS.RequestWit
         const cart = user?.cart;
         const product = await Product.findOne({ where: { id: req.body.id } });
         if (!product) {
-            return res.status(404).send({ message: "Product not found in cart" })
+            return res.status(404).json({ message: "Product not found in cart" })
         }
         if (cart) {
             const updateCart = await updateCartController(cart, req.body);
@@ -56,7 +55,6 @@ route.put('/updateProductInCart', authenticate, async (req: ExpressNS.RequestWit
     }
 })
 
-// remove products from cart
 route.delete('/removeProductFromCart/:productId', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     try {
         const user = req.user;

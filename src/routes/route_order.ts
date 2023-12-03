@@ -13,18 +13,18 @@ route.post('/checkout', authenticate, async (req: ExpressNS.RequestWithUser, res
         const cart = req.user?.cart;
         const customer: any = req.user;
         if (!cart) {
-            return res.status(404).send({ message: "Cart not found" })
+            return res.status(404).json({ message: "Cart not found" })
         }
 
         if (cart.quantity < req.body.quantity) {
-            return res.status(400).send({ message: "Product quantity is not available" })
+            return res.status(400).json({ message: "Product quantity is not available" })
         }
         let productPrice = cart.totalPrice;
         if (cart.inOrder === 'inOrder') {
             const newOrder = await insertOrder(req.body, productPrice, customer)
-            res.status(201).send(newOrder);
+            res.status(201).json(newOrder);
         } else {
-            return res.status(400).send({ message: "Your product in cart is not in order" })
+            return res.status(400).json({ message: "Your product in cart is not in order" })
         }
     } catch {
 
@@ -37,9 +37,9 @@ route.put('/update_order/:id', authenticate, async (req: ExpressNS.RequestWithUs
         const order = await Order.findOne({ where: { id } });
         if (order) {
             await updateOrder(id, req.body);
-            res.status(201).send('Order Updated');
+            res.status(201).json('Order Updated');
         } else {
-            res.status(404).send('Order not found!');
+            res.status(404).json('Order not found!');
         }
     } catch (error) {
         console.log(error, 'error from route')
@@ -49,14 +49,14 @@ route.put('/update_order/:id', authenticate, async (req: ExpressNS.RequestWithUs
 
 route.delete('/delete_order/:id', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     deleteOrder(req.body)
-    res.status(200).send('Order deleted successfully');
+    res.status(200).json('Order deleted successfully');
 });
 
 route.get('/all_order', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
     await getOrders().then(data => {
-        res.status(200).send(data)
+        res.status(200).json(data)
     }).catch(error => {
-        res.status(404).send(error)
+        res.status(404).json(error)
     })
 
 })

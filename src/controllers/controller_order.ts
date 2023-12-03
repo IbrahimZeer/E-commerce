@@ -8,9 +8,7 @@ import { Customer } from '../db/entities/customers/Customer.js';
 
 const insertOrder = async (payload: Order, productPrice: number, customer: Customer) => {
     try {
-        // let cust = custoemr as Customer
         const newOrder = await Order.create({
-
             orderAddress: payload.orderAddress,
             productPrice: productPrice,
             deliveryCost: payload.deliveryCost,
@@ -50,7 +48,6 @@ const updateOrder = async (id: number, data: Order) => {
 const deleteOrder = async (payload: Order) => {
 
     try {
-        // const id = parseInt(payload.id, 10);
         const order = await Order.findOne({ where: { id: payload.id } });
         if (order) {
             await order.remove();

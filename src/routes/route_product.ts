@@ -15,9 +15,8 @@ const route = express.Router();
 
 route.post('/add_product', Adminauthentication, async (req, res) => {
     try {
-        const payload = req.body; // Assuming the request body contains the necessary product data
+        const payload = req.body;
         const uploadedFile = req.files?.productPictures as UploadedFile;
-        //==========================S3==========================
         console.log(uploadedFile)
         if (!uploadedFile || !uploadedFile.data) {
             return res.status(400).json({ error: "Post should have an image" });
@@ -31,12 +30,9 @@ route.post('/add_product', Adminauthentication, async (req, res) => {
         };
         const data = await S3.upload(uploadParams).promise();
         req.body.productPictures = data.Location;
-        //==========================S3==========================
         const newProduct = await insertProduct(payload);
         res.status(201).json(newProduct);
     } catch (error) {
-        console.log(error)
-        console.log('=================================================================================================>', error, '=================================================================================================>')
         res.status(500).json({ error: 'Failed to create the product' });
     }
 });
@@ -44,7 +40,6 @@ route.post('/add_product', Adminauthentication, async (req, res) => {
 route.put('/update_product/:id', Adminauthentication, async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
-        //==========================S3==========================
         const uploadedFile = req.files?.productPictures as UploadedFile;
         console.log(uploadedFile)
         if (!uploadedFile || !uploadedFile.data) {
@@ -59,14 +54,14 @@ route.put('/update_product/:id', Adminauthentication, async (req, res) => {
         };
         const data = await S3.upload(uploadParams).promise();
         req.body.productPictures = data.Location;
-        //==========================S3==========================
-        // Assuming the request body contains the updated product data
         const update = await updateProduct(id, req.body);
         res.status(200).json(update);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update the product' });
     }
 });
+
+let deletecounter: number = 0;
 
 route.delete('/delete_product/:id', Adminauthentication, async (req, res) => {
     try {
@@ -75,6 +70,7 @@ route.delete('/delete_product/:id', Adminauthentication, async (req, res) => {
         if (!update) {
             res.status(404).send('Product not found');
         } else {
+            deletecounter++;
             res.status(200).send('Product deleted successfully');
         }
     } catch (error) {
@@ -83,14 +79,25 @@ route.delete('/delete_product/:id', Adminauthentication, async (req, res) => {
     }
 });
 
+let counting: number;
 
 route.get('/all_product', async (req, res) => {
     await getProducts().then(data => {
+        counting = data.length
         res.status(200).send(data)
     }).catch(error => {
         res.status(404).send(error)
     })
 })
+
+route.get('/analytic/product_counter', async (req, res) => {
+    res.status(200).json('Number of products: ' + counting + '\n' + '')
+})
+
+route.get('/analytic/delete_counter', async (req, res) => {
+    res.status(200).json('Number of products are deleted: ' + deletecounter)
+})
+
 
 
 route.get('/search_product/:productName', async (req, res) => {

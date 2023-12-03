@@ -62,10 +62,9 @@ const updateCategoryController = async (id: number, payload: CategoryNs.Category
 
 const deleteCategoryController = async (id: number, payload: CategoryNs.Category) => {
     try {
-        // Find the product based on the provided ID and delete it
         const category = await Category.findOneBy({ id });
         if (!category) {
-            return; // Product not found
+            return;
         }
         await category.remove();
         return category;

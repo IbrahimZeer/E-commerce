@@ -18,8 +18,7 @@ import dataSourceRDS from './src/db/dataSource.js';
 
 dotenv.config()
 const app = express();
-const PORT = process.env.PORT || 5000
-
+const PORT = process.env.PORT || 5000;
 
 
 app.use(cors());
@@ -37,7 +36,6 @@ app.use('/carts', routeCart);
 app.use('/review', routeReview);
 app.use('/payments', routePayment);
 
-
 app.use((req, res, next) => {
   next(createError(404));
 });
@@ -54,11 +52,6 @@ app.use((err: any, req: any, res: any, next: any) => {
   res.render('error');
 });
 
-// dataSource.initialize().then(() => {
-//   console.log("Connected to DB!");
-// }).catch(err => {
-//   console.error('Failed to connect to DB: ' + err);
-// });
 dataSourceRDS.initialize().then(() => {
   console.log("Connected to DB!");
 }).catch(err => {

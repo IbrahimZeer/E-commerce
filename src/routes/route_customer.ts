@@ -11,22 +11,22 @@ route.post('/', async (req, res) => {
   const { email, password, userName } = req.body;
   try {
     if (!email || !password || !userName) {
-      return res.status(400).send({ error: "All fields are required." });
+      return res.status(400).json({ error: "All fields are required." });
     }
     const customer = await Customer.findOne({ where: { email: req.body.email } })
     if (customer) {
-      return res.status(400).send({ error: "Email already exists." });
+      return res.status(400).json({ error: "Email already exists." });
     } else {
       const existingCustomer = await Customer.findOne({ where: { userName: req.body.userName } });
       if (!existingCustomer) {
         const newCustomer = await insertUser(req.body)
-        res.status(201).send(newCustomer)
+        res.status(201).json(newCustomer)
       } else {
-        res.status(400).send({ error: "User Name already exists." });
+        res.status(400).json({ error: "User Name already exists." });
       }
     }
   } catch (error) {
-    res.status(500).send('Internal server error')
+    res.status(500).json('Internal server error')
   }
 })
 
@@ -36,9 +36,9 @@ route.post("/login", async (req, res) => {
     const password = req.body.password;
     if (email && password) {
       const custlogin = await login(email, password)
-      return res.status(200).send(custlogin)
+      return res.status(200).json(custlogin)
     } else {
-      return res.status(404).send("Email and Password are required")
+      return res.status(404).json("Email and Password are required")
     }
   } catch (error) {
     console.log(error)
@@ -50,35 +50,35 @@ route.put('/update_customer', authenticate, async (req: ExpressNS.RequestWithUse
   try {
     const email = req.user?.email;
     if (!email) {
-      res.status(401).send('you are unauthorized')
+      res.status(401).json('you are unauthorized')
     } else {
       await updateCustomer(req.body, email)
         .then(() => {
-          res.status(200).send('customer updated successfully');
+          res.status(200).json('customer updated successfully');
         })
         .catch(() => {
-          res.status(400).send('something in data are lost')
+          res.status(400).json('something in data are lost')
         })
     }
   } catch (error) {
-    res.status(500).send('Internal server error')
+    res.status(500).json('Internal server error')
   }
 })
 
 route.delete('/delete_customer', authenticate, async (req: ExpressNS.RequestWithUser, res) => {
   const customer = req?.user;
   if (!customer) {
-    res.status(401).send('you are unauthorized')
+    res.status(401).json('you are unauthorized')
   } else {
     await deleteCustomer(customer)
-    res.status(200).send('customer deleted successfully');
+    res.status(200).json('customer deleted successfully');
   }
 });
 
 
 route.get('/all_customer', (req, res) => {
   console.log('list of customers')
-  res.status(200).send('list of customers returned successfully');
+  res.status(200).json('list of customers returned successfully');
 })
 
 route.get('/search_customers/:userName', async (req, res) => {

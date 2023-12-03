@@ -11,42 +11,42 @@ route.post('/signup', async (req, res) => {
     try {
         const { userName, email, password, type } = req.body;
         if (type !== 'admin') {
-            res.status(400).send({ error: "You are not admin." });
+            res.status(400).json({ error: "You are not admin." });
         }
         if (!userName || !email || !password) {
-            res.status(400).send({ error: "All fields are required." });
+            res.status(400).json({ error: "All fields are required." });
         }
 
         const existingAdmin = await Admin.findOne({ where: { email: req.body.email } });
         const existinguserName = await Admin.findOne({ where: { userName: req.body.userName } });
         if (existingAdmin) {
             console.log('from route')
-            res.status(400).send({ error: "Admin already exists." });
+            res.status(400).json({ error: "Admin already exists." });
         } else {
             if (!existinguserName) {
                 await insertAdminController(req.body);
-                res.status(201).send('Admin successfully')
+                res.status(201).json('Admin successfully')
             } else {
-                res.status(400).send({ error: "User Name already exists." });
+                res.status(400).json({ error: "User Name already exists." });
             }
         }
 
 
     } catch (error) {
         console.log(error)
-        res.status(500).send('Internal server error')
+        res.status(500).json('Internal server error')
     }
 })
 
 route.post("/login", (req, res) => {
     if (req.body.email && req.body.password) {
         login(req.body.email, req.body.password).then((data) => {
-            res.send(data?.token)
+            res.json(data?.token)
         }).catch((error) => {
-            res.status(400).send(error)
+            res.status(400).json(error)
         })
     } else {
-        res.status(404).send("email and password are required")
+        res.status(404).json("email and password are required")
     }
 })
 
@@ -55,9 +55,9 @@ route.put('/update', Adminauthentication, async (req, res) => {
         const email = req.body.email;
         const admin = await updateAdmin(email, req.body);
         if (admin) {
-            res.status(201).send('admin Updated');
+            res.status(201).json('admin Updated');
         } else {
-            res.status(404).send('admin not found!');
+            res.status(404).json('admin not found!');
         }
     } catch (error) {
         res.status(500).json({ error: 'Failed to update the admin' });
@@ -69,10 +69,10 @@ route.delete('/delete', Adminauthentication, async (req, res) => {
         const email = req.body.email;
         const admin = await Admin.findOne({ where: { email: email } })
         if (!admin) {
-            res.status(404).send('Admin not found');
+            res.status(404).json('Admin not found');
         } else {
             await deleteAdmin(email);
-            res.status(200).send('Admin deleted successfully');
+            res.status(200).json('Admin deleted successfully');
         }
     } catch (error) {
         res.status(500).json({ error: 'Failed to delete the product' });
@@ -82,10 +82,10 @@ route.delete('/delete', Adminauthentication, async (req, res) => {
 route.get('/admins', (req, res) => {
     getAdmins()
         .then(admin => {
-            res.status(200).send(admin)
+            res.status(200).json(admin)
         })
         .catch(error => {
-            res.status(500).send(error)
+            res.status(500).json(error)
         })
 })
 

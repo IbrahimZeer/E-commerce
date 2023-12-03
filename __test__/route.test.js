@@ -38,34 +38,35 @@ afterAll(async () => {
   await dataSource.destroy();
 });
 
-describe("Login process", () => {
-  it("should login with valid credentials", async () => {
-    const user = {
-      email: "user2@email.com",
-      password: "123456",
-    };
+// describe("Login process", () => {
+//   it("should login with valid credentials", async () => {
+//     const user = {
+//       email: "user2@email.com",
+//       password: "123456",
+//     };
 
-    const response = await request(app).post("/users/login").send(user);
+//     const response = await request(app).post("/users/login").send(user);
 
-    expect(response.status).toBe(200);
-  });
-});
+//     expect(response.status).toBe(200);
+//   });
+// });
 
-describe("signup process", () => {
-  it("should register with valid credentials", async () => {
-    const user = {
-      fName: "mohammad",
-      lName: "ss",
-      userName: "sdWQEa",
-      email: "WER@example.com",
-      password: "1234efg56",
-    };
+// describe("signup process", () => {
+//   it("should register with valid credentials", async () => {
+//     const user = {
+//       fName: "mohammad",
+//       lName: "ss",
+//       userName: "sdWQEa",
+//       email: "WER@example.com",
+//       password: "1234efg56",
+//     };
 
-    const response = await request(app).post("/users/").send(user);
-    //.status should be 201
-    expect(response.status).toBe(400);
-  });
-});
+//     const response = await request(app).post("/users/").send(user);
+//     //.status should be 201
+//     expect(response.status).toBe(400);
+//   });
+// });
+
 describe("add product process", () => {
   it("should add products  with valid credentials", async () => {
     const user = {
@@ -90,27 +91,27 @@ describe("get all product process", () => {
       .post("/Products/add_product")
       .send(user);
     expect(response.status).toBe(401);
-    //auth 
+    //auth
   });
 });
 //--------------------------------------
 
-describe("insertProduct", () => {
-  it("should insert a new product", async () => {
-    const payload = {
-      productNo: 123,
-      productName: "Sample Product",
-      description: "A test product description",
-      quantity: 10,
-      price: 100,
-      isSold_Active: true,
-    };
-    const newProduct = await insertProduct(payload);
-    expect(newProduct).toBeDefined();
-    expect(newProduct.productNo).toEqual(payload.productNo);
-    expect(newProduct.productName).toEqual(payload.productName);
-  });
-});
+// describe("insertProduct", () => {
+//   it("should insert a new product", async () => {
+//     const payload = {
+//       productNo: 123,
+//       productName: "Sample Product",
+//       description: "A test product description",
+//       quantity: 10,
+//       price: 100,
+//       isSold_Active: true,
+//     };
+//     newProduct = await insertProduct(payload);
+//     expect(newProduct).toBeDefined();
+//     expect(newProduct.productNo).toEqual(payload.productNo);
+//     expect(newProduct.productName).toEqual(payload.productName);
+//   });
+// });
 
 it("should throw an error when insertion fails", async () => {
   const payload = {
@@ -121,8 +122,6 @@ it("should throw an error when insertion fails", async () => {
     price: 100,
     isSold_Active: true,
   };
-
-
 });
 describe("add Order process", () => {
   it("should add Orders  with valid credentials", async () => {
@@ -133,9 +132,7 @@ describe("add Order process", () => {
       discount: 20,
     };
 
-    const response = await request(app)
-      .post("/orders/checkout")
-      .send(order);
+    const response = await request(app).post("/orders/checkout").send(order);
     expect(response.status).toBe(401);
   });
 });

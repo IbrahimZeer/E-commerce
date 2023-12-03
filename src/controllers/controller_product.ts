@@ -18,7 +18,6 @@ const insertProduct = async (payload: Product) => {
         await newProduct.save();
         return newProduct;
     } catch (error) {
-        console.log('=================================================================================================>', error, '=================================================================================================>')
         throw new Error('Failed to insert the product');
     }
 }
@@ -29,7 +28,6 @@ const updateProduct = async (id: number, payload: Product) => {
         if (!product) {
             throw new Error('Product not found');
         }
-        // Update the product properties
         product.productNo = payload.productNo;
         product.productName = payload.productName;
         product.description = payload.description;
@@ -47,10 +45,9 @@ const updateProduct = async (id: number, payload: Product) => {
 
 const deleteProduct = async (id: number) => {
     try {
-        // Find the product based on the provided ID and delete it
         const product = await Product.findOne({ where: { id } });
         if (!product) {
-            return null; // Product not found
+            return null;
         }
         await product.remove();
         return product;
